@@ -40,17 +40,17 @@
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- ========== EN-TÊTE : logo, navigation, recherche, profil ========== -->
-    <header>
+    <header class="site-header">
 
         <!-- Logo cliquable : titre principal unique de la page (h1) -->
-        <h1>
+        <h1 class="logo">
             <a href="index.html">
                 <img src="images/logo.png" alt="StreamFlix - Accueil" width="160" height="40">
             </a>
         </h1>
 
         <!-- Menu principal -->
-        <nav aria-label="Navigation principale">
+        <nav class="main-nav" aria-label="Navigation principale">
             <ul>
                 <li><a href="index.html" aria-current="page">Accueil</a></li>
                 <li><a href="films.html">Films</a></li>
@@ -63,7 +63,7 @@
         <div class="user-area">
 
             <!-- Formulaire de recherche (role="search" : repère pour les lecteurs d'écran) -->
-            <form action="#" method="get" role="search">
+            <form action="#" method="get" role="search" class="search-form">
                 <label for="search-input" class="visually-hidden">Rechercher un film ou une série</label>
                 <input type="search" id="search-input" name="q"
                        placeholder="Titre, genre, acteur..."
