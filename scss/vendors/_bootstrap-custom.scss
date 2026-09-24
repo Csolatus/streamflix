@@ -1,9 +1,64 @@
 // ==========================================================================
 // VENDORS / BOOTSTRAP (personnalisation)
 // Bootstrap 5.3.8 est chargé par CDN dans index.html, avant notre feuille :
-// nos règles peuvent donc le surcharger. Ce fichier regroupe les ajustements
-// liés à Bootstrap (et accueillera ses variables personnalisées --bs-*).
+// nos règles peuvent donc le surcharger.
+//
+// Avec le CDN, on ne peut pas recompiler Bootstrap avec nos variables SASS.
+// On personnalise donc ses variables CSS (--bs-*), que tous ses composants lisent,
+// en leur donnant les valeurs de notre charte (utils/_variables).
+// Les composants gardent ensuite leurs réglages propres dans leur partial
+// (--bs-btn-*, --bs-card-*, --bs-navbar-*, --bs-dropdown-*, --bs-modal-*).
 // ==========================================================================
+
+@use "sass:meta";
+@use "../utils" as *;
+
+/* ---------- Typographie (définie par Bootstrap sur :root) ---------- */
+/* meta.inspect() : garde les guillemets des noms de police ("Netflix Sans"),
+   que l'interpolation Sass retirerait */
+:root {
+    --bs-font-sans-serif: #{meta.inspect($font-body)};
+    --bs-body-font-family: #{meta.inspect($font-body)};
+    --bs-body-font-size: #{$fs-base};
+    --bs-body-line-height: #{$lh-base};
+    --bs-border-radius: #{$radius-sm};
+    --bs-border-radius-lg: #{$radius-md};
+    --bs-border-radius-pill: #{$radius-pill};
+}
+
+/* ---------- Couleurs du thème sombre (html data-bs-theme="dark") ----------
+   Même sélecteur que Bootstrap, déclaré après lui : nos valeurs l'emportent. */
+[data-bs-theme="dark"] {
+    /* Couleurs de marque : utilisées par les classes text-primary, bg-info, border-danger... */
+    --bs-primary: #{$color-primary};
+    --bs-primary-rgb: #{rgb-triplet($color-primary)};
+    --bs-secondary: #{$color-secondary};
+    --bs-secondary-rgb: #{rgb-triplet($color-secondary)};
+    --bs-info: #{$color-accent};
+    --bs-info-rgb: #{rgb-triplet($color-accent)};
+    --bs-success: #{$color-success};
+    --bs-success-rgb: #{rgb-triplet($color-success)};
+    --bs-danger: #{$color-error};
+    --bs-danger-rgb: #{rgb-triplet($color-error)};
+
+    /* Page : fond, texte principal (blanc au lieu du gris #dee2e6 de Bootstrap), texte secondaire */
+    --bs-body-bg: #{$color-bg};
+    --bs-body-bg-rgb: #{rgb-triplet($color-bg)};
+    --bs-body-color: #{$color-text};
+    --bs-body-color-rgb: #{rgb-triplet($color-text)};
+    --bs-emphasis-color: #{$color-text};
+    --bs-secondary-color: #{$color-text-muted};
+    --bs-secondary-bg: #{$color-surface};
+    --bs-tertiary-bg: #{$color-bg-elevated};
+    --bs-heading-color: inherit;
+
+    /* Liens et bordures */
+    --bs-link-color: #{$color-text};
+    --bs-link-color-rgb: #{rgb-triplet($color-text)};
+    --bs-link-hover-color: #{$color-text};
+    --bs-link-hover-color-rgb: #{rgb-triplet($color-text)};
+    --bs-border-color: #{$color-surface};
+}
 
 /* Le "reboot" de Bootstrap ajoute des marges basses aux titres, paragraphes et listes.
    Ses sélecteurs de balise (h2, p...) sont plus spécifiques que *, on les neutralise ici :

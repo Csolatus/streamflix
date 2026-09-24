@@ -5,7 +5,7 @@
   "private": true,
   "author": "Lucas Lanoue",
   "scripts": {
-    "sass:build": "sass scss/style.scss css/style.css --style=compressed",
+    "sass:build": "sass scss/style.scss css/style.css --style=compressed --no-error-css",
     "sass:watch": "sass scss/style.scss css/style.css --watch",
     "build": "npm run sass:build",
     "dev": "npm run sass:watch"

@@ -2,10 +2,20 @@
 // UTILS / FONCTIONS
 // ==========================================================================
 
+@use "sass:color";
 @use "sass:math";
 
 // Convertit des pixels en rem (base 16px) : rem(24px) => 1.5rem
 // Les rem suivent la taille de texte choisie par l'utilisateur dans son navigateur.
 @function rem($px, $base: 16px) {
     @return math.div($px, $base) * 1rem;
+}
+
+// Triplet RVB d'une couleur : rgb-triplet(#e50914) => 229, 9, 20
+// Bootstrap en a besoin pour ses variables --bs-*-rgb, qu'il combine avec
+// une opacité : rgba(var(--bs-primary-rgb), 0.5)
+@function rgb-triplet($color) {
+    @return color.channel($color, "red", $space: rgb),
+        color.channel($color, "green", $space: rgb),
+        color.channel($color, "blue", $space: rgb);
 }

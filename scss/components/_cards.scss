@@ -12,7 +12,6 @@
 /* ---------- Carte de film ---------- */
 .film-card {
     --bs-card-bg: #{$color-bg-elevated};
-    --bs-card-color: #{$color-text};          /* sinon gris clair #dee2e6 du thème sombre Bootstrap */
     --bs-card-border-width: 0;
     --bs-card-border-radius: #{$radius-md};
     --bs-card-inner-border-radius: #{$radius-md};
