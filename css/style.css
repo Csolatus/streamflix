@@ -13,6 +13,8 @@
      2. Reset et styles de base
      3. Utilitaires d'accessibilité
      4. Header
+     5. Composants réutilisables (boutons, métadonnées de film)
+     6. Hero
    ========================================================================== */
 
 
@@ -490,5 +492,279 @@ main:focus {
 
     .search-form {
         width: 24rem;
+    }
+}
+
+
+/* ==========================================================================
+   5. COMPOSANTS RÉUTILISABLES
+   ========================================================================== */
+
+/* ---------- Boutons (.btn) : hero, cartes, formulaires ---------- */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border: 0;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-base);
+    font-weight: var(--fw-bold);
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background-color: rgb(109 109 110 / 0.7);
+    color: var(--color-text);
+}
+
+.btn-secondary:hover {
+    background-color: rgb(109 109 110 / 0.45);
+}
+
+/* Icône "lecture" : triangle dessiné avec clip-path (décoratif, non lu) */
+.btn-primary::before {
+    content: "";
+    width: 0.8em;
+    height: 0.9em;
+    background-color: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* Icône "+" du bouton Ma Liste, remplacée par une coche quand le film est ajouté
+   (aria-pressed passera à "true" en JavaScript : le style suit l'état d'accessibilité) */
+.btn[aria-pressed]::before {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    background:
+        linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat,
+        linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat;
+    transition: transform var(--transition-base);
+}
+
+.btn[aria-pressed="true"]::before {
+    width: 0.45em;
+    height: 0.8em;
+    background: none;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-15%) rotate(45deg);
+}
+
+/* ---------- Métadonnées de film (dl) : hero et cartes ---------- */
+
+.film-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-3);
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+}
+
+/* Les intitulés (Année, Durée...) restent lus par les lecteurs d'écran mais sont masqués :
+   visuellement, les valeurs parlent d'elles-mêmes */
+.film-meta dt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.film-meta dd {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+/* Petit point séparateur entre deux valeurs (forme CSS, pas de caractère lu) */
+.film-meta dd + dt + dd::before {
+    content: "";
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+/* Note (3e valeur : Année, Durée, Note, Genres) : étoile dorée après la note, dessinée en clip-path */
+.film-meta dd:nth-of-type(3) {
+    color: var(--color-text);
+    font-weight: var(--fw-bold);
+}
+
+.film-meta dd:nth-of-type(3)::after {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    margin-left: calc(var(--space-2) * -1);  /* rapproche l'étoile de la note */
+    background-color: var(--color-rating);
+    clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+
+/* ==========================================================================
+   6. HERO
+   Mobile : l'affiche couvre tout le hero, le texte est posé en bas sur un dégradé.
+   Tablette et plus : fond = affiche floutée (pseudo-élément décoratif),
+   l'affiche nette est présentée à droite et le texte à gauche.
+   Empilement (isolation: isolate crée un contexte local) :
+     -2 : image de fond / fond flouté   -1 : overlay   0 : contenu
+   ========================================================================== */
+
+.hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(85vh, 42rem);
+    padding: var(--space-8) var(--gutter) var(--space-6);
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;            /* garde la ville repliée, haut de l'affiche */
+}
+
+/* Overlay : dégradé du bas vers le haut pour que le texte reste lisible */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top,
+        var(--color-bg) 0%,
+        rgb(20 20 20 / 0.85) 40%,
+        rgb(20 20 20 / 0.2) 75%,
+        transparent 100%);
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    max-width: 38rem;
+}
+
+/* Badge "Film à la une" : texte blanc sur rouge (le rouge seul sur fond sombre manque de contraste) */
+.hero-label {
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--color-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hero h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-hero);
+    font-weight: var(--fw-regular);         /* Bebas Neue n'existe qu'en une graisse */
+    letter-spacing: 0.03em;
+    line-height: 0.9;
+    text-shadow: 0 0.25rem 1.5rem rgb(0 0 0 / 0.6);
+}
+
+.hero .film-meta {
+    font-size: var(--fs-base);
+}
+
+.hero-description {
+    max-width: 60ch;
+    color: rgb(255 255 255 / 0.9);
+    font-size: var(--fs-lg);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+}
+
+/* ---------- Tablette : fond flouté + affiche nette à droite ---------- */
+
+@media (min-width: 40em) {
+    .hero {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: var(--space-7);
+        min-height: 34rem;
+        padding-block: var(--space-8);
+    }
+
+    /* Fond d'ambiance : l'affiche agrandie et floutée. Décorative, donc en CSS
+       (l'image informative reste la vraie balise img, avec son alt).
+       inset négatif : évite les bords transparents créés par le flou */
+    .hero::before {
+        content: "";
+        position: absolute;
+        inset: -3rem;
+        z-index: -2;
+        background: url("../images/hero-bg.jpg") center 30% / cover no-repeat;
+        filter: blur(28px) brightness(0.55) saturate(1.2);
+    }
+
+    /* L'affiche redevient un élément normal de la grille, dans la colonne de droite */
+    .hero-bg {
+        position: static;
+        grid-column: 2;
+        grid-row: 1;
+        width: clamp(13rem, 26vw, 20rem);
+        height: auto;
+        border-radius: var(--radius-md);
+        box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.7);
+        transform: rotate(2deg);
+    }
+
+    .hero-content {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    /* Overlay : assombrit la gauche (texte) et fond le bas dans la page */
+    .hero-overlay {
+        background:
+            linear-gradient(to top, var(--color-bg) 0%, transparent 25%),
+            linear-gradient(to right, rgb(20 20 20 / 0.9) 0%, rgb(20 20 20 / 0.4) 100%);
+    }
+}
+
+/* ---------- Grand écran : contenu aligné sur la largeur max du site ---------- */
+
+@media (min-width: 90em) {
+    .hero {
+        padding-inline: calc((100% - var(--container-max)) / 2 + var(--gutter));
     }
 }
