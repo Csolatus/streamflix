@@ -356,7 +356,7 @@
                 <!-- L'astérisque est masqué aux lecteurs d'écran : l'attribut required annonce déjà "obligatoire" -->
                 <p class="form-note">Les champs marqués d'un <span aria-hidden="true">*</span> sont obligatoires.</p>
 
-                <fieldset>
+                <fieldset class="info-fields">
                     <legend>Vos informations</legend>
 
                     <div class="form-field">
@@ -391,25 +391,37 @@
                 </fieldset>
 
                 <!-- Choix unique : boutons radio groupés dans un fieldset, legend = question posée -->
-                <fieldset>
+                <fieldset class="plan-options">
                     <legend>Choisissez votre formule <span aria-hidden="true">*</span></legend>
 
                     <div class="form-choice">
                         <input type="radio" id="plan-essentiel" name="plan" value="essentiel" required>
-                        <label for="plan-essentiel">Essentiel : HD, 1 écran (8,99 €/mois)</label>
+                        <label for="plan-essentiel">
+                            <span class="plan-name">Essentiel</span>
+                            <span class="plan-details">HD, 1 écran</span>
+                            <span class="plan-price">8,99 €/mois</span>
+                        </label>
                     </div>
                     <div class="form-choice">
                         <input type="radio" id="plan-standard" name="plan" value="standard" checked>
-                        <label for="plan-standard">Standard : Full HD, 2 écrans (13,49 €/mois)</label>
+                        <label for="plan-standard">
+                            <span class="plan-name">Standard</span>
+                            <span class="plan-details">Full HD, 2 écrans</span>
+                            <span class="plan-price">13,49 €/mois</span>
+                        </label>
                     </div>
                     <div class="form-choice">
                         <input type="radio" id="plan-premium" name="plan" value="premium">
-                        <label for="plan-premium">Premium : 4K, 4 écrans (19,99 €/mois)</label>
+                        <label for="plan-premium">
+                            <span class="plan-name">Premium</span>
+                            <span class="plan-details">4K, 4 écrans</span>
+                            <span class="plan-price">19,99 €/mois</span>
+                        </label>
                     </div>
                 </fieldset>
 
                 <!-- Choix multiples facultatifs : cases à cocher -->
-                <fieldset>
+                <fieldset class="genre-options">
                     <legend>Vos genres préférés (facultatif)</legend>
 
                     <div class="form-choice">
@@ -459,10 +471,10 @@
     </main>
 
     <!-- ========== PIED DE PAGE ========== -->
-    <footer>
+    <footer class="site-footer">
 
         <!-- Liens utiles : second menu de navigation, nommé par son titre -->
-        <nav aria-labelledby="footer-links-title">
+        <nav class="footer-links" aria-labelledby="footer-links-title">
             <h2 id="footer-links-title">Liens utiles</h2>
             <ul>
                 <li><a href="aide.html">Aide</a></li>
@@ -473,7 +485,7 @@
         </nav>
 
         <!-- Réseaux sociaux (liens factices) : le texte reste lisible même si des icônes sont ajoutées en CSS -->
-        <section aria-labelledby="footer-social-title">
+        <section class="footer-social" aria-labelledby="footer-social-title">
             <h2 id="footer-social-title">Suivez-nous</h2>
             <ul>
                 <li><a href="#">Facebook</a></li>
