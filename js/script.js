@@ -45,3 +45,35 @@ catalogCount.className = 'catalog-count';
 catalogCount.textContent = 'Catalogue : ' + filmCount + (filmCount > 1 ? ' films disponibles' : ' film disponible');
 
 document.querySelector('.footer-legal').appendChild(catalogCount);
+
+
+// ===================================
+// EXERCICE 3 : Films vus
+// ===================================
+// Chaque carte a un bouton "Vu" (.btn-watched). Au clic, la carte reçoit
+// ou perd la classe .watched : le CSS affiche alors le badge "✓ Vu".
+// Un même film peut apparaître dans plusieurs sections (Inception, Interstellar...) :
+// on met à jour toutes ses cartes, pour qu'il soit "vu" partout.
+
+const watchedButtons = document.querySelectorAll('.btn-watched');
+
+watchedButtons.forEach(function (button) {
+    button.addEventListener('click', function (event) {
+        // event.target : l'élément réellement cliqué.
+        // closest() remonte les parents jusqu'à trouver la carte qui le contient.
+        const clickedCard = event.target.closest('.film-card');
+        const title = clickedCard.querySelector('.card-title').textContent;
+
+        // Nouvel état : l'inverse de l'état actuel de la carte cliquée
+        const isWatched = !clickedCard.classList.contains('watched');
+
+        document.querySelectorAll('.film-card').forEach(function (card) {
+            if (card.querySelector('.card-title').textContent === title) {
+                // toggle(classe, force) : ajoute si force vaut true, retire si false
+                card.classList.toggle('watched', isWatched);
+                // État du bouton bascule, annoncé aux lecteurs d'écran ("activé" / "désactivé")
+                card.querySelector('.btn-watched').setAttribute('aria-pressed', String(isWatched));
+            }
+        });
+    });
+});

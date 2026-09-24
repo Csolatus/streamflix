@@ -157,7 +157,7 @@
                             Plus d'infos<span class="visually-hidden"> sur Inception</span>
                         </button>
                         <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
-                        <button type="button" class="btn btn-secondary" aria-pressed="false">
+                        <button type="button" class="btn btn-secondary btn-mylist" aria-pressed="false">
                             Ma Liste<span class="visually-hidden"> : Inception</span>
                         </button>
                     </div>
@@ -214,9 +214,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : The Dark Knight</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : The Dark Knight</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : The Dark Knight</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -241,9 +248,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : Interstellar</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : Interstellar</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : Interstellar</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -268,9 +282,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : Pulp Fiction</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : Pulp Fiction</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : Pulp Fiction</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -309,9 +330,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : Inception</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : Inception</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : Inception</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -336,9 +364,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : The Matrix</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : The Matrix</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : The Matrix</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -363,9 +398,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : Forrest Gump</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : Forrest Gump</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : Forrest Gump</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -404,9 +446,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : Interstellar</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : Interstellar</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : Interstellar</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -432,9 +481,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : The Dark Knight</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : The Dark Knight</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : The Dark Knight</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
@@ -459,9 +515,16 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            <button type="button" class="btn btn-play w-100 mt-auto">
-                                Lecture<span class="visually-hidden"> : Inception</span>
-                            </button>
+                            <!-- Actions : Lecture + bouton bascule "Vu" (exercice 3).
+                                 aria-pressed : état annoncé aux lecteurs d'écran, mis à jour par le JS -->
+                            <div class="d-flex gap-2 mt-auto">
+                                <button type="button" class="btn btn-play flex-grow-1">
+                                    Lecture<span class="visually-hidden"> : Inception</span>
+                                </button>
+                                <button type="button" class="btn btn-watched" aria-pressed="false">
+                                    <span class="visually-hidden">Marquer comme vu : Inception</span>
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </li>
