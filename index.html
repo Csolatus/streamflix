@@ -338,12 +338,154 @@
             </ul>
         </section>
 
-        <!-- Formulaire d'inscription (phase 5) -->
+        <!-- ========== INSCRIPTION ==========
+             Validation native HTML5 : required, type, minlength, pattern.
+             La correspondance des deux mots de passe sera vérifiée en JavaScript plus tard. -->
+        <section id="inscription" class="signup" aria-labelledby="signup-title">
+            <h2 id="signup-title">Créez votre compte</h2>
+            <p>Regardez en illimité, sans engagement. Annulable à tout moment.</p>
+
+            <form action="#" method="post" class="signup-form">
+
+                <!-- L'astérisque est masqué aux lecteurs d'écran : l'attribut required annonce déjà "obligatoire" -->
+                <p class="form-note">Les champs marqués d'un <span aria-hidden="true">*</span> sont obligatoires.</p>
+
+                <fieldset>
+                    <legend>Vos informations</legend>
+
+                    <div class="form-field">
+                        <label for="signup-firstname">Prénom <span aria-hidden="true">*</span></label>
+                        <input type="text" id="signup-firstname" name="firstname"
+                               required minlength="2" maxlength="50" autocomplete="given-name">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signup-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                        <input type="email" id="signup-email" name="email"
+                               required autocomplete="email" aria-describedby="signup-email-hint">
+                        <p id="signup-email-hint" class="form-hint">Exemple : nom@exemple.fr</p>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signup-password">Mot de passe <span aria-hidden="true">*</span></label>
+                        <input type="password" id="signup-password" name="password"
+                               required minlength="8"
+                               pattern="(?=.*[A-Za-z])(?=.*\d).{8,}"
+                               autocomplete="new-password" aria-describedby="signup-password-hint">
+                        <p id="signup-password-hint" class="form-hint">
+                            8 caractères minimum, dont au moins une lettre et un chiffre.
+                        </p>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signup-password-confirm">Confirmez le mot de passe <span aria-hidden="true">*</span></label>
+                        <input type="password" id="signup-password-confirm" name="password_confirm"
+                               required minlength="8" autocomplete="new-password">
+                    </div>
+                </fieldset>
+
+                <!-- Choix unique : boutons radio groupés dans un fieldset, legend = question posée -->
+                <fieldset>
+                    <legend>Choisissez votre formule <span aria-hidden="true">*</span></legend>
+
+                    <div class="form-choice">
+                        <input type="radio" id="plan-essentiel" name="plan" value="essentiel" required>
+                        <label for="plan-essentiel">Essentiel : HD, 1 écran (8,99 €/mois)</label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="radio" id="plan-standard" name="plan" value="standard" checked>
+                        <label for="plan-standard">Standard : Full HD, 2 écrans (13,49 €/mois)</label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="radio" id="plan-premium" name="plan" value="premium">
+                        <label for="plan-premium">Premium : 4K, 4 écrans (19,99 €/mois)</label>
+                    </div>
+                </fieldset>
+
+                <!-- Choix multiples facultatifs : cases à cocher -->
+                <fieldset>
+                    <legend>Vos genres préférés (facultatif)</legend>
+
+                    <div class="form-choice">
+                        <input type="checkbox" id="genre-action" name="genres" value="action">
+                        <label for="genre-action">Action</label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="checkbox" id="genre-scifi" name="genres" value="sci-fi">
+                        <label for="genre-scifi">Sci-Fi</label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="checkbox" id="genre-drama" name="genres" value="drama">
+                        <label for="genre-drama">Drama</label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="checkbox" id="genre-thriller" name="genres" value="thriller">
+                        <label for="genre-thriller">Thriller</label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="checkbox" id="genre-crime" name="genres" value="crime">
+                        <label for="genre-crime">Crime</label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="checkbox" id="genre-romance" name="genres" value="romance">
+                        <label for="genre-romance">Romance</label>
+                    </div>
+                </fieldset>
+
+                <div class="form-choice">
+                    <input type="checkbox" id="signup-terms" name="terms" required>
+                    <label for="signup-terms">
+                        J'accepte les <a href="conditions.html">conditions d'utilisation</a>
+                        <span aria-hidden="true">*</span>
+                    </label>
+                </div>
+
+                <div class="form-choice">
+                    <input type="checkbox" id="signup-newsletter" name="newsletter">
+                    <label for="signup-newsletter">Recevoir les nouveautés par e-mail</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Créer mon compte</button>
+
+            </form>
+        </section>
 
     </main>
 
     <!-- ========== PIED DE PAGE ========== -->
     <footer>
+
+        <!-- Liens utiles : second menu de navigation, nommé par son titre -->
+        <nav aria-labelledby="footer-links-title">
+            <h2 id="footer-links-title">Liens utiles</h2>
+            <ul>
+                <li><a href="aide.html">Aide</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="mentions-legales.html">Mentions légales</a></li>
+                <li><a href="conditions.html">Conditions d'utilisation</a></li>
+            </ul>
+        </nav>
+
+        <!-- Réseaux sociaux (liens factices) : le texte reste lisible même si des icônes sont ajoutées en CSS -->
+        <section aria-labelledby="footer-social-title">
+            <h2 id="footer-social-title">Suivez-nous</h2>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">X (Twitter)</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </section>
+
+        <!-- Informations légales et copyright -->
+        <div class="footer-legal">
+            <p><small>&copy; <time datetime="2026">2026</time> StreamFlix. Tous droits réservés.</small></p>
+            <p><small>
+                StreamFlix est une plateforme fictive réalisée dans le cadre d'un projet scolaire à l'EFREI.
+                Les affiches de films appartiennent à leurs ayants droit respectifs.
+            </small></p>
+        </div>
+
     </footer>
 
 </body>
