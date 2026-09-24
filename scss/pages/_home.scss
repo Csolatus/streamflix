@@ -51,7 +51,7 @@
 }
 
 /* ---------- Tablette : grille adaptative ---------- */
-@include respond-to(tablette) {
+@include respond-to(md) {
     .film-section {
         padding-top: $space-7;
     }
@@ -69,7 +69,7 @@
 }
 
 /* ---------- Desktop : cartes un peu plus larges ---------- */
-@include respond-to(desktop) {
+@include respond-to(lg) {
     .film-grid {
         grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
     }

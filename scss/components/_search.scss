@@ -1,61 +1,44 @@
 // ==========================================================================
 // COMPONENTS / RECHERCHE (formulaire du header)
+// Champ .form-control Bootstrap arrondi (.rounded-pill) + bouton .btn-search
+// (variante définie dans components/_buttons).
 // ==========================================================================
 
 @use "../utils" as *;
 
-/* ---------- Recherche ---------- */
-.search-form {
-    grid-area: search;
-    display: flex;
-    gap: $space-2;
-}
-
-.search-form input {
-    flex: 1;
-    min-width: 0;                           /* autorise le champ à rétrécir dans le flex */
+.search-form .form-control {
+    --bs-body-bg: #{$color-surface};        /* fond du champ Bootstrap */
     padding: $space-2 $space-4;
-    background-color: $color-surface;
-    border: 1px solid transparent;
-    border-radius: $radius-pill;
+    border-color: transparent;
     transition: border-color $transition-fast, background-color $transition-fast;
 }
 
-.search-form input::placeholder {
+.search-form .form-control::placeholder {
     color: $color-text-muted;
 }
 
-.search-form input:hover {
+.search-form .form-control:hover {
     border-color: $color-text-muted;
 }
 
-.search-form input:focus {
+/* Bootstrap ajoute un halo bleu au focus : on le remplace par notre contour */
+.search-form .form-control:focus {
     background-color: $color-bg-elevated;
     border-color: $color-text;
+    box-shadow: none;
+    @include focus-ring;
 }
 
-.search-form button {
-    padding: $space-2 $space-4;
-    background-color: $color-surface;
-    border: 0;
-    border-radius: $radius-pill;
-    font-size: $fs-sm;
-    font-weight: $fw-medium;
-    transition: background-color $transition-fast;
+.search-form .btn-search {
+    --bs-btn-padding-x: #{$space-4};
+    --bs-btn-padding-y: #{$space-2};
+    --bs-btn-font-size: #{$fs-sm};
+    --bs-btn-font-weight: #{$fw-medium};
+    flex-shrink: 0;
 }
 
-.search-form button:hover {
-    background-color: $color-primary;
-}
-
-@include respond-to(tablette) {
-    .search-form {
-        justify-self: end;
-        width: min(100%, 22rem);
-    }
-}
-
-@include respond-to(desktop) {
+/* Desktop : largeur fixe dans la navbar dépliée */
+@include respond-to(lg) {
     .search-form {
         width: 24rem;
     }

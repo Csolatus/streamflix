@@ -84,7 +84,7 @@
 }
 
 /* ---------- Tablette : fond flouté + affiche nette à droite ---------- */
-@include respond-to(tablette) {
+@include respond-to(md) {
     .hero {
         display: grid;
         grid-template-columns: 1fr auto;

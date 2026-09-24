@@ -1,36 +1,25 @@
 // ==========================================================================
 // COMPONENTS / NAVIGATION
-// Menu principal (soulignement animé) et menu profil (details / summary).
+// Menu principal (.nav-link Bootstrap + soulignement animé)
+// et menu profil (dropdown Bootstrap, personnalisé par ses variables --bs-dropdown-*).
 // ==========================================================================
 
 @use "../utils" as *;
 
 /* ---------- Navigation principale ---------- */
-.main-nav {
-    grid-area: nav;
+.main-nav .navbar-nav {
+    --bs-nav-link-padding-y: #{$space-1};
+    --bs-nav-link-font-weight: #{$fw-medium};
 }
 
-.main-nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $space-1 $space-5;
-    padding: 0;
-    list-style: none;
-}
-
-.main-nav a {
+.main-nav .nav-link {
     position: relative;
-    display: inline-block;
-    padding: $space-1 0;
-    color: $color-text-muted;
-    font-size: $fs-sm;
-    font-weight: $fw-medium;
-    text-decoration: none;
+    display: inline-block;                  /* le soulignement prend la largeur du texte */
     transition: color $transition-fast;
 }
 
 /* Soulignement rouge animé : il se déploie de gauche à droite */
-.main-nav a::after {
+.main-nav .nav-link::after {
     content: "";
     position: absolute;
     left: 0;
@@ -43,48 +32,41 @@
     transition: transform $transition-base;
 }
 
-/* :focus-visible : même retour visuel au clavier qu'à la souris */
-.main-nav a:hover,
-.main-nav a:focus-visible,
-.main-nav a[aria-current="page"] {
-    color: $color-text;
-}
-
-.main-nav a:hover::after,
-.main-nav a:focus-visible::after,
-.main-nav a[aria-current="page"]::after {
+/* Page courante : on s'appuie sur aria-current (état d'accessibilité) plutôt que sur .active */
+.main-nav .nav-link:hover::after,
+.main-nav .nav-link:focus-visible::after,
+.main-nav .nav-link[aria-current="page"]::after {
     transform: scaleX(1);
 }
 
-/* ---------- Menu profil (details / summary) ---------- */
-.profile-menu {
-    grid-area: profile;
-    position: relative;                     /* repère pour le menu déroulant */
+/* Bootstrap remplace le contour de focus par une ombre bleue : on garde notre contour */
+.main-nav .nav-link:focus-visible {
+    @include focus-ring;
+    box-shadow: none;
+    color: $color-text;
 }
 
-.profile-menu summary {
+/* ---------- Menu profil (dropdown) ---------- */
+.profile-toggle {
     display: flex;
     align-items: center;
     gap: $space-2;
     padding: $space-1 $space-2 $space-1 $space-1;
+    background: none;
+    border: 0;
     border-radius: $radius-pill;
+    color: $color-text;
     font-size: $fs-sm;
     font-weight: $fw-medium;
-    list-style: none;                       /* retire le triangle natif */
     transition: background-color $transition-fast;
 }
 
-/* Triangle natif sur Safari */
-.profile-menu summary::-webkit-details-marker {
-    display: none;
-}
-
-.profile-menu summary:hover {
+.profile-toggle:hover {
     background-color: $color-surface;
 }
 
 /* Avatar décoratif (dégradé, sans texte) */
-.profile-menu summary::before {
+.profile-toggle::before {
     content: "";
     width: 2rem;
     height: 2rem;
@@ -92,53 +74,36 @@
     background: linear-gradient(135deg, $color-primary, #6d0bd4);
 }
 
-/* Chevron dessiné en CSS, qui pivote à l'ouverture */
-.profile-menu summary::after {
-    content: "";
-    width: 0.45rem;
-    height: 0.45rem;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: translateY(-25%) rotate(45deg);
+/* Flèche Bootstrap (.dropdown-toggle::after) : elle pivote quand le menu est ouvert
+   (Bootstrap ajoute la classe .show au bouton) */
+.profile-toggle::after {
     transition: transform $transition-base;
 }
 
-.profile-menu[open] summary::after {
-    transform: translateY(25%) rotate(-135deg);
+.profile-toggle.show::after {
+    transform: rotate(180deg);
 }
 
-.profile-menu ul {
-    position: absolute;
-    top: calc(100% + $space-2);
-    right: 0;
-    z-index: $z-header;
-    min-width: 12rem;
-    padding: $space-2 0;
-    list-style: none;
-    background-color: $color-bg-elevated;
-    border: 1px solid $color-surface;
-    border-radius: $radius-md;
+.profile-menu .dropdown-menu {
+    --bs-dropdown-min-width: 12rem;
+    --bs-dropdown-bg: #{$color-bg-elevated};
+    --bs-dropdown-border-color: #{$color-surface};
+    --bs-dropdown-border-radius: #{$radius-md};
+    --bs-dropdown-font-size: #{$fs-sm};
+    --bs-dropdown-link-color: #{$color-text};
+    --bs-dropdown-link-hover-color: #{$color-text};
+    --bs-dropdown-link-hover-bg: #{$color-surface};
+    --bs-dropdown-link-active-color: #{$color-text};
+    --bs-dropdown-link-active-bg: #{$color-primary};
+    --bs-dropdown-item-padding-x: #{$space-4};
+    --bs-dropdown-item-padding-y: #{$space-2};
+    --bs-dropdown-divider-bg: #{$color-surface};
     box-shadow: $shadow-card;
+}
+
+/* Apparition du menu (Bootstrap ajoute .show à l'ouverture) */
+.profile-menu .dropdown-menu.show {
     animation: menu-in $transition-fast;
-}
-
-.profile-menu ul a {
-    display: block;
-    padding: $space-2 $space-4;
-    font-size: $fs-sm;
-    text-decoration: none;
-    transition: background-color $transition-fast;
-}
-
-.profile-menu ul a:hover {
-    background-color: $color-surface;
-}
-
-/* Séparateur avant "Se déconnecter" */
-.profile-menu li:last-child {
-    margin-top: $space-2;
-    padding-top: $space-2;
-    border-top: 1px solid $color-surface;
 }
 
 @keyframes menu-in {
@@ -149,11 +114,5 @@
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@include respond-to(tablette) {
-    .main-nav a {
-        font-size: $fs-base;
     }
 }

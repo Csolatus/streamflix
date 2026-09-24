@@ -90,11 +90,15 @@ $space-8: 4rem;
 $container-max: 90rem;                     // 1440px
 $gutter: clamp(1rem, 4vw, 3.5rem);         // marge latérale fluide
 
-// Points de rupture (mobile-first : min-width), utilisés par le mixin respond-to()
+// Points de rupture (mobile-first : min-width), utilisés par le mixin respond-to().
+// Mêmes noms et mêmes valeurs que Bootstrap : respond-to(md) s'active exactement
+// en même temps que les classes col-md-*, navbar-expand-md, etc.
 $breakpoints: (
-    "tablette": 40em,                      // 640px
-    "desktop": 64em,                       // 1024px
-    "grand-ecran": 90em,                   // 1440px
+    "sm": 576px,                           // grand mobile
+    "md": 768px,                           // tablette
+    "lg": 992px,                           // desktop (la navbar se déplie)
+    "xl": 1200px,
+    "xxl": 1400px,                         // grand écran
 );
 
 // ---------- Formes et profondeur ----------
@@ -108,5 +112,5 @@ $transition-fast: 150ms ease;
 $transition-base: 300ms ease;
 
 // ---------- Superpositions ----------
-$z-header: 100;
-$z-skip-link: 1000;
+// Bootstrap : dropdown 1000, sticky-top 1020, modal 1055
+$z-skip-link: 1100;                        // au-dessus du header collé (sticky-top)

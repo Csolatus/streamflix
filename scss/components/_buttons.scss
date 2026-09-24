@@ -1,23 +1,27 @@
 // ==========================================================================
-// COMPONENTS / BOUTONS (.btn)
-// Utilisés dans le hero, les cartes de films et le formulaire.
+// COMPONENTS / BOUTONS (.btn Bootstrap personnalisés)
+// Utilisés dans le hero, les cartes de films, la recherche et le formulaire.
+// Personnalisation par les variables CSS de Bootstrap (--bs-btn-*) : le composant
+// Bootstrap gère lui-même tous ses états, avec nos valeurs.
 // ==========================================================================
 
 @use "../utils" as *;
 
-/* ---------- Boutons (.btn) : hero, cartes, formulaires ---------- */
+/* ---------- Base commune à tous les boutons ---------- */
 .btn {
+    --bs-btn-padding-x: #{$space-5};
+    --bs-btn-padding-y: #{$space-3};
+    --bs-btn-font-size: #{$fs-base};
+    --bs-btn-font-weight: #{$fw-bold};
+    --bs-btn-line-height: 1;
+    --bs-btn-border-width: 0;
+    --bs-btn-border-radius: #{$radius-sm};
+
+    /* inline-flex : aligne l'icône (::before) et le texte */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: $space-2;
-    padding: $space-3 $space-5;
-    border: 0;
-    border-radius: $radius-sm;
-    font-size: $fs-base;
-    font-weight: $fw-bold;
-    line-height: 1;
-    text-decoration: none;
     transition: background-color $transition-fast, transform $transition-fast;
 }
 
@@ -29,25 +33,31 @@
     transform: translateY(0);
 }
 
-.btn-primary {
-    background-color: $color-primary;
-    color: $color-text;
+/* Bootstrap retire le contour au focus clavier (outline: 0) pour le remplacer par une ombre :
+   on rétablit notre contour, identique au reste du site */
+.btn:focus-visible {
+    @include focus-ring;
+    box-shadow: none;
 }
 
-.btn-primary:hover {
-    background-color: $color-primary-hover;
+/* ---------- Variantes ---------- */
+.btn-primary {
+    @include button-variant($color-primary, $color-primary-hover);
 }
 
 .btn-secondary {
-    background-color: rgba($color-secondary, 0.7);
-    color: $color-text;
+    @include button-variant(rgba($color-secondary, 0.7), rgba($color-secondary, 0.45));
 }
 
-.btn-secondary:hover {
-    background-color: rgba($color-secondary, 0.45);
+/* Boutons discrets qui passent au rouge au survol : Lecture des cartes, recherche */
+.btn-play,
+.btn-search {
+    @include button-variant($color-surface, $color-primary, $color-primary-hover);
 }
 
-/* Icône "lecture" : triangle dessiné avec clip-path (décoratif, non lu),
+/* ---------- Icônes dessinées en CSS (décoratives, non lues) ---------- */
+
+/* Icône "lecture" : triangle dessiné avec clip-path,
    uniquement sur les boutons qui lancent un film */
 .hero-actions .btn-primary::before,
 .btn-play::before {
@@ -77,13 +87,4 @@
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: translateY(-15%) rotate(45deg);
-}
-
-.btn-play {
-    background-color: $color-surface;
-    color: $color-text;
-}
-
-.btn-play:hover {
-    background-color: $color-primary;
 }

@@ -47,48 +47,61 @@
     <!-- Lien d'évitement : premier élément focusable, permet de sauter la navigation au clavier -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
-    <!-- ========== EN-TÊTE : logo, navigation, recherche, profil ========== -->
-    <header class="site-header">
+    <!-- ========== EN-TÊTE : navbar Bootstrap ==========
+         .navbar-expand-lg : menu déplié à partir de 992px, menu hamburger en dessous.
+         sticky-top : le header reste collé en haut pendant le défilement. -->
+    <header class="site-header navbar navbar-expand-lg sticky-top">
 
         <!-- Logo cliquable : titre principal unique de la page (h1) -->
-        <h1 class="logo">
-            <a href="index.html">
+        <h1 class="logo m-0">
+            <a class="navbar-brand p-0 m-0" href="index.html">
                 <img src="images/logo.png" alt="StreamFlix - Accueil" width="160" height="40">
             </a>
         </h1>
 
-        <!-- Menu principal -->
-        <nav class="main-nav" aria-label="Navigation principale">
-            <ul>
-                <li><a href="index.html" aria-current="page">Accueil</a></li>
-                <li><a href="films.html">Films</a></li>
-                <li><a href="series.html">Séries</a></li>
-                <li><a href="ma-liste.html">Ma Liste</a></li>
-            </ul>
-        </nav>
+        <!-- Bouton hamburger (mobile et tablette) : ouvre / ferme le bloc #main-menu.
+             Bootstrap met à jour aria-expanded pour les lecteurs d'écran. -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu"
+                aria-controls="main-menu" aria-expanded="false" aria-label="Afficher ou masquer le menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <!-- Zone utilisateur : recherche + profil -->
-        <div class="user-area">
+        <!-- Contenu repliable : navigation, recherche, profil -->
+        <div class="collapse navbar-collapse gap-3" id="main-menu">
+
+            <!-- Menu principal -->
+            <nav class="main-nav me-lg-auto" aria-label="Navigation principale">
+                <ul class="navbar-nav gap-lg-4 py-3 py-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="films.html">Films</a></li>
+                    <li class="nav-item"><a class="nav-link" href="series.html">Séries</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ma-liste.html">Ma Liste</a></li>
+                </ul>
+            </nav>
 
             <!-- Formulaire de recherche (role="search" : repère pour les lecteurs d'écran) -->
-            <form action="#" method="get" role="search" class="search-form">
+            <form action="#" method="get" role="search" class="search-form d-flex gap-2 mb-3 mb-lg-0">
                 <label for="search-input" class="visually-hidden">Rechercher un film ou une série</label>
-                <input type="search" id="search-input" name="q"
+                <input type="search" id="search-input" name="q" class="form-control rounded-pill"
                        placeholder="Titre, genre, acteur..."
                        required minlength="2" autocomplete="off">
-                <button type="submit">Rechercher</button>
+                <button type="submit" class="btn btn-search rounded-pill">Rechercher</button>
             </form>
 
-            <!-- Menu profil : details/summary est ouvrable au clavier (Entrée/Espace) sans JavaScript -->
-            <details class="profile-menu">
-                <summary>Mon profil</summary>
-                <ul>
-                    <li><a href="compte.html">Mon compte</a></li>
-                    <li><a href="parametres.html">Paramètres</a></li>
-                    <li><a href="aide.html">Aide</a></li>
-                    <li><a href="deconnexion.html">Se déconnecter</a></li>
+            <!-- Menu profil : dropdown Bootstrap (ouverture au clic ou au clavier,
+                 flèches haut/bas pour parcourir les liens, Échap pour fermer) -->
+            <div class="profile-menu dropdown mb-3 mb-lg-0">
+                <button class="profile-toggle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Mon profil
+                </button>
+                <ul class="dropdown-menu dropdown-menu-lg-end">
+                    <li><a class="dropdown-item" href="compte.html">Mon compte</a></li>
+                    <li><a class="dropdown-item" href="parametres.html">Paramètres</a></li>
+                    <li><a class="dropdown-item" href="aide.html">Aide</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="deconnexion.html">Se déconnecter</a></li>
                 </ul>
-            </details>
+            </div>
 
         </div>
 

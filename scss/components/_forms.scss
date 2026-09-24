@@ -218,7 +218,7 @@
 }
 
 /* ---------- Tablette : champs sur 2 colonnes, formules côte à côte ---------- */
-@include respond-to(tablette) {
+@include respond-to(md) {
     .signup-form {
         padding: $space-7;
     }

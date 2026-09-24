@@ -63,7 +63,7 @@
     animation: zoom-out 1200ms ease-out both;
 }
 
-@include respond-to(tablette) {
+@include respond-to(md) {
     .hero-bg {
         animation: poster-in 900ms 300ms ease-out both;
     }
