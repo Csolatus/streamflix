@@ -133,7 +133,210 @@
 
         </section>
 
-        <!-- Grilles de films : Tendances, Recommandés, Nouveautés (phase 4) -->
+        <!-- ========== GRILLES DE FILMS ==========
+             Chaque grille est une liste (ul) : le lecteur d'écran annonce le nombre de films.
+             Chaque film est un article autonome avec son titre (h3) et ses métadonnées (dl). -->
+
+        <!-- Tendances actuelles : films populaires, classés par note -->
+        <section id="tendances" class="film-section" aria-labelledby="tendances-title">
+            <h2 id="tendances-title">Tendances actuelles</h2>
+            <ul class="film-grid">
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
+                             width="676" height="1000" loading="lazy">
+                        <h3><a href="films/dark-knight.html">The Dark Knight</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="2008">2008</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H32M">2h32</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.8/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Action, Crime, Drama</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : The Dark Knight</span>
+                        </button>
+                    </article>
+                </li>
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
+                             width="455" height="674" loading="lazy">
+                        <h3><a href="films/interstellar.html">Interstellar</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="2014">2014</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H49M">2h49</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.7/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Sci-Fi, Drama</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : Interstellar</span>
+                        </button>
+                    </article>
+                </li>
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/pulp-fiction.jpg" alt="Affiche du film Pulp Fiction"
+                             width="375" height="533" loading="lazy">
+                        <h3><a href="films/pulp-fiction.html">Pulp Fiction</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="1994">1994</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H34M">2h34</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.6/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Crime, Drama</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : Pulp Fiction</span>
+                        </button>
+                    </article>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Recommandés pour vous : sélection variée -->
+        <section id="recommandes" class="film-section" aria-labelledby="recommandes-title">
+            <h2 id="recommandes-title">Recommandés pour vous</h2>
+            <ul class="film-grid">
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/inception.jpg" alt="Affiche du film Inception"
+                             width="365" height="547" loading="lazy">
+                        <h3><a href="films/inception.html">Inception</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="2010">2010</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H28M">2h28</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.5/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Sci-Fi, Thriller</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : Inception</span>
+                        </button>
+                    </article>
+                </li>
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/matrix.jpg" alt="Affiche du film The Matrix"
+                             width="665" height="1000" loading="lazy">
+                        <h3><a href="films/matrix.html">The Matrix</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="1999">1999</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H16M">2h16</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.5/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Action, Sci-Fi</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : The Matrix</span>
+                        </button>
+                    </article>
+                </li>
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/forrest-gump.jpg" alt="Affiche du film Forrest Gump"
+                             width="867" height="1300" loading="lazy">
+                        <h3><a href="films/forrest-gump.html">Forrest Gump</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="1994">1994</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H22M">2h22</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.4/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Drama, Romance</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : Forrest Gump</span>
+                        </button>
+                    </article>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Nouveautés : films récemment ajoutés -->
+        <section id="nouveautes" class="film-section" aria-labelledby="nouveautes-title">
+            <h2 id="nouveautes-title">Nouveautés</h2>
+            <ul class="film-grid">
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
+                             width="455" height="674" loading="lazy">
+                        <h3><a href="films/interstellar.html">Interstellar</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="2014">2014</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H49M">2h49</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.7/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Sci-Fi, Drama</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : Interstellar</span>
+                        </button>
+                    </article>
+                </li>
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
+                             width="676" height="1000" loading="lazy">
+                        <h3><a href="films/dark-knight.html">The Dark Knight</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="2008">2008</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H32M">2h32</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.8/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Action, Crime, Drama</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : The Dark Knight</span>
+                        </button>
+                    </article>
+                </li>
+                <li>
+                    <article class="film-card">
+                        <img src="images/films/inception.jpg" alt="Affiche du film Inception"
+                             width="365" height="547" loading="lazy">
+                        <h3><a href="films/inception.html">Inception</a></h3>
+                        <dl class="film-meta">
+                            <dt>Année</dt>
+                            <dd><time datetime="2010">2010</time></dd>
+                            <dt>Durée</dt>
+                            <dd><time datetime="PT2H28M">2h28</time></dd>
+                            <dt>Note</dt>
+                            <dd>4.5/5</dd>
+                            <dt>Genres</dt>
+                            <dd>Sci-Fi, Thriller</dd>
+                        </dl>
+                        <button type="button" class="btn btn-play">
+                            Lecture<span class="visually-hidden"> : Inception</span>
+                        </button>
+                    </article>
+                </li>
+            </ul>
+        </section>
 
         <!-- Formulaire d'inscription (phase 5) -->
 
