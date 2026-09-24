@@ -16,6 +16,7 @@
      5. Composants réutilisables (boutons, métadonnées de film)
      6. Hero
      7. Grilles de films
+     8. Formulaire d'inscription
    ========================================================================== */
 
 
@@ -544,8 +545,9 @@ main:focus {
     background-color: rgb(109 109 110 / 0.45);
 }
 
-/* Icône "lecture" : triangle dessiné avec clip-path (décoratif, non lu) */
-.btn-primary::before,
+/* Icône "lecture" : triangle dessiné avec clip-path (décoratif, non lu),
+   uniquement sur les boutons qui lancent un film */
+.hero-actions .btn-primary::before,
 .btn-play::before {
     content: "";
     width: 0.8em;
@@ -967,5 +969,288 @@ main:focus {
 @media (min-width: 90em) {
     .film-section {
         padding-inline: calc((100% - var(--container-max)) / 2 + var(--gutter));
+    }
+}
+
+
+/* ==========================================================================
+   8. FORMULAIRE D'INSCRIPTION
+   - Champs texte : états survol / focus / valide / invalide
+   - Formules : cartes sélectionnables (le vrai bouton radio reste visible et utilisable)
+   - Genres : cases à cocher présentées en pastilles
+   Les états s'appuient sur les pseudo-classes natives (:checked, :user-invalid...),
+   donc aucun JavaScript n'est nécessaire.
+   ========================================================================== */
+
+.signup {
+    padding: var(--space-8) var(--gutter);
+}
+
+/* Colonne centrée, largeur confortable pour un formulaire */
+.signup > * {
+    max-width: 46rem;
+    margin-inline: auto;
+}
+
+.signup h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-regular);
+    letter-spacing: 0.03em;
+}
+
+.signup h2 + p {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-5);
+    color: var(--color-text-muted);
+}
+
+.signup-form {
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-5);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-surface);
+    border-radius: var(--radius-md);
+}
+
+.form-note {
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+}
+
+/* Astérisques "obligatoire" en rouge (décoratifs, déjà masqués aux lecteurs d'écran) */
+.signup-form [aria-hidden="true"] {
+    color: var(--color-primary);
+}
+
+/* ---------- Groupes (fieldset) ---------- */
+
+.signup-form fieldset {
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;                           /* sinon un fieldset refuse de rétrécir sous son contenu */
+    padding: 0;
+    border: 0;
+}
+
+.signup-form legend {
+    margin-bottom: var(--space-3);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+}
+
+/* ---------- Champs texte ---------- */
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.form-field label {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+}
+
+.form-field input {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-surface);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.form-field input:hover {
+    border-color: var(--color-text-muted);
+}
+
+.form-field input:focus {
+    background-color: var(--color-bg);
+    border-color: var(--color-text);
+}
+
+/* :user-invalid / :user-valid : seulement après que l'utilisateur a interagi avec le champ
+   (contrairement à :invalid, un formulaire vierge ne s'affiche pas tout en rouge) */
+.form-field input:user-invalid {
+    border-color: var(--color-error);
+}
+
+.form-field input:user-valid {
+    border-color: var(--color-success);
+}
+
+.form-hint {
+    color: var(--color-text-muted);
+    font-size: var(--fs-xs);
+}
+
+/* ---------- Cases et boutons radio (commun) ---------- */
+
+.form-choice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.form-choice input {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--color-primary);     /* couleur des cases cochées natives */
+    cursor: pointer;
+}
+
+.form-choice label {
+    cursor: pointer;
+}
+
+.form-choice label a {
+    text-decoration-color: var(--color-primary);
+    transition: text-decoration-thickness var(--transition-fast);
+}
+
+.form-choice label a:hover {
+    text-decoration-thickness: 3px;
+}
+
+/* ---------- Formules : cartes sélectionnables ---------- */
+
+/* Le bouton radio reste le vrai contrôle (clavier, lecteur d'écran) ;
+   il est simplement posé à l'intérieur de la carte formée par son label */
+.plan-options .form-choice input {
+    position: absolute;
+    left: var(--space-4);
+}
+
+.plan-options .form-choice label {
+    flex: 1;
+    padding: var(--space-4) var(--space-4) var(--space-4) calc(var(--space-4) * 2 + 1.15rem);
+    border: 1px solid var(--color-surface);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.plan-options .form-choice label:hover {
+    border-color: var(--color-text-muted);
+}
+
+/* Contenu de la carte : nom, détails, prix sur 3 lignes */
+.plan-options .form-choice label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.plan-name {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    letter-spacing: 0.03em;
+    line-height: 1;
+}
+
+.plan-details {
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+}
+
+.plan-price {
+    font-weight: var(--fw-bold);
+    white-space: nowrap;                    /* "8,99 €/mois" ne se coupe jamais */
+}
+
+/* input:checked + label : le label suit directement le radio dans le HTML */
+.plan-options input:checked + label {
+    background-color: rgb(229 9 20 / 0.12);
+    border-color: var(--color-primary);
+}
+
+/* ---------- Genres : pastilles ---------- */
+
+.genre-options {
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: var(--space-2);
+}
+
+/* La case reste focusable et lisible par les lecteurs d'écran, mais invisible :
+   c'est la pastille (le label) qui montre son état */
+.genre-options .form-choice input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.genre-options .form-choice label {
+    flex: 1;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-surface);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-sm);
+    text-align: center;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.genre-options .form-choice:hover label {
+    border-color: var(--color-text-muted);
+}
+
+.genre-options input:checked + label {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* La case étant invisible, le contour de focus est reporté sur la pastille */
+.genre-options input:focus-visible + label {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+}
+
+/* Conditions + newsletter : deux cases consécutives, rapprochées l'une de l'autre
+   (l'espacement du formulaire est prévu pour séparer de grands groupes) */
+.signup-form > .form-choice + .form-choice {
+    margin-top: calc(var(--space-6) * -1 + var(--space-3));
+}
+
+/* ---------- Bouton d'envoi ---------- */
+
+.signup-form [type="submit"] {
+    width: 100%;
+    padding-block: var(--space-4);
+    font-size: var(--fs-lg);
+}
+
+/* ---------- Tablette : champs sur 2 colonnes, formules côte à côte ---------- */
+
+@media (min-width: 40em) {
+    .signup-form {
+        padding: var(--space-7);
+    }
+
+    .info-fields {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: var(--space-5);
+    }
+
+    .plan-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Le radio passe en haut de la carte, le texte en dessous */
+    .plan-options .form-choice input {
+        top: var(--space-4);
+    }
+
+    .plan-options .form-choice label {
+        height: 100%;
+        padding: calc(var(--space-4) * 2 + 1.15rem) var(--space-4) var(--space-4);
+    }
+
+    .signup-form [type="submit"] {
+        justify-self: start;
+        width: auto;
+        padding-inline: var(--space-7);
     }
 }
