@@ -89,3 +89,16 @@ $film-grid-inset: calc(#{$gutter} - #{$film-grid-gutter-mobile * 0.5});
     margin-bottom: $space-5;
     color: $color-text-muted;
 }
+
+/* ---------- Résultat de la recherche (exercice 4) ----------
+   Vide par défaut : il ne prend de la place que lorsqu'il contient un message.
+   On ne le masque pas (display: none), sinon les lecteurs d'écran ne l'annonceraient pas. */
+.search-status:not(:empty) {
+    /* Aligné sur les sections : marge latérale du site, ou centrage sur $container-max sur grand écran */
+    margin: $space-6 max(#{$gutter}, calc((100% - #{$container-max}) / 2 + #{$gutter})) 0;
+    padding: $space-3 $space-4;
+    background-color: $color-bg-elevated;
+    border-left: 4px solid $color-primary;
+    border-radius: $radius-sm;
+    font-weight: $fw-medium;
+}

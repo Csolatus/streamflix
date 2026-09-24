@@ -83,7 +83,7 @@
             <form action="#" method="get" role="search" class="search-form d-flex gap-2 mb-3 mb-lg-0">
                 <label for="search-input" class="visually-hidden">Rechercher un film ou une série</label>
                 <input type="search" id="search-input" name="q" class="form-control rounded-pill"
-                       placeholder="Titre, genre, acteur..."
+                       placeholder="Titre ou genre..."
                        required minlength="2" autocomplete="off">
                 <button type="submit" class="btn btn-search rounded-pill">Rechercher</button>
             </form>
@@ -180,6 +180,11 @@
                         col-sm-4 (3 par ligne), col-lg-3 (4 par ligne).
              flex-nowrap / flex-md-wrap : une seule ligne défilante sur mobile, retour à la ligne dès 768px.
              Chaque film est une card Bootstrap (article) avec son titre (h3) et ses métadonnées (dl). -->
+
+        <!-- Résultat de la recherche (exercice 4), rempli par le JavaScript.
+             role="status" : les lecteurs d'écran annoncent le message dès qu'il change,
+             sans déplacer le focus (l'utilisateur continue de taper dans le champ). -->
+        <p id="search-status" class="search-status" role="status"></p>
 
         <!-- Tendances actuelles : films populaires, classés par note -->
         <section id="tendances" class="film-section" aria-labelledby="tendances-title">

@@ -77,3 +77,79 @@ watchedButtons.forEach(function (button) {
         });
     });
 });
+
+
+// ===================================
+// EXERCICE 4 : Recherche
+// ===================================
+// À chaque frappe dans le champ de recherche du header, on filtre les films.
+// Adaptations par rapport au code de base de l'énoncé :
+//  - le champ s'appelle #search-input (id déjà utilisé par son <label>) ;
+//  - on masque la colonne (<li>) qui contient la carte, pas l'<article> seul :
+//    sinon la colonne vide resterait dans la grille Bootstrap et laisserait un trou ;
+//  - on cherche dans le titre ET les genres, sans tenir compte des majuscules ni des accents ;
+//  - une section sans aucun résultat est masquée entièrement.
+
+const searchForm = document.querySelector('.search-form');
+const searchInput = document.querySelector('#search-input');
+const searchStatus = document.querySelector('#search-status');
+
+// Met un texte en minuscules et retire les accents : "Épopée" -> "epopee"
+// (normalize('NFD') sépare chaque lettre de son accent, puis on supprime les accents)
+function normalizeText(text) {
+    return text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+}
+
+function filterFilms() {
+    const searchTerm = normalizeText(searchInput.value);
+    let resultCount = 0;
+
+    document.querySelectorAll('.film-section').forEach(function (section) {
+        let sectionResults = 0;
+
+        section.querySelectorAll('.film-card').forEach(function (card) {
+            const title = card.querySelector('.card-title').textContent;
+            const genres = card.querySelector('.genre-list').textContent;
+            const isMatch = normalizeText(title + ' ' + genres).includes(searchTerm);
+
+            // Colonne masquée si le film ne correspond pas
+            card.closest('li').classList.toggle('hidden', !isMatch);
+
+            if (isMatch) {
+                sectionResults++;
+            }
+        });
+
+        section.classList.toggle('hidden', sectionResults === 0);
+        resultCount += sectionResults;
+    });
+
+    // Message annoncé aux lecteurs d'écran (role="status") et affiché sous le hero.
+    // textContent (et non innerHTML) : le texte tapé par l'utilisateur est affiché tel quel,
+    // jamais interprété comme du HTML.
+    const typedText = searchInput.value.trim();
+    if (searchTerm === '') {
+        searchStatus.textContent = '';
+    } else if (resultCount === 0) {
+        searchStatus.textContent = 'Aucun résultat pour « ' + typedText + ' ».';
+    } else {
+        searchStatus.textContent = resultCount + (resultCount > 1 ? ' résultats' : ' résultat') + ' pour « ' + typedText + ' ».';
+    }
+}
+
+// "input" : déclenché à chaque caractère tapé ou effacé (y compris avec la croix du champ)
+searchInput.addEventListener('input', filterFilms);
+
+// Touche Entrée ou bouton "Rechercher" : pas de rechargement de la page,
+// on referme le menu mobile et on fait défiler jusqu'aux résultats.
+searchForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    filterFilms();
+
+    const mainMenu = document.querySelector('#main-menu');
+    if (mainMenu.classList.contains('show')) {
+        bootstrap.Collapse.getOrCreateInstance(mainMenu).hide();
+    }
+
+    searchStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
