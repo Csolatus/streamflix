@@ -29,3 +29,19 @@ sectionToggles.forEach(function (button) {
         button.setAttribute('aria-expanded', String(!isHidden));
     });
 });
+
+
+// ===================================
+// EXERCICE 2 : Compteur de films
+// ===================================
+// Au chargement : on compte les cartes de films (<article class="film-card">)
+// et on affiche le total dans le footer, dans un paragraphe créé en JavaScript.
+
+const filmCount = document.querySelectorAll('article.film-card').length;
+
+const catalogCount = document.createElement('p');
+catalogCount.className = 'catalog-count';
+// Accord au singulier si le catalogue ne contient qu'un film
+catalogCount.textContent = 'Catalogue : ' + filmCount + (filmCount > 1 ? ' films disponibles' : ' film disponible');
+
+document.querySelector('.footer-legal').appendChild(catalogCount);
