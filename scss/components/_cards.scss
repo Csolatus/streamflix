@@ -98,3 +98,28 @@
         text-decoration: underline;
     }
 }
+
+/* ---------- Film vu (exercice 3) : classe .watched ajoutée par le JavaScript ----------
+   L'énoncé propose opacity: 0.6 sur toute la carte ; on ne l'applique qu'à l'affiche,
+   pour que le texte (titre, note, genres) garde un contraste suffisant (WCAG AA). */
+.film-card.watched .card-img-top {
+    opacity: 0.45;
+    filter: grayscale(0.8);
+}
+
+/* Badge "✓ Vu" en haut à droite de l'affiche.
+   pointer-events: none : le clic traverse le badge (la carte reste cliquable) */
+.film-card.watched::after {
+    content: "✓ Vu";
+    position: absolute;
+    top: $space-2;
+    right: $space-2;
+    z-index: 3;
+    padding: $space-1 $space-2;
+    background-color: $color-success;
+    color: $color-bg;                       /* contraste 9.5:1 sur le vert */
+    border-radius: $radius-sm;
+    font-size: $fs-xs;
+    font-weight: $fw-bold;
+    pointer-events: none;
+}

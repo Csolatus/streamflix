@@ -62,3 +62,12 @@
 .site-footer {
     @include align-with-container;
 }
+
+/* Compteur de films, ajouté par le JavaScript (exercice 2) :
+   dans le bloc des mentions légales, mais en police et taille du texte courant */
+.catalog-count {
+    margin-top: $space-2;
+    color: $color-text;
+    font-family: $font-body;
+    font-size: $fs-sm;
+}

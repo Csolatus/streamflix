@@ -55,6 +55,35 @@
     @include button-variant($color-surface, $color-primary, $color-primary-hover);
 }
 
+/* Bouton Masquer/Afficher des sections de films (exercice 1) : discret, petit format */
+.btn-section-toggle {
+    @include button-variant(transparent, $color-surface);
+    --bs-btn-padding-x: #{$space-3};
+    --bs-btn-padding-y: #{$space-2};
+    --bs-btn-font-size: #{$fs-sm};
+    --bs-btn-font-weight: #{$fw-medium};
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: #{$color-surface};
+    --bs-btn-hover-border-color: #{$color-surface};
+    flex-shrink: 0;
+}
+
+/* Flèche : vers le haut quand la grille est visible ("Masquer"),
+   vers le bas quand elle est masquée. Le style suit aria-expanded, mis à jour par le JS. */
+.btn-section-toggle::after {
+    content: "";
+    width: 0.45em;
+    height: 0.45em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(25%) rotate(-135deg);
+    transition: transform $transition-base;
+}
+
+.btn-section-toggle[aria-expanded="false"]::after {
+    transform: translateY(-25%) rotate(45deg);
+}
+
 /* ---------- Icônes dessinées en CSS (décoratives, non lues) ---------- */
 
 /* Icône "lecture" : triangle dessiné avec clip-path,
@@ -71,7 +100,7 @@
 
 /* Icône "+" du bouton Ma Liste, remplacée par une coche quand le film est ajouté
    (aria-pressed passera à "true" en JavaScript : le style suit l'état d'accessibilité) */
-.btn[aria-pressed]::before {
+.btn-mylist::before {
     content: "";
     width: 0.9em;
     height: 0.9em;
@@ -81,11 +110,37 @@
     transition: transform $transition-base;
 }
 
-.btn[aria-pressed="true"]::before {
+.btn-mylist[aria-pressed="true"]::before {
     width: 0.45em;
     height: 0.8em;
     background: none;
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: translateY(-15%) rotate(45deg);
+}
+
+/* Bouton bascule "Vu" des cartes (exercice 3) : carré, icône coche.
+   Non pressé : coche grise. Pressé (aria-pressed="true", mis par le JS) : fond vert. */
+.btn-watched {
+    @include button-variant($color-surface, $color-secondary);
+    --bs-btn-padding-x: #{$space-2};
+    --bs-btn-color: #{$color-text-muted};
+    --bs-btn-hover-color: #{$color-text};
+    aspect-ratio: 1;
+}
+
+.btn-watched::before {
+    content: "";
+    width: 0.45em;
+    height: 0.8em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-15%) rotate(45deg);
+}
+
+.btn-watched[aria-pressed="true"] {
+    @include button-variant($color-success, $color-success);
+    --bs-btn-color: #{$color-bg};           /* texte sombre sur vert : contraste 9.5:1 */
+    --bs-btn-hover-color: #{$color-bg};
+    --bs-btn-active-color: #{$color-bg};
 }
