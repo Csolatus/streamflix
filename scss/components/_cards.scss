@@ -1,49 +1,45 @@
 // ==========================================================================
-// COMPONENTS / CARTES DE FILMS (.film-card)
+// COMPONENTS / CARTES DE FILMS (.card Bootstrap personnalisée)
+// Structure Bootstrap : .card > .card-img-top + .card-body > .card-title...
+// Personnalisation par les variables --bs-card-* ; le lien du titre porte
+// .stretched-link (utilitaire Bootstrap) : un clic n'importe où sur la carte
+// ouvre la fiche du film, avec un seul lien dans le HTML (pas de doublon
+// pour le clavier ni pour les lecteurs d'écran).
 // ==========================================================================
 
 @use "../utils" as *;
 
 /* ---------- Carte de film ---------- */
 .film-card {
-    position: relative;                     /* repère pour le lien étiré (voir plus bas) */
-    display: flex;
-    flex-direction: column;
-    height: 100%;                           /* toutes les cartes d'une ligne ont la même hauteur */
+    --bs-card-bg: #{$color-bg-elevated};
+    --bs-card-color: #{$color-text};          /* sinon gris clair #dee2e6 du thème sombre Bootstrap */
+    --bs-card-border-width: 0;
+    --bs-card-border-radius: #{$radius-md};
+    --bs-card-inner-border-radius: #{$radius-md};
+    --bs-card-spacer-x: #{$space-3};
+    --bs-card-spacer-y: #{$space-3};
+    --bs-card-title-spacer-y: 0;
     overflow: hidden;
-    background-color: $color-bg-elevated;
-    border-radius: $radius-md;
     transition: transform $transition-base, box-shadow $transition-base;
 }
 
-.film-card img {
-    width: 100%;
+.film-card .card-img-top {
     aspect-ratio: 2 / 3;                    /* format affiche, même si les images n'ont pas les mêmes proportions */
     object-fit: cover;
     transition: filter $transition-base;
 }
 
-.film-card h3 {
-    padding: $space-3 $space-3 $space-1;
+.film-card .card-title {
     font-size: $fs-base;
 }
 
-.film-card h3 a {
+.film-card .card-title a {
     text-decoration: none;
 }
 
-/* Lien étiré : le ::after du lien du titre recouvre toute la carte,
-   donc un clic n'importe où sur la carte ouvre la fiche du film.
-   Un seul lien dans le HTML : pas de doublon pour le clavier ni les lecteurs d'écran. */
-.film-card h3 a::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-}
-
+/* ---------- Métadonnées en pastilles ---------- */
 .film-card .film-meta {
     gap: $space-2;
-    padding: 0 $space-3;
     font-size: $fs-xs;
 }
 
@@ -71,13 +67,15 @@
     background: none;
 }
 
-/* Le bouton Lecture passe au-dessus du lien étiré pour rester cliquable */
+/* ---------- Bouton Lecture ----------
+   Il passe au-dessus du ::after du .stretched-link (z-index 1) pour rester cliquable.
+   w-100 et mt-auto (HTML) : pleine largeur, collé en bas de la carte. */
 .film-card .btn {
+    --bs-btn-padding-x: #{$space-3};
+    --bs-btn-padding-y: #{$space-2};
+    --bs-btn-font-size: #{$fs-sm};
     position: relative;
-    z-index: 1;
-    margin: auto $space-3 $space-3;  /* margin-top auto : bouton collé en bas de la carte */
-    padding: $space-2 $space-3;
-    font-size: $fs-sm;
+    z-index: 2;
 }
 
 /* ---------- Survol et focus clavier ----------
@@ -93,11 +91,11 @@
         box-shadow: $shadow-card;
     }
 
-    .film-card:hover img {
+    .film-card:hover .card-img-top {
         filter: brightness(1.1) saturate(1.1);
     }
 
-    .film-card:hover h3 a {
+    .film-card:hover .card-title a {
         text-decoration: underline;
     }
 }
