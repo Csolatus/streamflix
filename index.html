@@ -183,8 +183,15 @@
 
         <!-- Tendances actuelles : films populaires, classés par note -->
         <section id="tendances" class="film-section" aria-labelledby="tendances-title">
-            <h2 id="tendances-title">Tendances actuelles</h2>
-            <ul class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
+            <!-- En-tête de section : titre + bouton Masquer/Afficher (exercice 1).
+                 aria-expanded : état annoncé aux lecteurs d'écran ; aria-controls : la grille pilotée. -->
+            <div class="section-header d-flex align-items-center justify-content-between gap-3 mb-4">
+                <h2 id="tendances-title">Tendances actuelles</h2>
+                <button type="button" class="btn btn-section-toggle" aria-expanded="true" aria-controls="tendances-grid">
+                    <span class="section-toggle-label">Masquer</span><span class="visually-hidden"> : Tendances actuelles</span>
+                </button>
+            </div>
+            <ul id="tendances-grid" class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
                 <li class="col-5 col-sm-4 col-lg-3">
                     <article class="film-card card h-100">
                         <img class="card-img-top" src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
@@ -272,8 +279,15 @@
 
         <!-- Recommandés pour vous : sélection variée -->
         <section id="recommandes" class="film-section" aria-labelledby="recommandes-title">
-            <h2 id="recommandes-title">Recommandés pour vous</h2>
-            <ul class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
+            <!-- En-tête de section : titre + bouton Masquer/Afficher (exercice 1).
+                 aria-expanded : état annoncé aux lecteurs d'écran ; aria-controls : la grille pilotée. -->
+            <div class="section-header d-flex align-items-center justify-content-between gap-3 mb-4">
+                <h2 id="recommandes-title">Recommandés pour vous</h2>
+                <button type="button" class="btn btn-section-toggle" aria-expanded="true" aria-controls="recommandes-grid">
+                    <span class="section-toggle-label">Masquer</span><span class="visually-hidden"> : Recommandés pour vous</span>
+                </button>
+            </div>
+            <ul id="recommandes-grid" class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
                 <li class="col-5 col-sm-4 col-lg-3">
                     <article class="film-card card h-100">
                         <img class="card-img-top" src="images/films/inception.jpg" alt="Affiche du film Inception"
@@ -360,8 +374,15 @@
 
         <!-- Nouveautés : films récemment ajoutés -->
         <section id="nouveautes" class="film-section" aria-labelledby="nouveautes-title">
-            <h2 id="nouveautes-title">Nouveautés</h2>
-            <ul class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
+            <!-- En-tête de section : titre + bouton Masquer/Afficher (exercice 1).
+                 aria-expanded : état annoncé aux lecteurs d'écran ; aria-controls : la grille pilotée. -->
+            <div class="section-header d-flex align-items-center justify-content-between gap-3 mb-4">
+                <h2 id="nouveautes-title">Nouveautés</h2>
+                <button type="button" class="btn btn-section-toggle" aria-expanded="true" aria-controls="nouveautes-grid">
+                    <span class="section-toggle-label">Masquer</span><span class="visually-hidden"> : Nouveautés</span>
+                </button>
+            </div>
+            <ul id="nouveautes-grid" class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
                 <li class="col-5 col-sm-4 col-lg-3">
                     <article class="film-card card h-100">
                         <img class="card-img-top" src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"

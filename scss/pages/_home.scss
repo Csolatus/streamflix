@@ -12,11 +12,11 @@
     padding: $space-6 $gutter 0;
 }
 
+/* L'espace sous le titre est porté par .section-header (mb-4 dans le HTML) */
 .film-section h2 {
     display: flex;
     align-items: center;
     gap: $space-3;
-    margin-bottom: $space-4;
     @include display-title($fs-2xl);
 }
 

@@ -1,0 +1,11 @@
+// ==========================================================================
+// BASE / CLASSES D'ÉTAT UTILISÉES PAR LE JAVASCRIPT
+// Le script ajoute ou retire ces classes (classList.toggle) ;
+// le CSS décide de l'apparence correspondante.
+// ==========================================================================
+
+/* Élément masqué (exercice 1 : grilles de films).
+   !important : doit l'emporter sur les classes d'affichage de Bootstrap (.row = display: flex) */
+.hidden {
+    display: none !important;
+}
