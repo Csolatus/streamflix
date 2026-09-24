@@ -84,7 +84,54 @@
     <!-- ========== CONTENU PRINCIPAL ========== -->
     <main id="main-content">
 
-        <!-- Section hero : film vedette (phase 3) -->
+        <!-- ========== HERO : film vedette ========== -->
+        <section class="hero" aria-labelledby="hero-title">
+
+            <!-- Image de fond (placée en fond via CSS demain) : informative, donc alt descriptif -->
+            <img src="images/hero-bg.jpg" class="hero-bg"
+                 alt="Scène d'Inception : une ville qui se replie sur elle-même au-dessus des personnages"
+                 width="1920" height="1080">
+
+            <!-- Overlay sombre pour la lisibilité du texte : purement décoratif -->
+            <div class="hero-overlay" aria-hidden="true"></div>
+
+            <div class="hero-content">
+                <p class="hero-label">Film à la une</p>
+                <h2 id="hero-title">Inception</h2>
+
+                <!-- Métadonnées du film -->
+                <dl class="film-meta">
+                    <dt>Année</dt>
+                    <dd><time datetime="2010">2010</time></dd>
+                    <dt>Durée</dt>
+                    <dd><time datetime="PT2H28M">2h28</time></dd>
+                    <dt>Note</dt>
+                    <dd>4.5/5</dd>
+                    <dt>Genres</dt>
+                    <dd>Sci-Fi, Thriller</dd>
+                </dl>
+
+                <p class="hero-description">
+                    Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
+                    découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
+                </p>
+
+                <!-- Boutons d'action : le texte masqué précise le film pour les lecteurs d'écran -->
+                <div class="hero-actions">
+                    <button type="button" class="btn btn-primary">
+                        Lecture<span class="visually-hidden"> d'Inception</span>
+                    </button>
+                    <a href="films/inception.html" class="btn btn-secondary">
+                        Plus d'infos<span class="visually-hidden"> sur Inception</span>
+                    </a>
+                    <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
+                    <button type="button" class="btn btn-secondary" aria-pressed="false">
+                        Ma Liste<span class="visually-hidden"> : Inception</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
 
         <!-- Grilles de films : Tendances, Recommandés, Nouveautés (phase 4) -->
 
