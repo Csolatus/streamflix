@@ -5,13 +5,13 @@
 // - Genres : cases à cocher présentées en pastilles
 // Les états s'appuient sur les pseudo-classes natives (:checked, :user-invalid...),
 // donc aucun JavaScript n'est nécessaire.
+// Mise en page : grille Bootstrap dans le HTML (.vstack pour empiler les groupes,
+// .row / .col-* pour les colonnes de chaque groupe).
 // ==========================================================================
 
 @use "../utils" as *;
 
 .signup-form {
-    display: grid;
-    gap: $space-6;
     padding: $space-5;
     background-color: $color-bg-elevated;
     border: 1px solid $color-surface;
@@ -30,8 +30,6 @@
 
 /* ---------- Groupes (fieldset) ---------- */
 .signup-form fieldset {
-    display: grid;
-    gap: $space-4;
     min-width: 0;                           /* sinon un fieldset refuse de rétrécir sous son contenu */
     padding: 0;
     border: 0;
@@ -55,9 +53,11 @@
     font-weight: $fw-medium;
 }
 
+/* Champs .form-control Bootstrap, aux couleurs de StreamFlix */
 .form-field input {
     padding: $space-3 $space-4;
     background-color: $color-surface;
+    color: $color-text;
     border: 1px solid transparent;
     border-radius: $radius-sm;
     transition: border-color $transition-fast, background-color $transition-fast;
@@ -67,9 +67,13 @@
     border-color: $color-text-muted;
 }
 
+/* Bootstrap remplace le contour de focus par un halo bleu : on garde notre contour */
 .form-field input:focus {
     background-color: $color-bg;
     border-color: $color-text;
+    color: $color-text;
+    box-shadow: none;
+    @include focus-ring;
 }
 
 /* :user-invalid / :user-valid : seulement après que l'utilisateur a interagi avec le champ
@@ -165,11 +169,6 @@
 }
 
 /* ---------- Genres : pastilles ---------- */
-.genre-options {
-    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
-    gap: $space-2;
-}
-
 /* La case reste focusable et lisible par les lecteurs d'écran, mais invisible :
    c'est la pastille (le label) qui montre son état */
 .genre-options .form-choice input {
@@ -204,32 +203,22 @@
     @include focus-ring;
 }
 
-/* Conditions + newsletter : deux cases consécutives, rapprochées l'une de l'autre
-   (l'espacement du formulaire est prévu pour séparer de grands groupes) */
-.signup-form > .form-choice + .form-choice {
-    margin-top: calc($space-6 * -1 + $space-3);
-}
-
-/* ---------- Bouton d'envoi ---------- */
+/* ---------- Bouton d'envoi ----------
+   Pleine largeur sur mobile (étiré par .vstack), largeur naturelle dès 768px (.align-self-md-start) */
 .signup-form [type="submit"] {
-    width: 100%;
-    padding-block: $space-4;
-    font-size: $fs-lg;
+    --bs-btn-padding-y: #{$space-4};
+    --bs-btn-font-size: #{$fs-lg};
 }
 
-/* ---------- Tablette : champs sur 2 colonnes, formules côte à côte ---------- */
+/* ---------- Tablette : les colonnes viennent du HTML (col-md-6, col-md-4) ---------- */
 @include respond-to(md) {
     .signup-form {
         padding: $space-7;
     }
 
-    .info-fields {
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: $space-5;
-    }
-
-    .plan-options {
-        grid-template-columns: repeat(3, 1fr);
+    /* Les 3 cartes de formule ont la même hauteur que leur colonne */
+    .plan-options .form-choice {
+        height: 100%;
     }
 
     /* Le radio passe en haut de la carte, le texte en dessous */
@@ -243,8 +232,6 @@
     }
 
     .signup-form [type="submit"] {
-        justify-self: start;
-        width: auto;
-        padding-inline: $space-7;
+        --bs-btn-padding-x: #{$space-7};
     }
 }

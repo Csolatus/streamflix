@@ -114,54 +114,61 @@
         <!-- ========== HERO : film vedette ========== -->
         <section class="hero" aria-labelledby="hero-title">
 
-            <!-- Image de fond (placée en fond en CSS, voir scss/layout/_hero) : informative, donc alt descriptif -->
-            <img src="images/hero-bg.jpg" class="hero-bg"
-                 alt="Affiche d'Inception : une ville qui se replie sur elle-même au-dessus de six personnages debout dans une rue"
-                 width="365" height="547">
-
             <!-- Overlay sombre pour la lisibilité du texte : purement décoratif -->
             <div class="hero-overlay" aria-hidden="true"></div>
 
-            <div class="hero-content">
-                <p class="hero-label">Film à la une</p>
-                <h2 id="hero-title">Inception</h2>
+            <!-- Grille Bootstrap : texte (col-md) + affiche (col-md-auto : largeur de l'image, ms-md-auto : calée à droite).
+                 Mobile : une seule colonne ; l'affiche sort du flux et couvre tout le hero (voir scss/layout/_hero). -->
+            <div class="row g-0 gx-md-5 align-items-md-center">
+                <div class="hero-content col-md">
+                    <p class="hero-label">Film à la une</p>
+                    <h2 id="hero-title">Inception</h2>
 
-                <!-- Métadonnées du film -->
-                <dl class="film-meta">
-                    <dt>Année</dt>
-                    <dd><time datetime="2010">2010</time></dd>
-                    <dt>Durée</dt>
-                    <dd><time datetime="PT2H28M">2h28</time></dd>
-                    <dt>Note</dt>
-                    <dd>4.5/5</dd>
-                    <dt>Genres</dt>
-                    <dd>
-                        <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
-                            <li class="badge rounded-pill">Sci-Fi</li>
-                            <li class="badge rounded-pill">Thriller</li>
-                        </ul>
-                    </dd>
-                </dl>
+                    <!-- Métadonnées du film -->
+                    <dl class="film-meta">
+                        <dt>Année</dt>
+                        <dd><time datetime="2010">2010</time></dd>
+                        <dt>Durée</dt>
+                        <dd><time datetime="PT2H28M">2h28</time></dd>
+                        <dt>Note</dt>
+                        <dd>4.5/5</dd>
+                        <dt>Genres</dt>
+                        <dd>
+                            <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                <li class="badge rounded-pill">Sci-Fi</li>
+                                <li class="badge rounded-pill">Thriller</li>
+                            </ul>
+                        </dd>
+                    </dl>
 
-                <p class="hero-description">
-                    Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
-                    découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
-                </p>
+                    <p class="hero-description">
+                        Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
+                        découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
+                    </p>
 
-                <!-- Boutons d'action : le texte masqué précise le film pour les lecteurs d'écran -->
-                <div class="hero-actions">
-                    <button type="button" class="btn btn-primary">
-                        Lecture<span class="visually-hidden"> d'Inception</span>
-                    </button>
-                    <!-- Ouvre la fenêtre de détails (modal Bootstrap, voir fin de page) -->
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#film-modal"
-                            aria-haspopup="dialog">
-                        Plus d'infos<span class="visually-hidden"> sur Inception</span>
-                    </button>
-                    <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
-                    <button type="button" class="btn btn-secondary" aria-pressed="false">
-                        Ma Liste<span class="visually-hidden"> : Inception</span>
-                    </button>
+                    <!-- Boutons d'action : le texte masqué précise le film pour les lecteurs d'écran -->
+                    <div class="hero-actions">
+                        <button type="button" class="btn btn-primary">
+                            Lecture<span class="visually-hidden"> d'Inception</span>
+                        </button>
+                        <!-- Ouvre la fenêtre de détails (modal Bootstrap, voir fin de page) -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#film-modal"
+                                aria-haspopup="dialog">
+                            Plus d'infos<span class="visually-hidden"> sur Inception</span>
+                        </button>
+                        <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
+                        <button type="button" class="btn btn-secondary" aria-pressed="false">
+                            Ma Liste<span class="visually-hidden"> : Inception</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-md-auto ms-md-auto">
+                    <!-- Affiche : image de fond du hero sur mobile, présentée à droite dès 768px (voir scss/layout/_hero).
+                         Informative, donc alt descriptif -->
+                    <img src="images/hero-bg.jpg" class="hero-bg"
+                         alt="Affiche d'Inception : une ville qui se replie sur elle-même au-dessus de six personnages debout dans une rue"
+                         width="365" height="547">
                 </div>
             </div>
 
@@ -447,7 +454,7 @@
             <h2 id="signup-title">Créez votre compte</h2>
             <p>Regardez en illimité, sans engagement. Annulable à tout moment.</p>
 
-            <form action="#" method="post" class="signup-form">
+            <form action="#" method="post" class="signup-form vstack gap-4">
 
                 <!-- L'astérisque est masqué aux lecteurs d'écran : l'attribut required annonce déjà "obligatoire" -->
                 <p class="form-note">Les champs marqués d'un <span aria-hidden="true">*</span> sont obligatoires.</p>
@@ -455,34 +462,36 @@
                 <fieldset class="info-fields">
                     <legend>Vos informations</legend>
 
-                    <div class="form-field">
-                        <label for="signup-firstname">Prénom <span aria-hidden="true">*</span></label>
-                        <input type="text" id="signup-firstname" name="firstname"
-                               required minlength="2" maxlength="50" autocomplete="given-name">
-                    </div>
+                    <div class="row g-3">
+                        <div class="form-field col-md-6">
+                            <label for="signup-firstname">Prénom <span aria-hidden="true">*</span></label>
+                            <input type="text" id="signup-firstname" class="form-control" name="firstname"
+                                   required minlength="2" maxlength="50" autocomplete="given-name">
+                        </div>
 
-                    <div class="form-field">
-                        <label for="signup-email">Adresse e-mail <span aria-hidden="true">*</span></label>
-                        <input type="email" id="signup-email" name="email"
-                               required autocomplete="email" aria-describedby="signup-email-hint">
-                        <p id="signup-email-hint" class="form-hint">Exemple : nom@exemple.fr</p>
-                    </div>
+                        <div class="form-field col-md-6">
+                            <label for="signup-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                            <input type="email" id="signup-email" class="form-control" name="email"
+                                   required autocomplete="email" aria-describedby="signup-email-hint">
+                            <p id="signup-email-hint" class="form-hint">Exemple : nom@exemple.fr</p>
+                        </div>
 
-                    <div class="form-field">
-                        <label for="signup-password">Mot de passe <span aria-hidden="true">*</span></label>
-                        <input type="password" id="signup-password" name="password"
-                               required minlength="8"
-                               pattern="(?=.*[A-Za-z])(?=.*\d).{8,}"
-                               autocomplete="new-password" aria-describedby="signup-password-hint">
-                        <p id="signup-password-hint" class="form-hint">
-                            8 caractères minimum, dont au moins une lettre et un chiffre.
-                        </p>
-                    </div>
+                        <div class="form-field col-md-6">
+                            <label for="signup-password">Mot de passe <span aria-hidden="true">*</span></label>
+                            <input type="password" id="signup-password" class="form-control" name="password"
+                                   required minlength="8"
+                                   pattern="(?=.*[A-Za-z])(?=.*\d).{8,}"
+                                   autocomplete="new-password" aria-describedby="signup-password-hint">
+                            <p id="signup-password-hint" class="form-hint">
+                                8 caractères minimum, dont au moins une lettre et un chiffre.
+                            </p>
+                        </div>
 
-                    <div class="form-field">
-                        <label for="signup-password-confirm">Confirmez le mot de passe <span aria-hidden="true">*</span></label>
-                        <input type="password" id="signup-password-confirm" name="password_confirm"
-                               required minlength="8" autocomplete="new-password">
+                        <div class="form-field col-md-6">
+                            <label for="signup-password-confirm">Confirmez le mot de passe <span aria-hidden="true">*</span></label>
+                            <input type="password" id="signup-password-confirm" class="form-control" name="password_confirm"
+                                   required minlength="8" autocomplete="new-password">
+                        </div>
                     </div>
                 </fieldset>
 
@@ -490,29 +499,37 @@
                 <fieldset class="plan-options">
                     <legend>Choisissez votre formule <span aria-hidden="true">*</span></legend>
 
-                    <div class="form-choice">
-                        <input type="radio" id="plan-essentiel" name="plan" value="essentiel" required>
-                        <label for="plan-essentiel">
-                            <span class="plan-name">Essentiel</span>
-                            <span class="plan-details">HD, 1 écran</span>
-                            <span class="plan-price">8,99 €/mois</span>
-                        </label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="radio" id="plan-standard" name="plan" value="standard" checked>
-                        <label for="plan-standard">
-                            <span class="plan-name">Standard</span>
-                            <span class="plan-details">Full HD, 2 écrans</span>
-                            <span class="plan-price">13,49 €/mois</span>
-                        </label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="radio" id="plan-premium" name="plan" value="premium">
-                        <label for="plan-premium">
-                            <span class="plan-name">Premium</span>
-                            <span class="plan-details">4K, 4 écrans</span>
-                            <span class="plan-price">19,99 €/mois</span>
-                        </label>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="form-choice">
+                                <input type="radio" id="plan-essentiel" name="plan" value="essentiel" required>
+                                <label for="plan-essentiel">
+                                    <span class="plan-name">Essentiel</span>
+                                    <span class="plan-details">HD, 1 écran</span>
+                                    <span class="plan-price">8,99 €/mois</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-choice">
+                                <input type="radio" id="plan-standard" name="plan" value="standard" checked>
+                                <label for="plan-standard">
+                                    <span class="plan-name">Standard</span>
+                                    <span class="plan-details">Full HD, 2 écrans</span>
+                                    <span class="plan-price">13,49 €/mois</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-choice">
+                                <input type="radio" id="plan-premium" name="plan" value="premium">
+                                <label for="plan-premium">
+                                    <span class="plan-name">Premium</span>
+                                    <span class="plan-details">4K, 4 écrans</span>
+                                    <span class="plan-price">19,99 €/mois</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
 
@@ -520,46 +537,61 @@
                 <fieldset class="genre-options">
                     <legend>Vos genres préférés (facultatif)</legend>
 
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-action" name="genres" value="action">
-                        <label for="genre-action">Action</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-scifi" name="genres" value="sci-fi">
-                        <label for="genre-scifi">Sci-Fi</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-drama" name="genres" value="drama">
-                        <label for="genre-drama">Drama</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-thriller" name="genres" value="thriller">
-                        <label for="genre-thriller">Thriller</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-crime" name="genres" value="crime">
-                        <label for="genre-crime">Crime</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-romance" name="genres" value="romance">
-                        <label for="genre-romance">Romance</label>
+                    <div class="row g-2">
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-action" name="genres" value="action">
+                                <label for="genre-action">Action</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-scifi" name="genres" value="sci-fi">
+                                <label for="genre-scifi">Sci-Fi</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-drama" name="genres" value="drama">
+                                <label for="genre-drama">Drama</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-thriller" name="genres" value="thriller">
+                                <label for="genre-thriller">Thriller</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-crime" name="genres" value="crime">
+                                <label for="genre-crime">Crime</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-romance" name="genres" value="romance">
+                                <label for="genre-romance">Romance</label>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
 
-                <div class="form-choice">
-                    <input type="checkbox" id="signup-terms" name="terms" required>
-                    <label for="signup-terms">
-                        J'accepte les <a href="conditions.html">conditions d'utilisation</a>
-                        <span aria-hidden="true">*</span>
-                    </label>
+                <div class="vstack gap-2">
+                    <div class="form-choice">
+                        <input type="checkbox" id="signup-terms" name="terms" required>
+                        <label for="signup-terms">
+                            J'accepte les <a href="conditions.html">conditions d'utilisation</a>
+                            <span aria-hidden="true">*</span>
+                        </label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="checkbox" id="signup-newsletter" name="newsletter">
+                        <label for="signup-newsletter">Recevoir les nouveautés par e-mail</label>
+                    </div>
                 </div>
 
-                <div class="form-choice">
-                    <input type="checkbox" id="signup-newsletter" name="newsletter">
-                    <label for="signup-newsletter">Recevoir les nouveautés par e-mail</label>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Créer mon compte</button>
+                <button type="submit" class="btn btn-primary align-self-md-start">Créer mon compte</button>
 
             </form>
         </section>
@@ -569,35 +601,41 @@
     <!-- ========== PIED DE PAGE ========== -->
     <footer class="site-footer">
 
-        <!-- Liens utiles : second menu de navigation, nommé par son titre -->
-        <nav class="footer-links" aria-labelledby="footer-links-title">
-            <h2 id="footer-links-title">Liens utiles</h2>
-            <ul>
-                <li><a href="aide.html">Aide</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="mentions-legales.html">Mentions légales</a></li>
-                <li><a href="conditions.html">Conditions d'utilisation</a></li>
-            </ul>
-        </nav>
+        <!-- Grille Bootstrap : liens | réseaux sociaux (côte à côte dès 768px),
+             mentions légales sur toute la largeur -->
+        <div class="row g-4">
+            <!-- Liens utiles : second menu de navigation, nommé par son titre -->
+            <nav class="footer-links col-md-6 col-lg" aria-labelledby="footer-links-title">
+                <h2 id="footer-links-title">Liens utiles</h2>
+                <ul class="row row-cols-2 row-cols-lg-auto gx-4 gy-2 list-unstyled mb-0">
+                    <li class="col"><a href="aide.html">Aide</a></li>
+                    <li class="col"><a href="contact.html">Contact</a></li>
+                    <li class="col"><a href="mentions-legales.html">Mentions légales</a></li>
+                    <li class="col"><a href="conditions.html">Conditions d'utilisation</a></li>
+                </ul>
+            </nav>
 
-        <!-- Réseaux sociaux (liens factices) : le texte reste lisible même si des icônes sont ajoutées en CSS -->
-        <section class="footer-social" aria-labelledby="footer-social-title">
-            <h2 id="footer-social-title">Suivez-nous</h2>
-            <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">X (Twitter)</a></li>
-                <li><a href="#">YouTube</a></li>
-            </ul>
-        </section>
+            <!-- Réseaux sociaux (liens factices) : le texte reste lisible même si des icônes sont ajoutées en CSS -->
+            <section class="footer-social col-md-6 col-lg-auto" aria-labelledby="footer-social-title">
+                <h2 id="footer-social-title">Suivez-nous</h2>
+                <ul class="d-flex flex-wrap gap-2 list-unstyled mb-0">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">X (Twitter)</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </section>
 
-        <!-- Informations légales et copyright -->
-        <div class="footer-legal">
-            <p><small>&copy; <time datetime="2026">2026</time> StreamFlix. Tous droits réservés.</small></p>
-            <p><small>
-                StreamFlix est une plateforme fictive réalisée dans le cadre d'un projet scolaire à l'EFREI.
-                Les affiches de films appartiennent à leurs ayants droit respectifs.
-            </small></p>
+            <!-- Informations légales et copyright -->
+            <div class="col-12">
+                <div class="footer-legal vstack gap-1">
+                    <p><small>&copy; <time datetime="2026">2026</time> StreamFlix. Tous droits réservés.</small></p>
+                    <p><small>
+                        StreamFlix est une plateforme fictive réalisée dans le cadre d'un projet scolaire à l'EFREI.
+                        Les affiches de films appartiennent à leurs ayants droit respectifs.
+                    </small></p>
+                </div>
+            </div>
         </div>
 
     </footer>

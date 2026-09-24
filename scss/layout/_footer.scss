@@ -1,19 +1,15 @@
 // ==========================================================================
 // LAYOUT / FOOTER
-// Mobile : blocs empilés.
-// Tablette et plus : grille à 2 colonnes (liens | réseaux sociaux),
-// mentions légales sur toute la largeur en dessous.
+// Mise en page : grille Bootstrap dans le HTML
+//   .row > .col-md-6.col-lg (liens) + .col-md-6.col-lg-auto (réseaux sociaux) + .col-12 (mentions)
+//   mobile : blocs empilés ; tablette : liens | réseaux ; desktop : réseaux calés à droite.
+// Listes : .list-unstyled, liens utiles en .row-cols-2 (2 colonnes) puis .row-cols-lg-auto (une ligne).
+// Ici : uniquement l'apparence.
 // ==========================================================================
 
 @use "../utils" as *;
 
 .site-footer {
-    display: grid;
-    grid-template-areas:
-        "links"
-        "social"
-        "legal";
-    gap: $space-6;
     padding: $space-7 $gutter $space-6;
     border-top: 1px solid $color-surface;
     color: $color-text-muted;
@@ -26,22 +22,7 @@
     font-size: $fs-base;
 }
 
-.site-footer ul {
-    padding: 0;
-    list-style: none;
-}
-
-/* ---------- Liens utiles : 2 colonnes dès le mobile ---------- */
-.footer-links {
-    grid-area: links;
-}
-
-.footer-links ul {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-2 $space-4;
-}
-
+/* ---------- Liens utiles ---------- */
 .footer-links a {
     text-decoration: none;
     transition: color $transition-fast;
@@ -53,16 +34,6 @@
 }
 
 /* ---------- Réseaux sociaux : pastilles ---------- */
-.footer-social {
-    grid-area: social;
-}
-
-.footer-social ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $space-2;
-}
-
 .footer-social a {
     display: inline-block;
     padding: $space-2 $space-4;
@@ -81,36 +52,10 @@
 
 /* ---------- Mentions légales ---------- */
 .footer-legal {
-    grid-area: legal;
-    display: grid;
-    gap: $space-1;
     padding-top: $space-5;
     border-top: 1px solid $color-surface;
     font-family: $font-legal;
     font-size: $fs-xs;
-}
-
-/* ---------- Tablette : liens et réseaux côte à côte ---------- */
-@include respond-to(md) {
-    .site-footer {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-areas:
-            "links social"
-            "legal legal";
-        column-gap: $space-7;
-    }
-}
-
-/* ---------- Desktop : les réseaux sociaux se calent à droite ---------- */
-@include respond-to(lg) {
-    .footer-social {
-        justify-self: end;
-    }
-
-    .footer-links ul {
-        grid-template-columns: repeat(4, max-content);
-        column-gap: $space-6;
-    }
 }
 
 /* ---------- Grand écran : aligné sur le reste du site ---------- */

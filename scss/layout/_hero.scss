@@ -2,7 +2,8 @@
 // LAYOUT / HERO
 // Mobile : l'affiche couvre tout le hero, le texte est posé en bas sur un dégradé.
 // Tablette et plus : fond = affiche floutée (pseudo-élément décoratif),
-// l'affiche nette est présentée à droite et le texte à gauche.
+// l'affiche nette est présentée à droite et le texte à gauche
+// (grille Bootstrap du HTML : .row > .col-md + .col-md-auto).
 // Empilement (isolation: isolate crée un contexte local) :
 //   -2 : image de fond / fond flouté   -1 : overlay   0 : contenu
 // ==========================================================================
@@ -12,8 +13,11 @@
 .hero {
     position: relative;
     isolation: isolate;
+    /* Colonne flex : la grille Bootstrap (.row) prend toute la largeur
+       et se pose en bas du hero sur mobile */
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
     min-height: min(85vh, 42rem);
     padding: $space-8 $gutter $space-6;
     overflow: hidden;
@@ -86,10 +90,7 @@
 /* ---------- Tablette : fond flouté + affiche nette à droite ---------- */
 @include respond-to(md) {
     .hero {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        gap: $space-7;
+        justify-content: center;           /* la grille est centrée verticalement */
         min-height: 34rem;
         padding-block: $space-8;
     }
@@ -106,21 +107,14 @@
         filter: blur(28px) brightness(0.55) saturate(1.2);
     }
 
-    /* L'affiche redevient un élément normal de la grille, dans la colonne de droite */
+    /* L'affiche redevient un élément normal, dans la colonne de droite (col-md-auto) */
     .hero-bg {
         position: static;
-        grid-column: 2;
-        grid-row: 1;
         width: clamp(13rem, 26vw, 20rem);
         height: auto;
         border-radius: $radius-md;
         box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.7);
         transform: rotate(2deg);
-    }
-
-    .hero-content {
-        grid-column: 1;
-        grid-row: 1;
     }
 
     /* Overlay : assombrit la gauche (texte) et fond le bas dans la page */
