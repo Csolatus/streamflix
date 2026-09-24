@@ -1,0 +1,16 @@
+{
+  "name": "streamflix",
+  "version": "1.0.0",
+  "description": "StreamFlix - plateforme de streaming fictive (projet fil rouge EFREI)",
+  "private": true,
+  "author": "Lucas Lanoue",
+  "scripts": {
+    "sass:build": "sass scss/style.scss css/style.css --style=compressed",
+    "sass:watch": "sass scss/style.scss css/style.css --watch",
+    "build": "npm run sass:build",
+    "dev": "npm run sass:watch"
+  },
+  "devDependencies": {
+    "sass": "^1.105.0"
+  }
+}

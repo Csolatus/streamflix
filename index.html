@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-bs-theme="dark">
 <head>
     <!-- Encodage et affichage responsive -->
     <meta charset="UTF-8">
@@ -28,10 +28,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700&amp;display=swap">
 
-    <!-- Feuille de styles -->
+    <!-- Bootstrap 5.3.8 (CDN) : chargé avant notre feuille pour que nos styles puissent le surcharger.
+         integrity (SRI) : le navigateur refuse le fichier s'il a été modifié sur le CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Feuille de styles StreamFlix (compilée depuis scss/style.scss) -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Script (defer : exécuté après le chargement du HTML) -->
+    <!-- Scripts (defer : exécutés après le chargement du HTML, dans l'ordre)
+         Bootstrap bundle = composants interactifs (collapse, dropdown, modal...) + Popper (positionnement) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" defer></script>
     <script src="js/script.js" defer></script>
 </head>
 <body>
