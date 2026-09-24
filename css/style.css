@@ -12,6 +12,7 @@
      1. Charte graphique (variables)
      2. Reset et styles de base
      3. Utilitaires d'accessibilité
+     4. Header
    ========================================================================== */
 
 
@@ -66,7 +67,7 @@
     /* Mise en page */
     --container-max: 90rem;                 /* 1440px */
     --gutter: clamp(1rem, 4vw, 3.5rem);     /* marge latérale fluide */
-    --header-height: 4rem;
+    --header-height: 0rem;                  /* header non collé sur mobile (voir section 4) */
 
     /* Formes et profondeur */
     --radius-sm: 0.25rem;
@@ -198,4 +199,296 @@ main:focus {
 
 .skip-link:focus {
     transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   4. HEADER
+   Grille qui se réorganise selon l'écran (grid-template-areas) :
+     - mobile   : logo + profil / recherche / navigation (3 lignes)
+     - tablette : logo + recherche + profil / navigation (2 lignes, collé en haut)
+     - desktop  : logo, navigation, recherche, profil sur une seule ligne
+   ========================================================================== */
+
+.site-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "logo   profile"
+        "search search"
+        "nav    nav";
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+    padding: var(--space-3) var(--gutter);
+    background-color: var(--color-bg);
+}
+
+/* La zone utilisateur "disparaît" de la grille : ses enfants (recherche, profil)
+   deviennent directement des cases de la grille du header */
+.user-area {
+    display: contents;
+}
+
+/* ---------- Logo ---------- */
+
+.logo {
+    grid-area: logo;
+    line-height: 0;
+}
+
+.logo a {
+    display: inline-block;
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.logo a:hover {
+    transform: scale(1.04);
+    opacity: 0.85;
+}
+
+.logo img {
+    width: 7.5rem;
+}
+
+/* ---------- Navigation principale ---------- */
+
+.main-nav {
+    grid-area: nav;
+}
+
+.main-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-5);
+    padding: 0;
+    list-style: none;
+}
+
+.main-nav a {
+    position: relative;
+    display: inline-block;
+    padding: var(--space-1) 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+/* Soulignement rouge animé : il se déploie de gauche à droite */
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+}
+
+.main-nav a:hover,
+.main-nav a[aria-current="page"] {
+    color: var(--color-text);
+}
+
+.main-nav a:hover::after,
+.main-nav a[aria-current="page"]::after {
+    transform: scaleX(1);
+}
+
+/* ---------- Recherche ---------- */
+
+.search-form {
+    grid-area: search;
+    display: flex;
+    gap: var(--space-2);
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 0;                           /* autorise le champ à rétrécir dans le flex */
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-surface);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.search-form input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.search-form input:hover {
+    border-color: var(--color-text-muted);
+}
+
+.search-form input:focus {
+    background-color: var(--color-bg-elevated);
+    border-color: var(--color-text);
+}
+
+.search-form button {
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-surface);
+    border: 0;
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    transition: background-color var(--transition-fast);
+}
+
+.search-form button:hover {
+    background-color: var(--color-primary);
+}
+
+/* ---------- Menu profil (details / summary) ---------- */
+
+.profile-menu {
+    grid-area: profile;
+    position: relative;                     /* repère pour le menu déroulant */
+}
+
+.profile-menu summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    list-style: none;                       /* retire le triangle natif */
+    transition: background-color var(--transition-fast);
+}
+
+/* Triangle natif sur Safari */
+.profile-menu summary::-webkit-details-marker {
+    display: none;
+}
+
+.profile-menu summary:hover {
+    background-color: var(--color-surface);
+}
+
+/* Avatar décoratif (dégradé, sans texte) */
+.profile-menu summary::before {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--color-primary), #6d0bd4);
+}
+
+/* Chevron dessiné en CSS, qui pivote à l'ouverture */
+.profile-menu summary::after {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-25%) rotate(45deg);
+    transition: transform var(--transition-base);
+}
+
+.profile-menu[open] summary::after {
+    transform: translateY(25%) rotate(-135deg);
+}
+
+.profile-menu ul {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    z-index: var(--z-header);
+    min-width: 12rem;
+    padding: var(--space-2) 0;
+    list-style: none;
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    animation: menu-in var(--transition-fast);
+}
+
+.profile-menu ul a {
+    display: block;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--fs-sm);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+}
+
+.profile-menu ul a:hover {
+    background-color: var(--color-surface);
+}
+
+/* Séparateur avant "Se déconnecter" */
+.profile-menu li:last-child {
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-surface);
+}
+
+@keyframes menu-in {
+    from {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Tablette : header collé en haut, 2 lignes ---------- */
+
+@media (min-width: 40em) {
+    :root {
+        --header-height: 7rem;              /* hauteur mesurée : 113px */
+    }
+
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-header);
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            "logo search profile"
+            "nav  nav    nav";
+        /* Fond légèrement transparent + flou : le contenu défile "sous" le header */
+        background-color: rgb(20 20 20 / 0.9);
+        backdrop-filter: blur(8px);
+    }
+
+    .search-form {
+        justify-self: end;
+        width: min(100%, 22rem);
+    }
+
+    .main-nav a {
+        font-size: var(--fs-base);
+    }
+}
+
+/* ---------- Desktop : tout sur une ligne ---------- */
+
+@media (min-width: 64em) {
+    :root {
+        --header-height: 4.25rem;           /* hauteur mesurée : 68px */
+    }
+
+    .site-header {
+        grid-template-columns: auto 1fr auto auto;
+        grid-template-areas: "logo nav search profile";
+        column-gap: var(--space-6);
+    }
+
+    .logo img {
+        width: 9rem;
+    }
+
+    .search-form {
+        width: 24rem;
+    }
 }
