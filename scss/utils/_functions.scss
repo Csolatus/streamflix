@@ -1,0 +1,11 @@
+// ==========================================================================
+// UTILS / FONCTIONS
+// ==========================================================================
+
+@use "sass:math";
+
+// Convertit des pixels en rem (base 16px) : rem(24px) => 1.5rem
+// Les rem suivent la taille de texte choisie par l'utilisateur dans son navigateur.
+@function rem($px, $base: 16px) {
+    @return math.div($px, $base) * 1rem;
+}

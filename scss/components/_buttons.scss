@@ -1,0 +1,89 @@
+// ==========================================================================
+// COMPONENTS / BOUTONS (.btn)
+// Utilisés dans le hero, les cartes de films et le formulaire.
+// ==========================================================================
+
+@use "../utils" as *;
+
+/* ---------- Boutons (.btn) : hero, cartes, formulaires ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    padding: $space-3 $space-5;
+    border: 0;
+    border-radius: $radius-sm;
+    font-size: $fs-base;
+    font-weight: $fw-bold;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color $transition-fast, transform $transition-fast;
+}
+
+.btn:hover {
+    @include hover-lift;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: $color-primary;
+    color: $color-text;
+}
+
+.btn-primary:hover {
+    background-color: $color-primary-hover;
+}
+
+.btn-secondary {
+    background-color: rgba($color-secondary, 0.7);
+    color: $color-text;
+}
+
+.btn-secondary:hover {
+    background-color: rgba($color-secondary, 0.45);
+}
+
+/* Icône "lecture" : triangle dessiné avec clip-path (décoratif, non lu),
+   uniquement sur les boutons qui lancent un film */
+.hero-actions .btn-primary::before,
+.btn-play::before {
+    content: "";
+    width: 0.8em;
+    height: 0.9em;
+    background-color: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* Icône "+" du bouton Ma Liste, remplacée par une coche quand le film est ajouté
+   (aria-pressed passera à "true" en JavaScript : le style suit l'état d'accessibilité) */
+.btn[aria-pressed]::before {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    background:
+        linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat,
+        linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat;
+    transition: transform $transition-base;
+}
+
+.btn[aria-pressed="true"]::before {
+    width: 0.45em;
+    height: 0.8em;
+    background: none;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-15%) rotate(45deg);
+}
+
+.btn-play {
+    background-color: $color-surface;
+    color: $color-text;
+}
+
+.btn-play:hover {
+    background-color: $color-primary;
+}

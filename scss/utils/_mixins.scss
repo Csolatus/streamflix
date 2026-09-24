@@ -1,0 +1,60 @@
+// ==========================================================================
+// UTILS / MIXINS
+// Blocs de déclarations réutilisés par plusieurs composants.
+// ==========================================================================
+
+@use "sass:map";
+@use "variables" as *;
+
+// Media query mobile-first à partir d'un nom de point de rupture
+// Exemple : @include respond-to(tablette) { ... }
+@mixin respond-to($breakpoint) {
+    @if not map.has-key($breakpoints, $breakpoint) {
+        @error "Point de rupture inconnu : #{$breakpoint}. Disponibles : #{map.keys($breakpoints)}";
+    }
+
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+// Masque un élément à l'écran tout en le laissant lisible par les lecteurs d'écran
+// (utilisé par .visually-hidden et par les intitulés dt des métadonnées)
+@mixin visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+// Contour de focus clavier, identique partout sur le site
+@mixin focus-ring {
+    outline: 3px solid $color-focus;
+    outline-offset: 3px;
+}
+
+// Titre en police d'affiche (Bebas Neue, qui n'existe qu'en une seule graisse)
+@mixin display-title($size) {
+    font-family: $font-display;
+    font-size: $size;
+    font-weight: $fw-regular;
+    letter-spacing: 0.03em;
+}
+
+// Sur grand écran, aligne le contenu d'une section pleine largeur
+// sur la largeur maximale du site ($container-max), centrée
+@mixin align-with-container {
+    @include respond-to(grand-ecran) {
+        padding-inline: calc((100% - $container-max) / 2 + $gutter);
+    }
+}
+
+// Léger soulèvement au survol (boutons, pastilles)
+@mixin hover-lift($distance: 2px) {
+    transform: translateY(-$distance);
+}

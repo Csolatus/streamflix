@@ -1,0 +1,250 @@
+// ==========================================================================
+// COMPONENTS / FORMULAIRE D'INSCRIPTION
+// - Champs texte : états survol / focus / valide / invalide
+// - Formules : cartes sélectionnables (le vrai bouton radio reste visible et utilisable)
+// - Genres : cases à cocher présentées en pastilles
+// Les états s'appuient sur les pseudo-classes natives (:checked, :user-invalid...),
+// donc aucun JavaScript n'est nécessaire.
+// ==========================================================================
+
+@use "../utils" as *;
+
+.signup-form {
+    display: grid;
+    gap: $space-6;
+    padding: $space-5;
+    background-color: $color-bg-elevated;
+    border: 1px solid $color-surface;
+    border-radius: $radius-md;
+}
+
+.form-note {
+    color: $color-text-muted;
+    font-size: $fs-sm;
+}
+
+/* Astérisques "obligatoire" en rouge (décoratifs, déjà masqués aux lecteurs d'écran) */
+.signup-form [aria-hidden="true"] {
+    color: $color-primary;
+}
+
+/* ---------- Groupes (fieldset) ---------- */
+.signup-form fieldset {
+    display: grid;
+    gap: $space-4;
+    min-width: 0;                           /* sinon un fieldset refuse de rétrécir sous son contenu */
+    padding: 0;
+    border: 0;
+}
+
+.signup-form legend {
+    margin-bottom: $space-3;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+}
+
+/* ---------- Champs texte ---------- */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+}
+
+.form-field label {
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+}
+
+.form-field input {
+    padding: $space-3 $space-4;
+    background-color: $color-surface;
+    border: 1px solid transparent;
+    border-radius: $radius-sm;
+    transition: border-color $transition-fast, background-color $transition-fast;
+}
+
+.form-field input:hover {
+    border-color: $color-text-muted;
+}
+
+.form-field input:focus {
+    background-color: $color-bg;
+    border-color: $color-text;
+}
+
+/* :user-invalid / :user-valid : seulement après que l'utilisateur a interagi avec le champ
+   (contrairement à :invalid, un formulaire vierge ne s'affiche pas tout en rouge) */
+.form-field input:user-invalid {
+    border-color: $color-error;
+}
+
+.form-field input:user-valid {
+    border-color: $color-success;
+}
+
+.form-hint {
+    color: $color-text-muted;
+    font-size: $fs-xs;
+}
+
+/* ---------- Cases et boutons radio (commun) ---------- */
+.form-choice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+}
+
+.form-choice input {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: $color-primary;     /* couleur des cases cochées natives */
+    cursor: pointer;
+}
+
+.form-choice label {
+    cursor: pointer;
+}
+
+.form-choice label a {
+    text-decoration-color: $color-primary;
+    transition: text-decoration-thickness $transition-fast;
+}
+
+.form-choice label a:hover {
+    text-decoration-thickness: 3px;
+}
+
+/* ---------- Formules : cartes sélectionnables ---------- */
+/* Le bouton radio reste le vrai contrôle (clavier, lecteur d'écran) ;
+   il est simplement posé à l'intérieur de la carte formée par son label */
+.plan-options .form-choice input {
+    position: absolute;
+    left: $space-4;
+}
+
+.plan-options .form-choice label {
+    flex: 1;
+    padding: $space-4 $space-4 $space-4 calc($space-4 * 2 + 1.15rem);
+    border: 1px solid $color-surface;
+    border-radius: $radius-md;
+    transition: border-color $transition-fast, background-color $transition-fast;
+}
+
+.plan-options .form-choice label:hover {
+    border-color: $color-text-muted;
+}
+
+/* Contenu de la carte : nom, détails, prix sur 3 lignes */
+.plan-options .form-choice label {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+}
+
+.plan-name {
+    @include display-title($fs-xl);
+    line-height: 1;
+}
+
+.plan-details {
+    color: $color-text-muted;
+    font-size: $fs-sm;
+}
+
+.plan-price {
+    font-weight: $fw-bold;
+    white-space: nowrap;                    /* "8,99 €/mois" ne se coupe jamais */
+}
+
+/* input:checked + label : le label suit directement le radio dans le HTML */
+.plan-options input:checked + label {
+    background-color: rgba($color-primary, 0.12);
+    border-color: $color-primary;
+}
+
+/* ---------- Genres : pastilles ---------- */
+.genre-options {
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: $space-2;
+}
+
+/* La case reste focusable et lisible par les lecteurs d'écran, mais invisible :
+   c'est la pastille (le label) qui montre son état */
+.genre-options .form-choice input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.genre-options .form-choice label {
+    flex: 1;
+    padding: $space-2 $space-3;
+    border: 1px solid $color-surface;
+    border-radius: $radius-pill;
+    font-size: $fs-sm;
+    text-align: center;
+    transition: border-color $transition-fast, background-color $transition-fast;
+}
+
+.genre-options .form-choice:hover label {
+    border-color: $color-text-muted;
+}
+
+.genre-options input:checked + label {
+    background-color: $color-primary;
+    border-color: $color-primary;
+}
+
+/* La case étant invisible, le contour de focus est reporté sur la pastille */
+.genre-options input:focus-visible + label {
+    @include focus-ring;
+}
+
+/* Conditions + newsletter : deux cases consécutives, rapprochées l'une de l'autre
+   (l'espacement du formulaire est prévu pour séparer de grands groupes) */
+.signup-form > .form-choice + .form-choice {
+    margin-top: calc($space-6 * -1 + $space-3);
+}
+
+/* ---------- Bouton d'envoi ---------- */
+.signup-form [type="submit"] {
+    width: 100%;
+    padding-block: $space-4;
+    font-size: $fs-lg;
+}
+
+/* ---------- Tablette : champs sur 2 colonnes, formules côte à côte ---------- */
+@include respond-to(tablette) {
+    .signup-form {
+        padding: $space-7;
+    }
+
+    .info-fields {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: $space-5;
+    }
+
+    .plan-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Le radio passe en haut de la carte, le texte en dessous */
+    .plan-options .form-choice input {
+        top: $space-4;
+    }
+
+    .plan-options .form-choice label {
+        height: 100%;
+        padding: calc($space-4 * 2 + 1.15rem) $space-4 $space-4;
+    }
+
+    .signup-form [type="submit"] {
+        justify-self: start;
+        width: auto;
+        padding-inline: $space-7;
+    }
+}

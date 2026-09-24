@@ -1,0 +1,112 @@
+// ==========================================================================
+// UTILS / VARIABLES
+// Charte graphique StreamFlix : toutes les valeurs de design sont définies ici.
+// Ce fichier ne produit aucun CSS (il est seulement lu par les autres partials).
+//
+// Deux niveaux :
+//   1. la palette et la typographie de la charte StreamFlix (valeurs brutes) ;
+//   2. des variables "sémantiques" ($color-primary, $fs-base...) qui décrivent
+//      un rôle et pointent vers la palette. Les partials n'utilisent que ce 2e niveau :
+//      changer une couleur de la charte se fait ici, en un seul endroit.
+// ==========================================================================
+
+@use "functions" as *;
+
+// ==========================================================================
+// 1. CHARTE STREAMFLIX
+// ==========================================================================
+
+// ---------- Palette ----------
+$primary-red: #e50914;
+$primary-dark: #221f1f;
+$secondary-gray: #564d4d;
+$text-light: #ffffff;
+$text-muted: #999999;
+$accent-blue: #0071eb;
+
+// ---------- Typographie ----------
+// "Netflix Sans" est une police propriétaire (non disponible) : le navigateur passe
+// à "Inter" (chargée depuis Google Fonts), ce qui conserve le rendu du site.
+$font-primary: "Netflix Sans", "Inter", "Helvetica Neue", sans-serif;
+$font-secondary: "Arial", sans-serif;
+$font-size-base: 16px;
+$font-size-large: 24px;
+$font-size-small: 14px;
+
+
+// ==========================================================================
+// 2. VARIABLES SÉMANTIQUES (utilisées par les partials)
+// Contrastes vérifiés (WCAG AA, 4.5:1 minimum pour du texte) :
+//   $color-text-muted : 6.5:1 sur la page, 5.7:1 sur les cartes, 5:1 sur les champs
+//   texte blanc sur $color-primary : 4.8:1 - sur $color-accent : 4.6:1
+// ==========================================================================
+
+// ---------- Couleurs ----------
+$color-bg: #141414;                        // fond de page, plus sombre que $primary-dark
+$color-bg-elevated: $primary-dark;         // cartes, menus déroulants, formulaire
+$color-surface: #2b2b2b;                   // champs de formulaire, bordures
+$color-text: $text-light;
+$color-text-muted: $text-muted;
+$color-primary: $primary-red;
+$color-primary-hover: #b20710;
+$color-secondary: $secondary-gray;         // boutons secondaires
+$color-accent: $accent-blue;               // fond des badges d'information (texte blanc)
+$color-rating: #f5c518;                    // étoiles / notes
+$color-error: #ff6b6b;
+$color-success: #46d369;
+$color-focus: #ffffff;
+
+// ---------- Typographie ----------
+$font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;   // titres, style affiche
+$font-body: $font-primary;
+$font-legal: $font-secondary;              // mentions légales
+
+// Tailles de texte fluides : clamp(minimum, valeur idéale, maximum)
+$fs-xs: 0.75rem;
+$fs-sm: rem($font-size-small);           // 0.875rem
+$fs-base: rem($font-size-base);          // 1rem
+$fs-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+$fs-xl: clamp(rem($font-size-large), 1.2rem + 1.2vw, 2rem);   // de 24px à 32px
+$fs-2xl: clamp(2rem, 1.5rem + 2vw, 3rem);
+$fs-hero: clamp(3rem, 2rem + 6vw, 6rem);
+
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-bold: 700;
+$lh-tight: 1.1;
+$lh-base: 1.6;
+
+// ---------- Espacements : échelle basée sur 0.25rem (4px) ----------
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.5rem;
+$space-6: 2rem;
+$space-7: 3rem;
+$space-8: 4rem;
+
+// ---------- Mise en page ----------
+$container-max: 90rem;                     // 1440px
+$gutter: clamp(1rem, 4vw, 3.5rem);         // marge latérale fluide
+
+// Points de rupture (mobile-first : min-width), utilisés par le mixin respond-to()
+$breakpoints: (
+    "tablette": 40em,                      // 640px
+    "desktop": 64em,                       // 1024px
+    "grand-ecran": 90em,                   // 1440px
+);
+
+// ---------- Formes et profondeur ----------
+$radius-sm: 0.25rem;
+$radius-md: 0.5rem;
+$radius-pill: 999px;
+$shadow-card: 0 0.5rem 1.5rem rgb(0 0 0 / 0.5);
+
+// ---------- Animations : durées courtes pour rester fluide ----------
+$transition-fast: 150ms ease;
+$transition-base: 300ms ease;
+
+// ---------- Superpositions ----------
+$z-header: 100;
+$z-skip-link: 1000;

@@ -1,0 +1,28 @@
+// ==========================================================================
+// BASE / TYPOGRAPHIE
+// Police, taille et couleur du texte courant, titres et liens.
+// ==========================================================================
+
+@use "../utils" as *;
+
+body {
+    min-height: 100vh;
+    background-color: $color-bg;
+    color: $color-text;
+    font-family: $font-body;
+    font-size: $fs-base;
+    line-height: $lh-base;
+}
+
+h1,
+h2,
+h3 {
+    line-height: $lh-tight;
+    font-weight: $fw-bold;
+}
+
+a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}

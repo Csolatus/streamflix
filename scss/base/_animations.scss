@@ -1,0 +1,92 @@
+// ==========================================================================
+// BASE / ANIMATIONS
+// Performance : on n'anime que transform et opacity. Le navigateur les calcule
+// sur la carte graphique, sans recalculer la mise en page : l'animation reste fluide.
+// animation-fill-mode "both" : l'élément garde l'état de départ pendant son délai,
+// puis l'état d'arrivée une fois l'animation terminée.
+// En fin de fichier : respect de la préférence système "réduire les animations".
+// ==========================================================================
+
+@use "../utils" as *;
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(1.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoom-out {
+    from {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* L'affiche arrive de la droite et se pose avec sa légère inclinaison (2deg) */
+@keyframes poster-in {
+    from {
+        opacity: 0;
+        transform: translateX(3rem) rotate(8deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(2deg);
+    }
+}
+
+/* ---------- Hero : le texte apparaît en cascade (staggered animation) ---------- */
+.hero-content > * {
+    animation: fade-up 700ms ease-out both;
+}
+
+.hero-content > :nth-child(1) { animation-delay: 100ms; }
+
+.hero-content > :nth-child(2) { animation-delay: 200ms; }
+
+.hero-content > :nth-child(3) { animation-delay: 300ms; }
+
+.hero-content > :nth-child(4) { animation-delay: 400ms; }
+
+.hero-content > :nth-child(5) { animation-delay: 500ms; }
+
+/* Mobile : l'image de fond "recule" doucement en apparaissant */
+.hero-bg {
+    animation: zoom-out 1200ms ease-out both;
+}
+
+@include respond-to(tablette) {
+    .hero-bg {
+        animation: poster-in 900ms 300ms ease-out both;
+    }
+}
+
+/* ---------- Cartes de films : apparition en cascade ---------- */
+.film-grid > li {
+    animation: fade-up 600ms ease-out both;
+}
+
+.film-grid > li:nth-child(2) { animation-delay: 100ms; }
+
+.film-grid > li:nth-child(3) { animation-delay: 200ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+}

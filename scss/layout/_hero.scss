@@ -1,0 +1,137 @@
+// ==========================================================================
+// LAYOUT / HERO
+// Mobile : l'affiche couvre tout le hero, le texte est posé en bas sur un dégradé.
+// Tablette et plus : fond = affiche floutée (pseudo-élément décoratif),
+// l'affiche nette est présentée à droite et le texte à gauche.
+// Empilement (isolation: isolate crée un contexte local) :
+//   -2 : image de fond / fond flouté   -1 : overlay   0 : contenu
+// ==========================================================================
+
+@use "../utils" as *;
+
+.hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(85vh, 42rem);
+    padding: $space-8 $gutter $space-6;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;            /* garde la ville repliée, haut de l'affiche */
+}
+
+/* Overlay : dégradé du bas vers le haut pour que le texte reste lisible */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top,
+        $color-bg 0%,
+        rgba($color-bg, 0.85) 40%,
+        rgba($color-bg, 0.2) 75%,
+        transparent 100%);
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-4;
+    max-width: 38rem;
+}
+
+/* Badge "Film à la une" : texte blanc sur rouge (le rouge seul sur fond sombre manque de contraste) */
+.hero-label {
+    padding: $space-1 $space-3;
+    background-color: $color-primary;
+    border-radius: $radius-sm;
+    font-size: $fs-xs;
+    font-weight: $fw-bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hero h2 {
+    @include display-title($fs-hero);
+    line-height: 0.9;
+    text-shadow: 0 0.25rem 1.5rem rgb(0 0 0 / 0.6);
+}
+
+.hero .film-meta {
+    font-size: $fs-base;
+}
+
+.hero-description {
+    max-width: 60ch;
+    color: rgba($color-text, 0.9);
+    font-size: $fs-lg;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+    margin-top: $space-2;
+}
+
+/* ---------- Tablette : fond flouté + affiche nette à droite ---------- */
+@include respond-to(tablette) {
+    .hero {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: $space-7;
+        min-height: 34rem;
+        padding-block: $space-8;
+    }
+
+    /* Fond d'ambiance : l'affiche agrandie et floutée. Décorative, donc en CSS
+    (l'image informative reste la vraie balise img, avec son alt).
+    inset négatif : évite les bords transparents créés par le flou */
+    .hero::before {
+        content: "";
+        position: absolute;
+        inset: -3rem;
+        z-index: -2;
+        background: url("../images/hero-bg.jpg") center 30% / cover no-repeat;
+        filter: blur(28px) brightness(0.55) saturate(1.2);
+    }
+
+    /* L'affiche redevient un élément normal de la grille, dans la colonne de droite */
+    .hero-bg {
+        position: static;
+        grid-column: 2;
+        grid-row: 1;
+        width: clamp(13rem, 26vw, 20rem);
+        height: auto;
+        border-radius: $radius-md;
+        box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.7);
+        transform: rotate(2deg);
+    }
+
+    .hero-content {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    /* Overlay : assombrit la gauche (texte) et fond le bas dans la page */
+    .hero-overlay {
+        background:
+            linear-gradient(to top, $color-bg 0%, transparent 25%),
+            linear-gradient(to right, rgba($color-bg, 0.9) 0%, rgba($color-bg, 0.4) 100%);
+    }
+}
+
+/* ---------- Grand écran : contenu aligné sur la largeur max du site ---------- */
+.hero {
+    @include align-with-container;
+}

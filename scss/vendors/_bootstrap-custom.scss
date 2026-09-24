@@ -1,0 +1,19 @@
+// ==========================================================================
+// VENDORS / BOOTSTRAP (personnalisation)
+// Bootstrap 5.3.8 est chargé par CDN dans index.html, avant notre feuille :
+// nos règles peuvent donc le surcharger. Ce fichier regroupe les ajustements
+// liés à Bootstrap (et accueillera ses variables personnalisées --bs-*).
+// ==========================================================================
+
+/* Le "reboot" de Bootstrap ajoute des marges basses aux titres, paragraphes et listes.
+   Ses sélecteurs de balise (h2, p...) sont plus spécifiques que *, on les neutralise ici :
+   les espacements sont gérés composant par composant. */
+h1, h2, h3, h4, h5, h6,
+p, ul, ol, dl, dd, figure {
+    margin: 0;
+}
+
+/* Bootstrap fait flotter les legend : on garde le comportement natif */
+legend {
+    float: none;
+}

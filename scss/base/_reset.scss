@@ -1,0 +1,48 @@
+// ==========================================================================
+// BASE / RESET
+// Remise à zéro commune à tous les navigateurs, en complément du reboot de Bootstrap.
+// ==========================================================================
+
+@use "../utils" as *;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html {
+    /* Défilement doux vers les ancres, décalé pour ne pas passer sous le header fixe */
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + $space-4);
+    text-size-adjust: 100%;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Les contrôles de formulaire n'héritent pas de la police par défaut */
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+button,
+summary {
+    cursor: pointer;
+}
+
+/* Le main reçoit le focus via le lien d'évitement : pas de contour sur toute la zone */
+main:focus {
+    outline: none;
+}

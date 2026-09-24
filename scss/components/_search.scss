@@ -1,0 +1,62 @@
+// ==========================================================================
+// COMPONENTS / RECHERCHE (formulaire du header)
+// ==========================================================================
+
+@use "../utils" as *;
+
+/* ---------- Recherche ---------- */
+.search-form {
+    grid-area: search;
+    display: flex;
+    gap: $space-2;
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 0;                           /* autorise le champ à rétrécir dans le flex */
+    padding: $space-2 $space-4;
+    background-color: $color-surface;
+    border: 1px solid transparent;
+    border-radius: $radius-pill;
+    transition: border-color $transition-fast, background-color $transition-fast;
+}
+
+.search-form input::placeholder {
+    color: $color-text-muted;
+}
+
+.search-form input:hover {
+    border-color: $color-text-muted;
+}
+
+.search-form input:focus {
+    background-color: $color-bg-elevated;
+    border-color: $color-text;
+}
+
+.search-form button {
+    padding: $space-2 $space-4;
+    background-color: $color-surface;
+    border: 0;
+    border-radius: $radius-pill;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    transition: background-color $transition-fast;
+}
+
+.search-form button:hover {
+    background-color: $color-primary;
+}
+
+@include respond-to(tablette) {
+    .search-form {
+        justify-self: end;
+        width: min(100%, 22rem);
+    }
+}
+
+@include respond-to(desktop) {
+    .search-form {
+        width: 24rem;
+    }
+}

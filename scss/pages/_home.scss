@@ -1,0 +1,101 @@
+// ==========================================================================
+// PAGES / ACCUEIL
+// Mise en page propre à la page d'accueil : sections de films et section d'inscription.
+// Grilles de films - mobile : carrousel horizontal (défilement au doigt, aimanté sur
+// les cartes grâce à scroll-snap). Tablette et plus : grille CSS Grid adaptative
+// (auto-fill + minmax) : le nombre de colonnes s'ajuste tout seul à la largeur.
+// ==========================================================================
+
+@use "../utils" as *;
+
+.film-section {
+    padding: $space-6 $gutter 0;
+}
+
+.film-section h2 {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-4;
+    @include display-title($fs-2xl);
+}
+
+/* Barre rouge décorative devant chaque titre de section */
+.film-section h2::before {
+    content: "";
+    width: 0.3rem;
+    height: 0.8em;
+    background-color: $color-primary;
+    border-radius: $radius-pill;
+}
+
+/* ---------- Mobile : carrousel horizontal ---------- */
+.film-grid {
+    display: grid;
+    grid-auto-flow: column;                 /* les cartes s'alignent sur une seule ligne */
+    grid-auto-columns: minmax(9.5rem, 44%); /* ~2 cartes visibles : on devine qu'il y a une suite */
+    gap: $space-3;
+    /* Le carrousel déborde jusqu'aux bords de l'écran, en gardant l'alignement du texte */
+    margin-inline: calc($gutter * -1);
+    padding: $space-2 $gutter $space-4;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: $gutter;
+    scrollbar-width: thin;
+    scrollbar-color: $color-surface transparent;
+}
+
+.film-grid > li {
+    scroll-snap-align: start;
+}
+
+/* ---------- Tablette : grille adaptative ---------- */
+@include respond-to(tablette) {
+    .film-section {
+        padding-top: $space-7;
+    }
+
+    .film-grid {
+        grid-auto-flow: row;
+        grid-auto-columns: auto;
+        /* Autant de colonnes de 12rem minimum que la largeur le permet */
+        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+        gap: $space-5;
+        margin-inline: 0;
+        padding-inline: 0;
+        overflow: visible;
+    }
+}
+
+/* ---------- Desktop : cartes un peu plus larges ---------- */
+@include respond-to(desktop) {
+    .film-grid {
+        grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    }
+}
+
+/* ---------- Grand écran : aligné sur le hero ---------- */
+.film-section {
+    @include align-with-container;
+}
+
+.signup {
+    padding: $space-8 $gutter;
+}
+
+/* Colonne centrée, largeur confortable pour un formulaire */
+.signup > * {
+    max-width: 46rem;
+    margin-inline: auto;
+}
+
+.signup h2 {
+    @include display-title($fs-2xl);
+}
+
+.signup h2 + p {
+    margin-top: $space-2;
+    margin-bottom: $space-5;
+    color: $color-text-muted;
+}

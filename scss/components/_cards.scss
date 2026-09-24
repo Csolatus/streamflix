@@ -1,0 +1,103 @@
+// ==========================================================================
+// COMPONENTS / CARTES DE FILMS (.film-card)
+// ==========================================================================
+
+@use "../utils" as *;
+
+/* ---------- Carte de film ---------- */
+.film-card {
+    position: relative;                     /* repère pour le lien étiré (voir plus bas) */
+    display: flex;
+    flex-direction: column;
+    height: 100%;                           /* toutes les cartes d'une ligne ont la même hauteur */
+    overflow: hidden;
+    background-color: $color-bg-elevated;
+    border-radius: $radius-md;
+    transition: transform $transition-base, box-shadow $transition-base;
+}
+
+.film-card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;                    /* format affiche, même si les images n'ont pas les mêmes proportions */
+    object-fit: cover;
+    transition: filter $transition-base;
+}
+
+.film-card h3 {
+    padding: $space-3 $space-3 $space-1;
+    font-size: $fs-base;
+}
+
+.film-card h3 a {
+    text-decoration: none;
+}
+
+/* Lien étiré : le ::after du lien du titre recouvre toute la carte,
+   donc un clic n'importe où sur la carte ouvre la fiche du film.
+   Un seul lien dans le HTML : pas de doublon pour le clavier ni les lecteurs d'écran. */
+.film-card h3 a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.film-card .film-meta {
+    gap: $space-2;
+    padding: 0 $space-3;
+    font-size: $fs-xs;
+}
+
+/* Dans les cartes étroites, les points séparateurs risqueraient de se retrouver en début
+   de ligne quand le texte passe à la ligne : on les remplace par des pastilles */
+.film-card .film-meta dd + dt + dd::before {
+    display: none;
+}
+
+.film-card .film-meta dd {
+    gap: $space-1;
+    padding: 0.1rem $space-2;
+    background-color: $color-surface;
+    border-radius: $radius-sm;
+}
+
+.film-card .film-meta dd:nth-of-type(3)::after {
+    margin-left: 0;
+}
+
+/* Genres : sur leur propre ligne, sans pastille */
+.film-card .film-meta dd:nth-of-type(4) {
+    flex-basis: 100%;
+    padding: 0;
+    background: none;
+}
+
+/* Le bouton Lecture passe au-dessus du lien étiré pour rester cliquable */
+.film-card .btn {
+    position: relative;
+    z-index: 1;
+    margin: auto $space-3 $space-3;  /* margin-top auto : bouton collé en bas de la carte */
+    padding: $space-2 $space-3;
+    font-size: $fs-sm;
+}
+
+/* ---------- Survol et focus clavier ----------
+   :focus-within applique le même effet quand on arrive sur la carte au clavier.
+   @media (hover: hover) : pas d'effet de survol "collé" sur les écrans tactiles. */
+.film-card:focus-within {
+    box-shadow: 0 0 0 2px $color-text, $shadow-card;
+}
+
+@media (hover: hover) {
+    .film-card:hover {
+        transform: translateY(-0.4rem) scale(1.03);
+        box-shadow: $shadow-card;
+    }
+
+    .film-card:hover img {
+        filter: brightness(1.1) saturate(1.1);
+    }
+
+    .film-card:hover h3 a {
+        text-decoration: underline;
+    }
+}

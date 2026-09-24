@@ -1,0 +1,119 @@
+// ==========================================================================
+// LAYOUT / FOOTER
+// Mobile : blocs empilés.
+// Tablette et plus : grille à 2 colonnes (liens | réseaux sociaux),
+// mentions légales sur toute la largeur en dessous.
+// ==========================================================================
+
+@use "../utils" as *;
+
+.site-footer {
+    display: grid;
+    grid-template-areas:
+        "links"
+        "social"
+        "legal";
+    gap: $space-6;
+    padding: $space-7 $gutter $space-6;
+    border-top: 1px solid $color-surface;
+    color: $color-text-muted;
+    font-size: $fs-sm;
+}
+
+.site-footer h2 {
+    margin-bottom: $space-3;
+    color: $color-text;
+    font-size: $fs-base;
+}
+
+.site-footer ul {
+    padding: 0;
+    list-style: none;
+}
+
+/* ---------- Liens utiles : 2 colonnes dès le mobile ---------- */
+.footer-links {
+    grid-area: links;
+}
+
+.footer-links ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $space-2 $space-4;
+}
+
+.footer-links a {
+    text-decoration: none;
+    transition: color $transition-fast;
+}
+
+.footer-links a:hover {
+    color: $color-text;
+    text-decoration: underline;
+}
+
+/* ---------- Réseaux sociaux : pastilles ---------- */
+.footer-social {
+    grid-area: social;
+}
+
+.footer-social ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+}
+
+.footer-social a {
+    display: inline-block;
+    padding: $space-2 $space-4;
+    border: 1px solid $color-surface;
+    border-radius: $radius-pill;
+    color: $color-text;
+    text-decoration: none;
+    transition: background-color $transition-fast, border-color $transition-fast, transform $transition-fast;
+}
+
+.footer-social a:hover {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    @include hover-lift;
+}
+
+/* ---------- Mentions légales ---------- */
+.footer-legal {
+    grid-area: legal;
+    display: grid;
+    gap: $space-1;
+    padding-top: $space-5;
+    border-top: 1px solid $color-surface;
+    font-family: $font-legal;
+    font-size: $fs-xs;
+}
+
+/* ---------- Tablette : liens et réseaux côte à côte ---------- */
+@include respond-to(tablette) {
+    .site-footer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "links social"
+            "legal legal";
+        column-gap: $space-7;
+    }
+}
+
+/* ---------- Desktop : les réseaux sociaux se calent à droite ---------- */
+@include respond-to(desktop) {
+    .footer-social {
+        justify-self: end;
+    }
+
+    .footer-links ul {
+        grid-template-columns: repeat(4, max-content);
+        column-gap: $space-6;
+    }
+}
+
+/* ---------- Grand écran : aligné sur le reste du site ---------- */
+.site-footer {
+    @include align-with-container;
+}
