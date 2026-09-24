@@ -153,3 +153,122 @@ searchForm.addEventListener('submit', function (event) {
 
     searchStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
+
+
+// ===================================
+// EXERCICE 5 : Modal
+// ===================================
+// Clic sur une carte (ou sur "Plus d'infos" du hero) -> la fenêtre de détails s'ouvre
+// avec les informations du film cliqué.
+// - Titre, affiche et métadonnées sont lus dans la carte cliquée (le DOM).
+// - Synopsis, réalisation et casting ne figurent pas dans les cartes :
+//   ils sont rangés ici, une fiche par titre.
+// - La fenêtre est le modal Bootstrap #film-modal : on l'ouvre et on le ferme
+//   avec son API (show / hide). Bootstrap gère Échap, le clic à l'extérieur
+//   et garde le focus clavier dans la fenêtre tant qu'elle est ouverte.
+
+const FILM_DETAILS = {
+    'The Dark Knight': {
+        synopsis: "Batman s'allie au commissaire Gordon et au procureur Harvey Dent pour démanteler le crime organisé à Gotham, jusqu'à l'arrivée du Joker, un criminel qui ne cherche qu'à semer le chaos.",
+        director: 'Christopher Nolan',
+        cast: 'Christian Bale, Heath Ledger, Aaron Eckhart, Gary Oldman'
+    },
+    'Interstellar': {
+        synopsis: "Alors que la Terre devient inhabitable, un ancien pilote part avec une équipe d'explorateurs à travers un trou de ver, à la recherche d'une nouvelle planète pour l'humanité.",
+        director: 'Christopher Nolan',
+        cast: 'Matthew McConaughey, Anne Hathaway, Jessica Chastain, Michael Caine'
+    },
+    'Pulp Fiction': {
+        synopsis: "Deux tueurs à gages, un boxeur, la femme d'un gangster et un couple de braqueurs : leurs histoires s'entrecroisent à Los Angeles, dans un récit volontairement désordonné.",
+        director: 'Quentin Tarantino',
+        cast: 'John Travolta, Samuel L. Jackson, Uma Thurman, Bruce Willis'
+    },
+    'Inception': {
+        synopsis: "Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.",
+        director: 'Christopher Nolan',
+        cast: 'Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy'
+    },
+    'The Matrix': {
+        synopsis: "Un pirate informatique découvre que le monde qu'il connaît n'est qu'une simulation créée par des machines, et rejoint la résistance qui tente de libérer l'humanité.",
+        director: 'Lana et Lilly Wachowski',
+        cast: 'Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving'
+    },
+    'Forrest Gump': {
+        synopsis: "Assis sur un banc, un homme simple au grand cœur raconte sa vie hors du commun, traversée par les grands événements de l'histoire américaine.",
+        director: 'Robert Zemeckis',
+        cast: 'Tom Hanks, Robin Wright, Gary Sinise, Sally Field'
+    }
+};
+
+const modalElement = document.querySelector('#film-modal');
+const filmModal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+// Élément qui a ouvert la fenêtre : il retrouvera le focus à la fermeture
+let modalTrigger = null;
+
+// source : l'élément qui contient les infos du film (une carte, ou le hero)
+// trigger : l'élément cliqué (lien de la carte, bouton du hero)
+function openModal(source, trigger) {
+    const title = source.querySelector('h2, h3').textContent.trim();
+    const poster = source.querySelector('img');
+    const details = FILM_DETAILS[title];
+
+    document.querySelector('#film-modal-title').textContent = title;
+    document.querySelector('#film-modal-play-label').textContent = ' : ' + title;
+
+    const modalPoster = document.querySelector('#film-modal-poster');
+    modalPoster.src = poster.getAttribute('src');
+    modalPoster.width = poster.getAttribute('width');
+    modalPoster.height = poster.getAttribute('height');
+    modalPoster.alt = 'Affiche du film ' + title;
+
+    // Copie des métadonnées de la carte (année, durée, note, genres) :
+    // cloneNode(true) duplique l'élément avec tout son contenu,
+    // replaceChildren() remplace l'ancien contenu de la fenêtre par cette copie
+    const meta = source.querySelector('.film-meta');
+    document.querySelector('#film-modal-meta').replaceChildren(meta.cloneNode(true));
+
+    // textContent (et non innerHTML) : le texte est inséré tel quel, jamais interprété comme du HTML
+    if (details) {
+        document.querySelector('#film-modal-synopsis').textContent = details.synopsis;
+        document.querySelector('#film-modal-director').textContent = details.director;
+        document.querySelector('#film-modal-cast').textContent = details.cast;
+    }
+
+    modalTrigger = trigger;
+    filmModal.show();
+}
+
+function closeModal() {
+    filmModal.hide();
+}
+
+// Cartes de films : le lien du titre couvre toute la carte (.stretched-link).
+// preventDefault() : on ouvre la fenêtre au lieu de suivre le lien vers la fiche du film.
+// Au clavier, la touche Entrée sur le lien déclenche aussi cet événement "click".
+document.querySelectorAll('.film-card .stretched-link').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+        event.preventDefault();
+        openModal(link.closest('.film-card'), link);
+    });
+});
+
+// Bouton "Plus d'infos" du hero : même fenêtre, avec les infos du film vedette
+const moreInfoButton = document.querySelector('.btn-more-info');
+moreInfoButton.addEventListener('click', function () {
+    openModal(document.querySelector('.hero'), moreInfoButton);
+});
+
+// Croix et bouton "Fermer"
+document.querySelectorAll('.modal-close').forEach(function (button) {
+    button.addEventListener('click', closeModal);
+});
+
+// Une fois la fenêtre refermée (croix, Fermer, Échap ou clic à l'extérieur),
+// le focus revient sur l'élément qui l'avait ouverte : l'utilisateur au clavier
+// reprend là où il en était.
+modalElement.addEventListener('hidden.bs.modal', function () {
+    if (modalTrigger) {
+        modalTrigger.focus();
+    }
+});

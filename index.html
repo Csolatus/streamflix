@@ -151,9 +151,8 @@
                         <button type="button" class="btn btn-primary">
                             Lecture<span class="visually-hidden"> d'Inception</span>
                         </button>
-                        <!-- Ouvre la fenêtre de détails (modal Bootstrap, voir fin de page) -->
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#film-modal"
-                                aria-haspopup="dialog">
+                        <!-- Ouvre la fenêtre de détails (openModal dans le script, exercice 5) -->
+                        <button type="button" class="btn btn-secondary btn-more-info" aria-haspopup="dialog">
                             Plus d'infos<span class="visually-hidden"> sur Inception</span>
                         </button>
                         <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
@@ -202,7 +201,7 @@
                         <img class="card-img-top" src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
                              width="676" height="1000" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/dark-knight.html">The Dark Knight</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/dark-knight.html">The Dark Knight</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="2008">2008</time></dd>
@@ -237,7 +236,7 @@
                         <img class="card-img-top" src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
                              width="455" height="674" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/interstellar.html">Interstellar</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/interstellar.html">Interstellar</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="2014">2014</time></dd>
@@ -271,7 +270,7 @@
                         <img class="card-img-top" src="images/films/pulp-fiction.jpg" alt="Affiche du film Pulp Fiction"
                              width="375" height="533" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/pulp-fiction.html">Pulp Fiction</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/pulp-fiction.html">Pulp Fiction</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="1994">1994</time></dd>
@@ -319,7 +318,7 @@
                         <img class="card-img-top" src="images/films/inception.jpg" alt="Affiche du film Inception"
                              width="365" height="547" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/inception.html">Inception</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/inception.html">Inception</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="2010">2010</time></dd>
@@ -353,7 +352,7 @@
                         <img class="card-img-top" src="images/films/matrix.jpg" alt="Affiche du film The Matrix"
                              width="665" height="1000" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/matrix.html">The Matrix</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/matrix.html">The Matrix</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="1999">1999</time></dd>
@@ -387,7 +386,7 @@
                         <img class="card-img-top" src="images/films/forrest-gump.jpg" alt="Affiche du film Forrest Gump"
                              width="867" height="1300" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/forrest-gump.html">Forrest Gump</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/forrest-gump.html">Forrest Gump</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="1994">1994</time></dd>
@@ -435,7 +434,7 @@
                         <img class="card-img-top" src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
                              width="455" height="674" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/interstellar.html">Interstellar</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/interstellar.html">Interstellar</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="2014">2014</time></dd>
@@ -469,7 +468,7 @@
                         <img class="card-img-top" src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
                              width="676" height="1000" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/dark-knight.html">The Dark Knight</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/dark-knight.html">The Dark Knight</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="2008">2008</time></dd>
@@ -504,7 +503,7 @@
                         <img class="card-img-top" src="images/films/inception.jpg" alt="Affiche du film Inception"
                              width="365" height="547" loading="lazy">
                         <div class="card-body d-flex flex-column gap-2">
-                            <h3 class="card-title"><a class="stretched-link" href="films/inception.html">Inception</a></h3>
+                            <h3 class="card-title"><a class="stretched-link" aria-haspopup="dialog" href="films/inception.html">Inception</a></h3>
                             <dl class="film-meta">
                                 <dt>Année</dt>
                                 <dd><time datetime="2010">2010</time></dd>
@@ -729,51 +728,56 @@
 
     </footer>
 
-    <!-- ========== MODAL : détails du film vedette ==========
-         Composant Bootstrap : ouvert par le bouton "Plus d'infos" du hero.
-         Bootstrap gère le focus (placé dans la fenêtre à l'ouverture, rendu au bouton à la fermeture),
-         la touche Échap et aria-modal. aria-labelledby : la fenêtre est annoncée par son titre. -->
+    <!-- ========== MODAL : détails d'un film (exercice 5) ==========
+         Composant Bootstrap, ouvert par le JavaScript (openModal) au clic sur une carte
+         ou sur "Plus d'infos" du hero. Le contenu ci-dessous (Inception) est une valeur de départ :
+         le script remplace titre, affiche, métadonnées et détails selon le film cliqué.
+         Bootstrap gère le piège à focus, la touche Échap et aria-modal ;
+         aria-labelledby : la fenêtre est annoncée par son titre. -->
     <div class="modal fade film-modal" id="film-modal" tabindex="-1" role="dialog" aria-labelledby="film-modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <h2 class="modal-title" id="film-modal-title">Inception</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close modal-close" aria-label="Fermer"></button>
                 </div>
 
                 <div class="modal-body">
                     <div class="row g-4">
                         <div class="col-6 col-md-4">
-                            <img src="images/films/inception.jpg" class="img-fluid rounded" alt="Affiche du film Inception"
+                            <img id="film-modal-poster" src="images/films/inception.jpg" class="img-fluid rounded" alt="Affiche du film Inception"
                                  width="365" height="547" loading="lazy">
                         </div>
                         <div class="col-md-8">
-                            <dl class="film-meta mb-3">
-                                <dt>Année</dt>
-                                <dd><time datetime="2010">2010</time></dd>
-                                <dt>Durée</dt>
-                                <dd><time datetime="PT2H28M">2h28</time></dd>
-                                <dt>Note</dt>
-                                <dd>4.5/5</dd>
-                                <dt>Genres</dt>
-                                <dd>
-                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
-                                        <li class="badge rounded-pill">Sci-Fi</li>
-                                        <li class="badge rounded-pill">Thriller</li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                            <p class="mb-4">
+                            <!-- Métadonnées : copie de celles de la carte cliquée -->
+                            <div id="film-modal-meta" class="mb-3">
+                                <dl class="film-meta">
+                                    <dt>Année</dt>
+                                    <dd><time datetime="2010">2010</time></dd>
+                                    <dt>Durée</dt>
+                                    <dd><time datetime="PT2H28M">2h28</time></dd>
+                                    <dt>Note</dt>
+                                    <dd>4.5/5</dd>
+                                    <dt>Genres</dt>
+                                    <dd>
+                                        <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                            <li class="badge rounded-pill">Sci-Fi</li>
+                                            <li class="badge rounded-pill">Thriller</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <p id="film-modal-synopsis" class="mb-4">
                                 Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
                                 découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
                             </p>
                             <!-- Intitulés visibles ici : grille Bootstrap dans la liste de définitions -->
                             <dl class="film-details row mb-0">
                                 <dt class="col-sm-3">Réalisation</dt>
-                                <dd class="col-sm-9">Christopher Nolan</dd>
+                                <dd id="film-modal-director" class="col-sm-9">Christopher Nolan</dd>
                                 <dt class="col-sm-3">Avec</dt>
-                                <dd class="col-sm-9">Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy</dd>
+                                <dd id="film-modal-cast" class="col-sm-9">Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy</dd>
                             </dl>
                         </div>
                     </div>
@@ -781,9 +785,9 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">
-                        Lecture<span class="visually-hidden"> d'Inception</span>
+                        Lecture<span id="film-modal-play-label" class="visually-hidden"> : Inception</span>
                     </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-secondary modal-close">Fermer</button>
                 </div>
 
             </div>
