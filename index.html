@@ -31,8 +31,54 @@
 </head>
 <body>
 
+    <!-- Lien d'évitement : premier élément focusable, permet de sauter la navigation au clavier -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
     <!-- ========== EN-TÊTE : logo, navigation, recherche, profil ========== -->
     <header>
+
+        <!-- Logo cliquable : titre principal unique de la page (h1) -->
+        <h1>
+            <a href="index.html">
+                <img src="images/logo.png" alt="StreamFlix - Accueil" width="160" height="40">
+            </a>
+        </h1>
+
+        <!-- Menu principal -->
+        <nav aria-label="Navigation principale">
+            <ul>
+                <li><a href="index.html" aria-current="page">Accueil</a></li>
+                <li><a href="films.html">Films</a></li>
+                <li><a href="series.html">Séries</a></li>
+                <li><a href="ma-liste.html">Ma Liste</a></li>
+            </ul>
+        </nav>
+
+        <!-- Zone utilisateur : recherche + profil -->
+        <div class="user-area">
+
+            <!-- Formulaire de recherche (role="search" : repère pour les lecteurs d'écran) -->
+            <form action="#" method="get" role="search">
+                <label for="search-input" class="visually-hidden">Rechercher un film ou une série</label>
+                <input type="search" id="search-input" name="q"
+                       placeholder="Titre, genre, acteur..."
+                       required minlength="2" autocomplete="off">
+                <button type="submit">Rechercher</button>
+            </form>
+
+            <!-- Menu profil : details/summary est ouvrable au clavier (Entrée/Espace) sans JavaScript -->
+            <details class="profile-menu">
+                <summary>Mon profil</summary>
+                <ul>
+                    <li><a href="compte.html">Mon compte</a></li>
+                    <li><a href="parametres.html">Paramètres</a></li>
+                    <li><a href="aide.html">Aide</a></li>
+                    <li><a href="deconnexion.html">Se déconnecter</a></li>
+                </ul>
+            </details>
+
+        </div>
+
     </header>
 
     <!-- ========== CONTENU PRINCIPAL ========== -->
