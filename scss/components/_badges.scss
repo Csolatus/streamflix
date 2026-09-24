@@ -1,0 +1,21 @@
+// ==========================================================================
+// COMPONENTS / BADGES DE GENRES (.badge Bootstrap)
+// Les genres forment une liste (ul) : les lecteurs d'écran annoncent "liste, 3 éléments".
+// Couleur : l'accent bleu de la charte, en fond translucide avec une bordure.
+// Contraste du texte blanc sur ce fond : 12.7:1.
+// ==========================================================================
+
+@use "../utils" as *;
+
+.genre-list .badge {
+    --bs-badge-font-size: #{$fs-xs};
+    --bs-badge-font-weight: #{$fw-medium};
+    --bs-badge-color: #{$color-text};
+    background-color: rgba($color-accent, 0.25);
+    border: 1px solid rgba($color-accent, 0.6);
+}
+
+/* Cartes étroites (carrousel mobile) : badges plus compacts pour en aligner deux par ligne */
+.film-card .genre-list .badge {
+    --bs-badge-padding-x: 0.5em;
+}

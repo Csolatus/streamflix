@@ -60,6 +60,7 @@
 /* Icône "lecture" : triangle dessiné avec clip-path,
    uniquement sur les boutons qui lancent un film */
 .hero-actions .btn-primary::before,
+.film-modal .btn-primary::before,
 .btn-play::before {
     content: "";
     width: 0.8em;

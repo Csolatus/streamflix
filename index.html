@@ -114,7 +114,7 @@
         <!-- ========== HERO : film vedette ========== -->
         <section class="hero" aria-labelledby="hero-title">
 
-            <!-- Image de fond (placée en fond via CSS demain) : informative, donc alt descriptif -->
+            <!-- Image de fond (placée en fond en CSS, voir scss/layout/_hero) : informative, donc alt descriptif -->
             <img src="images/hero-bg.jpg" class="hero-bg"
                  alt="Affiche d'Inception : une ville qui se replie sur elle-même au-dessus de six personnages debout dans une rue"
                  width="365" height="547">
@@ -135,7 +135,12 @@
                     <dt>Note</dt>
                     <dd>4.5/5</dd>
                     <dt>Genres</dt>
-                    <dd>Sci-Fi, Thriller</dd>
+                    <dd>
+                        <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                            <li class="badge rounded-pill">Sci-Fi</li>
+                            <li class="badge rounded-pill">Thriller</li>
+                        </ul>
+                    </dd>
                 </dl>
 
                 <p class="hero-description">
@@ -148,9 +153,11 @@
                     <button type="button" class="btn btn-primary">
                         Lecture<span class="visually-hidden"> d'Inception</span>
                     </button>
-                    <a href="films/inception.html" class="btn btn-secondary">
+                    <!-- Ouvre la fenêtre de détails (modal Bootstrap, voir fin de page) -->
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#film-modal"
+                            aria-haspopup="dialog">
                         Plus d'infos<span class="visually-hidden"> sur Inception</span>
-                    </a>
+                    </button>
                     <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
                     <button type="button" class="btn btn-secondary" aria-pressed="false">
                         Ma Liste<span class="visually-hidden"> : Inception</span>
@@ -185,7 +192,13 @@
                                 <dt>Note</dt>
                                 <dd>4.8/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Action, Crime, Drama</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Action</li>
+                                        <li class="badge rounded-pill">Crime</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : The Dark Knight</span>
@@ -207,7 +220,12 @@
                                 <dt>Note</dt>
                                 <dd>4.7/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Sci-Fi, Drama</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : Interstellar</span>
@@ -229,7 +247,12 @@
                                 <dt>Note</dt>
                                 <dd>4.6/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Crime, Drama</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Crime</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : Pulp Fiction</span>
@@ -258,7 +281,12 @@
                                 <dt>Note</dt>
                                 <dd>4.5/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Sci-Fi, Thriller</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Thriller</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : Inception</span>
@@ -280,7 +308,12 @@
                                 <dt>Note</dt>
                                 <dd>4.5/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Action, Sci-Fi</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Action</li>
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : The Matrix</span>
@@ -302,7 +335,12 @@
                                 <dt>Note</dt>
                                 <dd>4.4/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Drama, Romance</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Drama</li>
+                                        <li class="badge rounded-pill">Romance</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : Forrest Gump</span>
@@ -331,7 +369,12 @@
                                 <dt>Note</dt>
                                 <dd>4.7/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Sci-Fi, Drama</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : Interstellar</span>
@@ -353,7 +396,13 @@
                                 <dt>Note</dt>
                                 <dd>4.8/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Action, Crime, Drama</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Action</li>
+                                        <li class="badge rounded-pill">Crime</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : The Dark Knight</span>
@@ -375,7 +424,12 @@
                                 <dt>Note</dt>
                                 <dd>4.5/5</dd>
                                 <dt>Genres</dt>
-                                <dd>Sci-Fi, Thriller</dd>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Thriller</li>
+                                    </ul>
+                                </dd>
                             </dl>
                             <button type="button" class="btn btn-play w-100 mt-auto">
                                 Lecture<span class="visually-hidden"> : Inception</span>
@@ -547,6 +601,67 @@
         </div>
 
     </footer>
+
+    <!-- ========== MODAL : détails du film vedette ==========
+         Composant Bootstrap : ouvert par le bouton "Plus d'infos" du hero.
+         Bootstrap gère le focus (placé dans la fenêtre à l'ouverture, rendu au bouton à la fermeture),
+         la touche Échap et aria-modal. aria-labelledby : la fenêtre est annoncée par son titre. -->
+    <div class="modal fade film-modal" id="film-modal" tabindex="-1" role="dialog" aria-labelledby="film-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2 class="modal-title" id="film-modal-title">Inception</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-6 col-md-4">
+                            <img src="images/films/inception.jpg" class="img-fluid rounded" alt="Affiche du film Inception"
+                                 width="365" height="547" loading="lazy">
+                        </div>
+                        <div class="col-md-8">
+                            <dl class="film-meta mb-3">
+                                <dt>Année</dt>
+                                <dd><time datetime="2010">2010</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H28M">2h28</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.5/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Thriller</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <p class="mb-4">
+                                Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
+                                découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
+                            </p>
+                            <!-- Intitulés visibles ici : grille Bootstrap dans la liste de définitions -->
+                            <dl class="film-details row mb-0">
+                                <dt class="col-sm-3">Réalisation</dt>
+                                <dd class="col-sm-9">Christopher Nolan</dd>
+                                <dt class="col-sm-3">Avec</dt>
+                                <dd class="col-sm-9">Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">
+                        Lecture<span class="visually-hidden"> d'Inception</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
