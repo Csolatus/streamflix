@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-bs-theme="dark">
 <head>
     <!-- Encodage et affichage responsive -->
     <meta charset="UTF-8">
@@ -28,10 +28,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700&amp;display=swap">
 
-    <!-- Feuille de styles -->
+    <!-- Bootstrap 5.3.8 (CDN) : chargé avant notre feuille pour que nos styles puissent le surcharger.
+         integrity (SRI) : le navigateur refuse le fichier s'il a été modifié sur le CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Feuille de styles StreamFlix (compilée depuis scss/style.scss) -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Script (defer : exécuté après le chargement du HTML) -->
+    <!-- Scripts (defer : exécutés après le chargement du HTML, dans l'ordre)
+         Bootstrap bundle = composants interactifs (collapse, dropdown, modal...) + Popper (positionnement) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" defer></script>
     <script src="js/script.js" defer></script>
 </head>
 <body>
@@ -39,48 +47,61 @@
     <!-- Lien d'évitement : premier élément focusable, permet de sauter la navigation au clavier -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
-    <!-- ========== EN-TÊTE : logo, navigation, recherche, profil ========== -->
-    <header class="site-header">
+    <!-- ========== EN-TÊTE : navbar Bootstrap ==========
+         .navbar-expand-lg : menu déplié à partir de 992px, menu hamburger en dessous.
+         sticky-top : le header reste collé en haut pendant le défilement. -->
+    <header class="site-header navbar navbar-expand-lg sticky-top">
 
         <!-- Logo cliquable : titre principal unique de la page (h1) -->
-        <h1 class="logo">
-            <a href="index.html">
+        <h1 class="logo m-0">
+            <a class="navbar-brand p-0 m-0" href="index.html">
                 <img src="images/logo.png" alt="StreamFlix - Accueil" width="160" height="40">
             </a>
         </h1>
 
-        <!-- Menu principal -->
-        <nav class="main-nav" aria-label="Navigation principale">
-            <ul>
-                <li><a href="index.html" aria-current="page">Accueil</a></li>
-                <li><a href="films.html">Films</a></li>
-                <li><a href="series.html">Séries</a></li>
-                <li><a href="ma-liste.html">Ma Liste</a></li>
-            </ul>
-        </nav>
+        <!-- Bouton hamburger (mobile et tablette) : ouvre / ferme le bloc #main-menu.
+             Bootstrap met à jour aria-expanded pour les lecteurs d'écran. -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu"
+                aria-controls="main-menu" aria-expanded="false" aria-label="Afficher ou masquer le menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <!-- Zone utilisateur : recherche + profil -->
-        <div class="user-area">
+        <!-- Contenu repliable : navigation, recherche, profil -->
+        <div class="collapse navbar-collapse gap-3" id="main-menu">
+
+            <!-- Menu principal -->
+            <nav class="main-nav me-lg-auto" aria-label="Navigation principale">
+                <ul class="navbar-nav gap-lg-4 py-3 py-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="films.html">Films</a></li>
+                    <li class="nav-item"><a class="nav-link" href="series.html">Séries</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ma-liste.html">Ma Liste</a></li>
+                </ul>
+            </nav>
 
             <!-- Formulaire de recherche (role="search" : repère pour les lecteurs d'écran) -->
-            <form action="#" method="get" role="search" class="search-form">
+            <form action="#" method="get" role="search" class="search-form d-flex gap-2 mb-3 mb-lg-0">
                 <label for="search-input" class="visually-hidden">Rechercher un film ou une série</label>
-                <input type="search" id="search-input" name="q"
+                <input type="search" id="search-input" name="q" class="form-control rounded-pill"
                        placeholder="Titre, genre, acteur..."
                        required minlength="2" autocomplete="off">
-                <button type="submit">Rechercher</button>
+                <button type="submit" class="btn btn-search rounded-pill">Rechercher</button>
             </form>
 
-            <!-- Menu profil : details/summary est ouvrable au clavier (Entrée/Espace) sans JavaScript -->
-            <details class="profile-menu">
-                <summary>Mon profil</summary>
-                <ul>
-                    <li><a href="compte.html">Mon compte</a></li>
-                    <li><a href="parametres.html">Paramètres</a></li>
-                    <li><a href="aide.html">Aide</a></li>
-                    <li><a href="deconnexion.html">Se déconnecter</a></li>
+            <!-- Menu profil : dropdown Bootstrap (ouverture au clic ou au clavier,
+                 flèches haut/bas pour parcourir les liens, Échap pour fermer) -->
+            <div class="profile-menu dropdown mb-3 mb-lg-0">
+                <button class="profile-toggle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Mon profil
+                </button>
+                <ul class="dropdown-menu dropdown-menu-lg-end">
+                    <li><a class="dropdown-item" href="compte.html">Mon compte</a></li>
+                    <li><a class="dropdown-item" href="parametres.html">Paramètres</a></li>
+                    <li><a class="dropdown-item" href="aide.html">Aide</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="deconnexion.html">Se déconnecter</a></li>
                 </ul>
-            </details>
+            </div>
 
         </div>
 
@@ -93,118 +114,157 @@
         <!-- ========== HERO : film vedette ========== -->
         <section class="hero" aria-labelledby="hero-title">
 
-            <!-- Image de fond (placée en fond via CSS demain) : informative, donc alt descriptif -->
-            <img src="images/hero-bg.jpg" class="hero-bg"
-                 alt="Affiche d'Inception : une ville qui se replie sur elle-même au-dessus de six personnages debout dans une rue"
-                 width="365" height="547">
-
             <!-- Overlay sombre pour la lisibilité du texte : purement décoratif -->
             <div class="hero-overlay" aria-hidden="true"></div>
 
-            <div class="hero-content">
-                <p class="hero-label">Film à la une</p>
-                <h2 id="hero-title">Inception</h2>
+            <!-- Grille Bootstrap : texte (col-md) + affiche (col-md-auto : largeur de l'image, ms-md-auto : calée à droite).
+                 Mobile : une seule colonne ; l'affiche sort du flux et couvre tout le hero (voir scss/layout/_hero). -->
+            <div class="row g-0 gx-md-5 align-items-md-center">
+                <div class="hero-content col-md">
+                    <p class="hero-label">Film à la une</p>
+                    <h2 id="hero-title">Inception</h2>
 
-                <!-- Métadonnées du film -->
-                <dl class="film-meta">
-                    <dt>Année</dt>
-                    <dd><time datetime="2010">2010</time></dd>
-                    <dt>Durée</dt>
-                    <dd><time datetime="PT2H28M">2h28</time></dd>
-                    <dt>Note</dt>
-                    <dd>4.5/5</dd>
-                    <dt>Genres</dt>
-                    <dd>Sci-Fi, Thriller</dd>
-                </dl>
+                    <!-- Métadonnées du film -->
+                    <dl class="film-meta">
+                        <dt>Année</dt>
+                        <dd><time datetime="2010">2010</time></dd>
+                        <dt>Durée</dt>
+                        <dd><time datetime="PT2H28M">2h28</time></dd>
+                        <dt>Note</dt>
+                        <dd>4.5/5</dd>
+                        <dt>Genres</dt>
+                        <dd>
+                            <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                <li class="badge rounded-pill">Sci-Fi</li>
+                                <li class="badge rounded-pill">Thriller</li>
+                            </ul>
+                        </dd>
+                    </dl>
 
-                <p class="hero-description">
-                    Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
-                    découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
-                </p>
+                    <p class="hero-description">
+                        Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
+                        découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
+                    </p>
 
-                <!-- Boutons d'action : le texte masqué précise le film pour les lecteurs d'écran -->
-                <div class="hero-actions">
-                    <button type="button" class="btn btn-primary">
-                        Lecture<span class="visually-hidden"> d'Inception</span>
-                    </button>
-                    <a href="films/inception.html" class="btn btn-secondary">
-                        Plus d'infos<span class="visually-hidden"> sur Inception</span>
-                    </a>
-                    <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
-                    <button type="button" class="btn btn-secondary" aria-pressed="false">
-                        Ma Liste<span class="visually-hidden"> : Inception</span>
-                    </button>
+                    <!-- Boutons d'action : le texte masqué précise le film pour les lecteurs d'écran -->
+                    <div class="hero-actions">
+                        <button type="button" class="btn btn-primary">
+                            Lecture<span class="visually-hidden"> d'Inception</span>
+                        </button>
+                        <!-- Ouvre la fenêtre de détails (modal Bootstrap, voir fin de page) -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#film-modal"
+                                aria-haspopup="dialog">
+                            Plus d'infos<span class="visually-hidden"> sur Inception</span>
+                        </button>
+                        <!-- aria-pressed : bouton bascule (ajouté / retiré de Ma Liste), géré en JS plus tard -->
+                        <button type="button" class="btn btn-secondary" aria-pressed="false">
+                            Ma Liste<span class="visually-hidden"> : Inception</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-md-auto ms-md-auto">
+                    <!-- Affiche : image de fond du hero sur mobile, présentée à droite dès 768px (voir scss/layout/_hero).
+                         Informative, donc alt descriptif -->
+                    <img src="images/hero-bg.jpg" class="hero-bg"
+                         alt="Affiche d'Inception : une ville qui se replie sur elle-même au-dessus de six personnages debout dans une rue"
+                         width="365" height="547">
                 </div>
             </div>
 
         </section>
 
-        <!-- ========== GRILLES DE FILMS ==========
-             Chaque grille est une liste (ul) : le lecteur d'écran annonce le nombre de films.
-             Chaque film est un article autonome avec son titre (h3) et ses métadonnées (dl). -->
+        <!-- ========== GRILLES DE FILMS (grille Bootstrap) ==========
+             Chaque grille est une liste (ul.row) : le lecteur d'écran annonce le nombre de films.
+             Colonnes : col-5 (mobile, carrousel horizontal : ~2 cartes visibles),
+                        col-sm-4 (3 par ligne), col-lg-3 (4 par ligne).
+             flex-nowrap / flex-md-wrap : une seule ligne défilante sur mobile, retour à la ligne dès 768px.
+             Chaque film est une card Bootstrap (article) avec son titre (h3) et ses métadonnées (dl). -->
 
         <!-- Tendances actuelles : films populaires, classés par note -->
         <section id="tendances" class="film-section" aria-labelledby="tendances-title">
             <h2 id="tendances-title">Tendances actuelles</h2>
-            <ul class="film-grid">
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
+            <ul class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
                              width="676" height="1000" loading="lazy">
-                        <h3><a href="films/dark-knight.html">The Dark Knight</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="2008">2008</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H32M">2h32</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.8/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Action, Crime, Drama</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : The Dark Knight</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/dark-knight.html">The Dark Knight</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="2008">2008</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H32M">2h32</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.8/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Action</li>
+                                        <li class="badge rounded-pill">Crime</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : The Dark Knight</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
                              width="455" height="674" loading="lazy">
-                        <h3><a href="films/interstellar.html">Interstellar</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="2014">2014</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H49M">2h49</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.7/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Sci-Fi, Drama</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : Interstellar</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/interstellar.html">Interstellar</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="2014">2014</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H49M">2h49</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.7/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : Interstellar</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/pulp-fiction.jpg" alt="Affiche du film Pulp Fiction"
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/pulp-fiction.jpg" alt="Affiche du film Pulp Fiction"
                              width="375" height="533" loading="lazy">
-                        <h3><a href="films/pulp-fiction.html">Pulp Fiction</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="1994">1994</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H34M">2h34</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.6/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Crime, Drama</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : Pulp Fiction</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/pulp-fiction.html">Pulp Fiction</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="1994">1994</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H34M">2h34</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.6/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Crime</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : Pulp Fiction</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
             </ul>
@@ -213,65 +273,86 @@
         <!-- Recommandés pour vous : sélection variée -->
         <section id="recommandes" class="film-section" aria-labelledby="recommandes-title">
             <h2 id="recommandes-title">Recommandés pour vous</h2>
-            <ul class="film-grid">
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/inception.jpg" alt="Affiche du film Inception"
+            <ul class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/inception.jpg" alt="Affiche du film Inception"
                              width="365" height="547" loading="lazy">
-                        <h3><a href="films/inception.html">Inception</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="2010">2010</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H28M">2h28</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.5/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Sci-Fi, Thriller</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : Inception</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/inception.html">Inception</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="2010">2010</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H28M">2h28</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.5/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Thriller</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : Inception</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/matrix.jpg" alt="Affiche du film The Matrix"
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/matrix.jpg" alt="Affiche du film The Matrix"
                              width="665" height="1000" loading="lazy">
-                        <h3><a href="films/matrix.html">The Matrix</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="1999">1999</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H16M">2h16</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.5/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Action, Sci-Fi</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : The Matrix</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/matrix.html">The Matrix</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="1999">1999</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H16M">2h16</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.5/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Action</li>
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : The Matrix</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/forrest-gump.jpg" alt="Affiche du film Forrest Gump"
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/forrest-gump.jpg" alt="Affiche du film Forrest Gump"
                              width="867" height="1300" loading="lazy">
-                        <h3><a href="films/forrest-gump.html">Forrest Gump</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="1994">1994</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H22M">2h22</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.4/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Drama, Romance</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : Forrest Gump</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/forrest-gump.html">Forrest Gump</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="1994">1994</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H22M">2h22</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.4/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Drama</li>
+                                        <li class="badge rounded-pill">Romance</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : Forrest Gump</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
             </ul>
@@ -280,65 +361,87 @@
         <!-- Nouveautés : films récemment ajoutés -->
         <section id="nouveautes" class="film-section" aria-labelledby="nouveautes-title">
             <h2 id="nouveautes-title">Nouveautés</h2>
-            <ul class="film-grid">
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
+            <ul class="film-grid row flex-nowrap flex-md-wrap g-3 g-md-4 list-unstyled">
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/interstellar.jpg" alt="Affiche du film Interstellar"
                              width="455" height="674" loading="lazy">
-                        <h3><a href="films/interstellar.html">Interstellar</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="2014">2014</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H49M">2h49</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.7/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Sci-Fi, Drama</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : Interstellar</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/interstellar.html">Interstellar</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="2014">2014</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H49M">2h49</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.7/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : Interstellar</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/dark-knight.jpg" alt="Affiche du film The Dark Knight"
                              width="676" height="1000" loading="lazy">
-                        <h3><a href="films/dark-knight.html">The Dark Knight</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="2008">2008</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H32M">2h32</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.8/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Action, Crime, Drama</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : The Dark Knight</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/dark-knight.html">The Dark Knight</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="2008">2008</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H32M">2h32</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.8/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Action</li>
+                                        <li class="badge rounded-pill">Crime</li>
+                                        <li class="badge rounded-pill">Drama</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : The Dark Knight</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
-                <li>
-                    <article class="film-card">
-                        <img src="images/films/inception.jpg" alt="Affiche du film Inception"
+                <li class="col-5 col-sm-4 col-lg-3">
+                    <article class="film-card card h-100">
+                        <img class="card-img-top" src="images/films/inception.jpg" alt="Affiche du film Inception"
                              width="365" height="547" loading="lazy">
-                        <h3><a href="films/inception.html">Inception</a></h3>
-                        <dl class="film-meta">
-                            <dt>Année</dt>
-                            <dd><time datetime="2010">2010</time></dd>
-                            <dt>Durée</dt>
-                            <dd><time datetime="PT2H28M">2h28</time></dd>
-                            <dt>Note</dt>
-                            <dd>4.5/5</dd>
-                            <dt>Genres</dt>
-                            <dd>Sci-Fi, Thriller</dd>
-                        </dl>
-                        <button type="button" class="btn btn-play">
-                            Lecture<span class="visually-hidden"> : Inception</span>
-                        </button>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h3 class="card-title"><a class="stretched-link" href="films/inception.html">Inception</a></h3>
+                            <dl class="film-meta">
+                                <dt>Année</dt>
+                                <dd><time datetime="2010">2010</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H28M">2h28</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.5/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Thriller</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <button type="button" class="btn btn-play w-100 mt-auto">
+                                Lecture<span class="visually-hidden"> : Inception</span>
+                            </button>
+                        </div>
                     </article>
                 </li>
             </ul>
@@ -351,7 +454,7 @@
             <h2 id="signup-title">Créez votre compte</h2>
             <p>Regardez en illimité, sans engagement. Annulable à tout moment.</p>
 
-            <form action="#" method="post" class="signup-form">
+            <form action="#" method="post" class="signup-form vstack gap-4">
 
                 <!-- L'astérisque est masqué aux lecteurs d'écran : l'attribut required annonce déjà "obligatoire" -->
                 <p class="form-note">Les champs marqués d'un <span aria-hidden="true">*</span> sont obligatoires.</p>
@@ -359,34 +462,36 @@
                 <fieldset class="info-fields">
                     <legend>Vos informations</legend>
 
-                    <div class="form-field">
-                        <label for="signup-firstname">Prénom <span aria-hidden="true">*</span></label>
-                        <input type="text" id="signup-firstname" name="firstname"
-                               required minlength="2" maxlength="50" autocomplete="given-name">
-                    </div>
+                    <div class="row g-3">
+                        <div class="form-field col-md-6">
+                            <label for="signup-firstname">Prénom <span aria-hidden="true">*</span></label>
+                            <input type="text" id="signup-firstname" class="form-control" name="firstname"
+                                   required minlength="2" maxlength="50" autocomplete="given-name">
+                        </div>
 
-                    <div class="form-field">
-                        <label for="signup-email">Adresse e-mail <span aria-hidden="true">*</span></label>
-                        <input type="email" id="signup-email" name="email"
-                               required autocomplete="email" aria-describedby="signup-email-hint">
-                        <p id="signup-email-hint" class="form-hint">Exemple : nom@exemple.fr</p>
-                    </div>
+                        <div class="form-field col-md-6">
+                            <label for="signup-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                            <input type="email" id="signup-email" class="form-control" name="email"
+                                   required autocomplete="email" aria-describedby="signup-email-hint">
+                            <p id="signup-email-hint" class="form-hint">Exemple : nom@exemple.fr</p>
+                        </div>
 
-                    <div class="form-field">
-                        <label for="signup-password">Mot de passe <span aria-hidden="true">*</span></label>
-                        <input type="password" id="signup-password" name="password"
-                               required minlength="8"
-                               pattern="(?=.*[A-Za-z])(?=.*\d).{8,}"
-                               autocomplete="new-password" aria-describedby="signup-password-hint">
-                        <p id="signup-password-hint" class="form-hint">
-                            8 caractères minimum, dont au moins une lettre et un chiffre.
-                        </p>
-                    </div>
+                        <div class="form-field col-md-6">
+                            <label for="signup-password">Mot de passe <span aria-hidden="true">*</span></label>
+                            <input type="password" id="signup-password" class="form-control" name="password"
+                                   required minlength="8"
+                                   pattern="(?=.*[A-Za-z])(?=.*\d).{8,}"
+                                   autocomplete="new-password" aria-describedby="signup-password-hint">
+                            <p id="signup-password-hint" class="form-hint">
+                                8 caractères minimum, dont au moins une lettre et un chiffre.
+                            </p>
+                        </div>
 
-                    <div class="form-field">
-                        <label for="signup-password-confirm">Confirmez le mot de passe <span aria-hidden="true">*</span></label>
-                        <input type="password" id="signup-password-confirm" name="password_confirm"
-                               required minlength="8" autocomplete="new-password">
+                        <div class="form-field col-md-6">
+                            <label for="signup-password-confirm">Confirmez le mot de passe <span aria-hidden="true">*</span></label>
+                            <input type="password" id="signup-password-confirm" class="form-control" name="password_confirm"
+                                   required minlength="8" autocomplete="new-password">
+                        </div>
                     </div>
                 </fieldset>
 
@@ -394,29 +499,37 @@
                 <fieldset class="plan-options">
                     <legend>Choisissez votre formule <span aria-hidden="true">*</span></legend>
 
-                    <div class="form-choice">
-                        <input type="radio" id="plan-essentiel" name="plan" value="essentiel" required>
-                        <label for="plan-essentiel">
-                            <span class="plan-name">Essentiel</span>
-                            <span class="plan-details">HD, 1 écran</span>
-                            <span class="plan-price">8,99 €/mois</span>
-                        </label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="radio" id="plan-standard" name="plan" value="standard" checked>
-                        <label for="plan-standard">
-                            <span class="plan-name">Standard</span>
-                            <span class="plan-details">Full HD, 2 écrans</span>
-                            <span class="plan-price">13,49 €/mois</span>
-                        </label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="radio" id="plan-premium" name="plan" value="premium">
-                        <label for="plan-premium">
-                            <span class="plan-name">Premium</span>
-                            <span class="plan-details">4K, 4 écrans</span>
-                            <span class="plan-price">19,99 €/mois</span>
-                        </label>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="form-choice">
+                                <input type="radio" id="plan-essentiel" name="plan" value="essentiel" required>
+                                <label for="plan-essentiel">
+                                    <span class="plan-name">Essentiel</span>
+                                    <span class="plan-details">HD, 1 écran</span>
+                                    <span class="plan-price">8,99 €/mois</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-choice">
+                                <input type="radio" id="plan-standard" name="plan" value="standard" checked>
+                                <label for="plan-standard">
+                                    <span class="plan-name">Standard</span>
+                                    <span class="plan-details">Full HD, 2 écrans</span>
+                                    <span class="plan-price">13,49 €/mois</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-choice">
+                                <input type="radio" id="plan-premium" name="plan" value="premium">
+                                <label for="plan-premium">
+                                    <span class="plan-name">Premium</span>
+                                    <span class="plan-details">4K, 4 écrans</span>
+                                    <span class="plan-price">19,99 €/mois</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
 
@@ -424,46 +537,61 @@
                 <fieldset class="genre-options">
                     <legend>Vos genres préférés (facultatif)</legend>
 
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-action" name="genres" value="action">
-                        <label for="genre-action">Action</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-scifi" name="genres" value="sci-fi">
-                        <label for="genre-scifi">Sci-Fi</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-drama" name="genres" value="drama">
-                        <label for="genre-drama">Drama</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-thriller" name="genres" value="thriller">
-                        <label for="genre-thriller">Thriller</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-crime" name="genres" value="crime">
-                        <label for="genre-crime">Crime</label>
-                    </div>
-                    <div class="form-choice">
-                        <input type="checkbox" id="genre-romance" name="genres" value="romance">
-                        <label for="genre-romance">Romance</label>
+                    <div class="row g-2">
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-action" name="genres" value="action">
+                                <label for="genre-action">Action</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-scifi" name="genres" value="sci-fi">
+                                <label for="genre-scifi">Sci-Fi</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-drama" name="genres" value="drama">
+                                <label for="genre-drama">Drama</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-thriller" name="genres" value="thriller">
+                                <label for="genre-thriller">Thriller</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-crime" name="genres" value="crime">
+                                <label for="genre-crime">Crime</label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="form-choice">
+                                <input type="checkbox" id="genre-romance" name="genres" value="romance">
+                                <label for="genre-romance">Romance</label>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
 
-                <div class="form-choice">
-                    <input type="checkbox" id="signup-terms" name="terms" required>
-                    <label for="signup-terms">
-                        J'accepte les <a href="conditions.html">conditions d'utilisation</a>
-                        <span aria-hidden="true">*</span>
-                    </label>
+                <div class="vstack gap-2">
+                    <div class="form-choice">
+                        <input type="checkbox" id="signup-terms" name="terms" required>
+                        <label for="signup-terms">
+                            J'accepte les <a href="conditions.html">conditions d'utilisation</a>
+                            <span aria-hidden="true">*</span>
+                        </label>
+                    </div>
+                    <div class="form-choice">
+                        <input type="checkbox" id="signup-newsletter" name="newsletter">
+                        <label for="signup-newsletter">Recevoir les nouveautés par e-mail</label>
+                    </div>
                 </div>
 
-                <div class="form-choice">
-                    <input type="checkbox" id="signup-newsletter" name="newsletter">
-                    <label for="signup-newsletter">Recevoir les nouveautés par e-mail</label>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Créer mon compte</button>
+                <button type="submit" class="btn btn-primary align-self-md-start">Créer mon compte</button>
 
             </form>
         </section>
@@ -473,38 +601,105 @@
     <!-- ========== PIED DE PAGE ========== -->
     <footer class="site-footer">
 
-        <!-- Liens utiles : second menu de navigation, nommé par son titre -->
-        <nav class="footer-links" aria-labelledby="footer-links-title">
-            <h2 id="footer-links-title">Liens utiles</h2>
-            <ul>
-                <li><a href="aide.html">Aide</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="mentions-legales.html">Mentions légales</a></li>
-                <li><a href="conditions.html">Conditions d'utilisation</a></li>
-            </ul>
-        </nav>
+        <!-- Grille Bootstrap : liens | réseaux sociaux (côte à côte dès 768px),
+             mentions légales sur toute la largeur -->
+        <div class="row g-4">
+            <!-- Liens utiles : second menu de navigation, nommé par son titre -->
+            <nav class="footer-links col-md-6 col-lg" aria-labelledby="footer-links-title">
+                <h2 id="footer-links-title">Liens utiles</h2>
+                <ul class="row row-cols-2 row-cols-lg-auto gx-4 gy-2 list-unstyled mb-0">
+                    <li class="col"><a href="aide.html">Aide</a></li>
+                    <li class="col"><a href="contact.html">Contact</a></li>
+                    <li class="col"><a href="mentions-legales.html">Mentions légales</a></li>
+                    <li class="col"><a href="conditions.html">Conditions d'utilisation</a></li>
+                </ul>
+            </nav>
 
-        <!-- Réseaux sociaux (liens factices) : le texte reste lisible même si des icônes sont ajoutées en CSS -->
-        <section class="footer-social" aria-labelledby="footer-social-title">
-            <h2 id="footer-social-title">Suivez-nous</h2>
-            <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">X (Twitter)</a></li>
-                <li><a href="#">YouTube</a></li>
-            </ul>
-        </section>
+            <!-- Réseaux sociaux (liens factices) : le texte reste lisible même si des icônes sont ajoutées en CSS -->
+            <section class="footer-social col-md-6 col-lg-auto" aria-labelledby="footer-social-title">
+                <h2 id="footer-social-title">Suivez-nous</h2>
+                <ul class="d-flex flex-wrap gap-2 list-unstyled mb-0">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">X (Twitter)</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </section>
 
-        <!-- Informations légales et copyright -->
-        <div class="footer-legal">
-            <p><small>&copy; <time datetime="2026">2026</time> StreamFlix. Tous droits réservés.</small></p>
-            <p><small>
-                StreamFlix est une plateforme fictive réalisée dans le cadre d'un projet scolaire à l'EFREI.
-                Les affiches de films appartiennent à leurs ayants droit respectifs.
-            </small></p>
+            <!-- Informations légales et copyright -->
+            <div class="col-12">
+                <div class="footer-legal vstack gap-1">
+                    <p><small>&copy; <time datetime="2026">2026</time> StreamFlix. Tous droits réservés.</small></p>
+                    <p><small>
+                        StreamFlix est une plateforme fictive réalisée dans le cadre d'un projet scolaire à l'EFREI.
+                        Les affiches de films appartiennent à leurs ayants droit respectifs.
+                    </small></p>
+                </div>
+            </div>
         </div>
 
     </footer>
+
+    <!-- ========== MODAL : détails du film vedette ==========
+         Composant Bootstrap : ouvert par le bouton "Plus d'infos" du hero.
+         Bootstrap gère le focus (placé dans la fenêtre à l'ouverture, rendu au bouton à la fermeture),
+         la touche Échap et aria-modal. aria-labelledby : la fenêtre est annoncée par son titre. -->
+    <div class="modal fade film-modal" id="film-modal" tabindex="-1" role="dialog" aria-labelledby="film-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2 class="modal-title" id="film-modal-title">Inception</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-6 col-md-4">
+                            <img src="images/films/inception.jpg" class="img-fluid rounded" alt="Affiche du film Inception"
+                                 width="365" height="547" loading="lazy">
+                        </div>
+                        <div class="col-md-8">
+                            <dl class="film-meta mb-3">
+                                <dt>Année</dt>
+                                <dd><time datetime="2010">2010</time></dd>
+                                <dt>Durée</dt>
+                                <dd><time datetime="PT2H28M">2h28</time></dd>
+                                <dt>Note</dt>
+                                <dd>4.5/5</dd>
+                                <dt>Genres</dt>
+                                <dd>
+                                    <ul class="genre-list list-unstyled d-flex flex-wrap gap-1 m-0">
+                                        <li class="badge rounded-pill">Sci-Fi</li>
+                                        <li class="badge rounded-pill">Thriller</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <p class="mb-4">
+                                Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets
+                                découvre qu'il doit réaliser l'impossible : planter une idée plutôt que de la voler.
+                            </p>
+                            <!-- Intitulés visibles ici : grille Bootstrap dans la liste de définitions -->
+                            <dl class="film-details row mb-0">
+                                <dt class="col-sm-3">Réalisation</dt>
+                                <dd class="col-sm-9">Christopher Nolan</dd>
+                                <dt class="col-sm-3">Avec</dt>
+                                <dd class="col-sm-9">Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">
+                        Lecture<span class="visually-hidden"> d'Inception</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

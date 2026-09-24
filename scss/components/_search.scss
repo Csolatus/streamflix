@@ -1,0 +1,45 @@
+// ==========================================================================
+// COMPONENTS / RECHERCHE (formulaire du header)
+// Champ .form-control Bootstrap arrondi (.rounded-pill) + bouton .btn-search
+// (variante définie dans components/_buttons).
+// ==========================================================================
+
+@use "../utils" as *;
+
+.search-form .form-control {
+    --bs-body-bg: #{$color-surface};        /* fond du champ Bootstrap */
+    padding: $space-2 $space-4;
+    border-color: transparent;
+    transition: border-color $transition-fast, background-color $transition-fast;
+}
+
+.search-form .form-control::placeholder {
+    color: $color-text-muted;
+}
+
+.search-form .form-control:hover {
+    border-color: $color-text-muted;
+}
+
+/* Bootstrap ajoute un halo bleu au focus : on le remplace par notre contour */
+.search-form .form-control:focus {
+    background-color: $color-bg-elevated;
+    border-color: $color-text;
+    box-shadow: none;
+    @include focus-ring;
+}
+
+.search-form .btn-search {
+    --bs-btn-padding-x: #{$space-4};
+    --bs-btn-padding-y: #{$space-2};
+    --bs-btn-font-size: #{$fs-sm};
+    --bs-btn-font-weight: #{$fw-medium};
+    flex-shrink: 0;
+}
+
+/* Desktop : largeur fixe dans la navbar dépliée */
+@include respond-to(lg) {
+    .search-form {
+        width: 24rem;
+    }
+}

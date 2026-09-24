@@ -1,0 +1,55 @@
+// ==========================================================================
+// COMPONENTS / MODAL DE DÉTAILS D'UN FILM (.modal Bootstrap)
+// Personnalisation par les variables --bs-modal-* : fond, bordures, espacements.
+// L'ouverture, la fermeture (Échap, clic à l'extérieur) et la gestion du focus
+// sont assurées par le JavaScript de Bootstrap.
+// ==========================================================================
+
+@use "../utils" as *;
+
+.film-modal {
+    --bs-modal-bg: #{$color-bg-elevated};
+    --bs-modal-color: #{$color-text};
+    --bs-modal-border-color: #{$color-surface};
+    --bs-modal-border-radius: #{$radius-md};
+    --bs-modal-inner-border-radius: #{$radius-md};
+    --bs-modal-padding: #{$space-5};
+    --bs-modal-header-padding: #{$space-4} #{$space-5};
+    --bs-modal-header-border-color: #{$color-surface};
+    --bs-modal-footer-border-color: #{$color-surface};
+    --bs-btn-close-focus-shadow: none;      /* remplacé par notre contour de focus */
+}
+
+/* Fond derrière la fenêtre, plus sombre que celui de Bootstrap */
+.modal-backdrop {
+    --bs-backdrop-opacity: 0.8;
+}
+
+.film-modal .modal-title {
+    @include display-title($fs-2xl);
+    line-height: 1;
+}
+
+.film-modal .btn-close:focus-visible {
+    @include focus-ring;
+}
+
+/* Intitulés visibles (contrairement à .film-meta) : Réalisation, Avec */
+.film-details dt {
+    color: $color-text-muted;
+    font-weight: $fw-medium;
+}
+
+.film-details dd {
+    margin-bottom: $space-2;
+}
+
+/* Genres sur leur propre ligne : évite qu'un point séparateur
+   se retrouve en début de ligne sur les écrans étroits */
+.film-modal .film-meta dd:nth-of-type(4) {
+    flex-basis: 100%;
+}
+
+.film-modal .film-meta dd:nth-of-type(4)::before {
+    display: none;
+}

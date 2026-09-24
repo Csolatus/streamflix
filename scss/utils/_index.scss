@@ -1,0 +1,8 @@
+// ==========================================================================
+// UTILS : point d'accès unique aux outils SASS (aucun CSS produit)
+// Chaque partial commence par : @use "../utils" as *;
+// ==========================================================================
+
+@forward "variables";
+@forward "functions";
+@forward "mixins";

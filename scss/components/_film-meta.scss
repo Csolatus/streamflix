@@ -1,0 +1,52 @@
+// ==========================================================================
+// COMPONENTS / MÉTADONNÉES DE FILM (dl.film-meta)
+// Année, durée, note, genres : dans le hero et dans les cartes.
+// ==========================================================================
+
+@use "../utils" as *;
+
+/* ---------- Métadonnées de film (dl) : hero et cartes ---------- */
+.film-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-1 $space-3;
+    color: $color-text-muted;
+    font-size: $fs-sm;
+}
+
+/* Les intitulés (Année, Durée...) restent lus par les lecteurs d'écran mais sont masqués :
+   visuellement, les valeurs parlent d'elles-mêmes */
+.film-meta dt {
+    @include visually-hidden;
+}
+
+.film-meta dd {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+}
+
+/* Petit point séparateur entre deux valeurs (forme CSS, pas de caractère lu) */
+.film-meta dd + dt + dd::before {
+    content: "";
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+/* Note (3e valeur : Année, Durée, Note, Genres) : étoile dorée après la note, dessinée en clip-path */
+.film-meta dd:nth-of-type(3) {
+    color: $color-text;
+    font-weight: $fw-bold;
+}
+
+.film-meta dd:nth-of-type(3)::after {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    margin-left: calc($space-2 * -1);  /* rapproche l'étoile de la note */
+    background-color: $color-rating;
+    clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}

@@ -1,0 +1,81 @@
+// ==========================================================================
+// LAYOUT / HEADER (navbar Bootstrap)
+// La mise en page vient des classes Bootstrap du HTML :
+//   .navbar-expand-lg : tout sur une ligne à partir de 992px,
+//                       en dessous, menu hamburger (collapse) sous le logo ;
+//   .sticky-top       : header collé en haut pendant le défilement.
+// Ici : les couleurs et espacements de la navbar, via ses variables --bs-navbar-*.
+// --header-height reste une variable CSS : elle change selon l'écran et sert
+// au décalage du défilement vers les ancres (scroll-padding-top, base/_reset).
+// ==========================================================================
+
+@use "../utils" as *;
+
+:root {
+    --header-height: 4rem;                  /* hauteur mesurée (menu replié) : 64px */
+}
+
+.site-header {
+    --bs-navbar-padding-x: #{$gutter};
+    --bs-navbar-padding-y: #{$space-3};
+    --bs-navbar-color: #{$color-text-muted};
+    --bs-navbar-hover-color: #{$color-text};
+    --bs-navbar-active-color: #{$color-text};
+    --bs-navbar-brand-padding-y: 0;
+    --bs-navbar-nav-link-padding-x: 0;
+    --bs-navbar-toggler-border-color: #{$color-surface};
+    --bs-navbar-toggler-border-radius: #{$radius-sm};
+    --bs-navbar-toggler-focus-width: 0;     /* remplacé par notre contour de focus */
+
+    /* Fond légèrement transparent + flou : le contenu défile "sous" le header */
+    background-color: rgba($color-bg, 0.9);
+    backdrop-filter: blur(8px);
+}
+
+/* ---------- Logo ---------- */
+.logo {
+    line-height: 0;
+}
+
+.logo a {
+    display: inline-block;
+    transition: transform $transition-fast, opacity $transition-fast;
+}
+
+.logo a:hover {
+    transform: scale(1.04);
+    opacity: 0.85;
+}
+
+.logo img {
+    width: 7.5rem;
+}
+
+/* ---------- Bouton hamburger ---------- */
+.navbar-toggler {
+    transition: background-color $transition-fast;
+}
+
+.navbar-toggler:hover {
+    background-color: $color-surface;
+}
+
+.navbar-toggler:focus-visible {
+    @include focus-ring;
+}
+
+/* ---------- Desktop : navbar dépliée sur une ligne ---------- */
+@include respond-to(lg) {
+    :root {
+        --header-height: 4.125rem;          /* hauteur mesurée : 66px */
+    }
+
+    .logo img {
+        width: 9rem;
+    }
+
+    /* Espace entre le logo et le menu */
+    .navbar-collapse {
+        margin-left: $space-6;
+    }
+}

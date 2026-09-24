@@ -1,0 +1,48 @@
+// ==========================================================================
+// StreamFlix - Point d'entrée SASS (architecture 7-1)
+// Compilé vers css/style.css :
+//   npm run build  -> version compressée + source map (production)
+//   npm run dev    -> recompilation automatique à chaque sauvegarde
+//
+// Approche mobile-first : les styles de base visent le mobile,
+// respond-to() (utils/_mixins) enrichit pour les écrans plus larges.
+//
+// Les 7 dossiers, dans l'ordre d'import :
+//   utils/       variables, fonctions, mixins (aucun CSS produit, lu via @use)
+//   vendors/     personnalisation de Bootstrap (chargé par CDN)
+//   base/        reset, typographie, accessibilité, animations
+//   layout/      grandes zones de la page : header, hero, footer
+//   components/  éléments réutilisables : boutons, cartes, navigation...
+//   pages/       mise en page propre à une page (accueil)
+//   themes/      thème de couleurs
+// ==========================================================================
+
+// 1. Vendors
+@use "vendors/bootstrap-custom";
+
+// 2. Base
+@use "base/reset";
+@use "base/typography";
+@use "base/accessibility";
+@use "base/animations";
+
+// 3. Layout
+@use "layout/header";
+@use "layout/hero";
+@use "layout/footer";
+
+// 4. Components
+@use "components/buttons";
+@use "components/film-meta";
+@use "components/badges";
+@use "components/cards";
+@use "components/navigation";
+@use "components/search";
+@use "components/forms";
+@use "components/modal";
+
+// 5. Pages
+@use "pages/home";
+
+// 6. Themes
+@use "themes/dark";

@@ -1,0 +1,91 @@
+// ==========================================================================
+// COMPONENTS / BOUTONS (.btn Bootstrap personnalisés)
+// Utilisés dans le hero, les cartes de films, la recherche et le formulaire.
+// Personnalisation par les variables CSS de Bootstrap (--bs-btn-*) : le composant
+// Bootstrap gère lui-même tous ses états, avec nos valeurs.
+// ==========================================================================
+
+@use "../utils" as *;
+
+/* ---------- Base commune à tous les boutons ---------- */
+.btn {
+    --bs-btn-padding-x: #{$space-5};
+    --bs-btn-padding-y: #{$space-3};
+    --bs-btn-font-size: #{$fs-base};
+    --bs-btn-font-weight: #{$fw-bold};
+    --bs-btn-line-height: 1;
+    --bs-btn-border-width: 0;
+    --bs-btn-border-radius: #{$radius-sm};
+
+    /* inline-flex : aligne l'icône (::before) et le texte */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    transition: background-color $transition-fast, transform $transition-fast;
+}
+
+.btn:hover {
+    @include hover-lift;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Bootstrap retire le contour au focus clavier (outline: 0) pour le remplacer par une ombre :
+   on rétablit notre contour, identique au reste du site */
+.btn:focus-visible {
+    @include focus-ring;
+    box-shadow: none;
+}
+
+/* ---------- Variantes ---------- */
+.btn-primary {
+    @include button-variant($color-primary, $color-primary-hover);
+}
+
+.btn-secondary {
+    @include button-variant(rgba($color-secondary, 0.7), rgba($color-secondary, 0.45));
+}
+
+/* Boutons discrets qui passent au rouge au survol : Lecture des cartes, recherche */
+.btn-play,
+.btn-search {
+    @include button-variant($color-surface, $color-primary, $color-primary-hover);
+}
+
+/* ---------- Icônes dessinées en CSS (décoratives, non lues) ---------- */
+
+/* Icône "lecture" : triangle dessiné avec clip-path,
+   uniquement sur les boutons qui lancent un film */
+.hero-actions .btn-primary::before,
+.film-modal .btn-primary::before,
+.btn-play::before {
+    content: "";
+    width: 0.8em;
+    height: 0.9em;
+    background-color: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* Icône "+" du bouton Ma Liste, remplacée par une coche quand le film est ajouté
+   (aria-pressed passera à "true" en JavaScript : le style suit l'état d'accessibilité) */
+.btn[aria-pressed]::before {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    background:
+        linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat,
+        linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat;
+    transition: transform $transition-base;
+}
+
+.btn[aria-pressed="true"]::before {
+    width: 0.45em;
+    height: 0.8em;
+    background: none;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-15%) rotate(45deg);
+}

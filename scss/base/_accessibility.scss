@@ -1,0 +1,37 @@
+// ==========================================================================
+// BASE / ACCESSIBILITÉ
+// Focus clavier visible, texte réservé aux lecteurs d'écran, lien d'évitement.
+// ==========================================================================
+
+@use "../utils" as *;
+
+/* Focus clavier bien visible sur tous les éléments interactifs
+   (:focus-visible = uniquement au clavier, pas au clic souris) */
+:focus-visible {
+    @include focus-ring;
+}
+
+/* Masqué à l'écran mais lu par les lecteurs d'écran */
+.visually-hidden {
+    @include visually-hidden;
+}
+
+/* Lien d'évitement : hors de l'écran, il apparaît en haut quand il reçoit le focus */
+.skip-link {
+    position: absolute;
+    top: $space-2;
+    left: $space-2;
+    z-index: $z-skip-link;
+    padding: $space-2 $space-4;
+    background-color: $color-primary;
+    color: $color-text;
+    font-weight: $fw-bold;
+    text-decoration: none;
+    border-radius: $radius-sm;
+    transform: translateY(-200%);
+    transition: transform $transition-fast;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}

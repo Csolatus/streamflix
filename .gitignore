@@ -1,2 +1,5 @@
 # Fichiers système macOS
 .DS_Store
+
+# Dépendances npm (réinstallables avec "npm install")
+node_modules/

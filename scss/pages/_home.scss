@@ -1,0 +1,91 @@
+// ==========================================================================
+// PAGES / ACCUEIL
+// Mise en page propre à la page d'accueil : sections de films et section d'inscription.
+// Grilles de films : système de grille Bootstrap (.row / .col-*).
+// Mobile : carrousel horizontal (défilement au doigt, aimanté sur les cartes grâce
+// à scroll-snap). Tablette : 3 colonnes. Desktop : 4 colonnes.
+// ==========================================================================
+
+@use "../utils" as *;
+
+.film-section {
+    padding: $space-6 $gutter 0;
+}
+
+.film-section h2 {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-4;
+    @include display-title($fs-2xl);
+}
+
+/* Barre rouge décorative devant chaque titre de section */
+.film-section h2::before {
+    content: "";
+    width: 0.3rem;
+    height: 0.8em;
+    background-color: $color-primary;
+    border-radius: $radius-pill;
+}
+
+/* ---------- Grille de films (.row Bootstrap) ----------
+   Colonnes et gouttières viennent des classes du HTML (col-5 col-sm-4 col-lg-3, g-3 g-md-4).
+   On ajoute ici ce que Bootstrap ne propose pas : sur mobile, le défilement horizontal
+   aimanté (scroll-snap). La ligne déborde jusqu'aux bords de l'écran, et la première
+   carte reste alignée sur le texte (marge latérale moins la demi-gouttière de la colonne). */
+$film-grid-gutter-mobile: $space-4;         // = classe g-3 de Bootstrap (1rem)
+$film-grid-inset: calc(#{$gutter} - #{$film-grid-gutter-mobile * 0.5});
+
+.film-grid {
+    margin-inline: calc(#{$gutter} * -1);
+    padding: $space-2 $film-grid-inset $space-4;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: $film-grid-inset;
+    scrollbar-width: thin;
+    scrollbar-color: $color-surface transparent;
+}
+
+.film-grid > li {
+    scroll-snap-align: start;
+}
+
+/* ---------- Tablette et plus : grille classique (flex-md-wrap dans le HTML) ---------- */
+@include respond-to(md) {
+    .film-section {
+        padding-top: $space-7;
+    }
+
+    /* Retour aux marges négatives standard d'une .row Bootstrap : - demi-gouttière (g-md-4 = 1.5rem) */
+    .film-grid {
+        margin-inline: $space-5 * -0.5;
+        padding: 0;
+        overflow: visible;
+    }
+}
+
+/* ---------- Grand écran : aligné sur le hero ---------- */
+.film-section {
+    @include align-with-container;
+}
+
+.signup {
+    padding: $space-8 $gutter;
+}
+
+/* Colonne centrée, largeur confortable pour un formulaire */
+.signup > * {
+    max-width: 46rem;
+    margin-inline: auto;
+}
+
+.signup h2 {
+    @include display-title($fs-2xl);
+}
+
+.signup h2 + p {
+    margin-top: $space-2;
+    margin-bottom: $space-5;
+    color: $color-text-muted;
+}

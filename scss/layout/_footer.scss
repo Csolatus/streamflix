@@ -1,0 +1,64 @@
+// ==========================================================================
+// LAYOUT / FOOTER
+// Mise en page : grille Bootstrap dans le HTML
+//   .row > .col-md-6.col-lg (liens) + .col-md-6.col-lg-auto (réseaux sociaux) + .col-12 (mentions)
+//   mobile : blocs empilés ; tablette : liens | réseaux ; desktop : réseaux calés à droite.
+// Listes : .list-unstyled, liens utiles en .row-cols-2 (2 colonnes) puis .row-cols-lg-auto (une ligne).
+// Ici : uniquement l'apparence.
+// ==========================================================================
+
+@use "../utils" as *;
+
+.site-footer {
+    padding: $space-7 $gutter $space-6;
+    border-top: 1px solid $color-surface;
+    color: $color-text-muted;
+    font-size: $fs-sm;
+}
+
+.site-footer h2 {
+    margin-bottom: $space-3;
+    color: $color-text;
+    font-size: $fs-base;
+}
+
+/* ---------- Liens utiles ---------- */
+.footer-links a {
+    text-decoration: none;
+    transition: color $transition-fast;
+}
+
+.footer-links a:hover {
+    color: $color-text;
+    text-decoration: underline;
+}
+
+/* ---------- Réseaux sociaux : pastilles ---------- */
+.footer-social a {
+    display: inline-block;
+    padding: $space-2 $space-4;
+    border: 1px solid $color-surface;
+    border-radius: $radius-pill;
+    color: $color-text;
+    text-decoration: none;
+    transition: background-color $transition-fast, border-color $transition-fast, transform $transition-fast;
+}
+
+.footer-social a:hover {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    @include hover-lift;
+}
+
+/* ---------- Mentions légales ---------- */
+.footer-legal {
+    padding-top: $space-5;
+    border-top: 1px solid $color-surface;
+    font-family: $font-legal;
+    font-size: $fs-xs;
+}
+
+/* ---------- Grand écran : aligné sur le reste du site ---------- */
+.site-footer {
+    @include align-with-container;
+}
